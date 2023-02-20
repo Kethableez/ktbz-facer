@@ -1,0 +1,212 @@
+@use './utils';
+@use '../colors';
+
+button {
+	cursor: pointer;
+	appearance: none;
+	outline: none;
+	font-weight: 700;
+	border-radius: 6px;
+	box-shadow: utils.$shadow-25;
+	border: none;
+	transition: 0.1s ease-in-out;
+}
+
+.btn {
+	font-size: 20px;
+	padding: 0.7rem 2.2rem;
+}
+
+.btn-sm {
+	font-size: 16px;
+	padding: 0.4rem 1.8rem;
+}
+
+.btn,
+.btn-sm {
+	&.primary {
+		background-color: colors.$primary;
+		color: colors.$white;
+
+		&:hover {
+			background-color: colors.$primary-hover;
+		}
+
+		&:active {
+			background-color: colors.$primary-active;
+			box-shadow: none;
+		}
+	}
+
+	&.primary-outlined {
+		background-color: colors.$white;
+		color: colors.$primary;
+		border: 2px solid colors.$primary;
+
+		&:hover {
+			color: colors.$primary-hover;
+			border: 2px solid colors.$primary-hover;
+		}
+
+		&:active {
+			color: colors.$primary-active;
+			border: 2px solid colors.$primary-active;
+			box-shadow: none;
+		}
+	}
+
+	&.secondary {
+		background-color: colors.$secondary;
+		color: colors.$white;
+
+		&:hover {
+			background-color: colors.$secondary-hover;
+		}
+
+		&:active {
+			background-color: colors.$secondary-active;
+			box-shadow: none;
+		}
+	}
+
+	&.secondary-outlined {
+		background-color: colors.$white;
+		color: colors.$secondary;
+		border: 2px solid colors.$secondary;
+
+		&:hover {
+			color: colors.$secondary-hover;
+			border: 2px solid colors.$secondary-hover;
+		}
+
+		&:active {
+			color: colors.$secondary-active;
+			border: 2px solid colors.$secondary-active;
+			box-shadow: none;
+		}
+	}
+
+	&.accent {
+		background-color: colors.$accent;
+		color: colors.$white;
+
+		&:hover {
+			background-color: colors.$accent-hover;
+		}
+
+		&:active {
+			background-color: colors.$accent-active;
+			box-shadow: none;
+		}
+	}
+
+	&.accent-outlined {
+		background-color: colors.$white;
+		color: colors.$accent;
+		border: 2px solid colors.$accent;
+
+		&:hover {
+			color: colors.$accent-hover;
+			border: 2px solid colors.$accent-hover;
+		}
+
+		&:active {
+			color: colors.$accent-active;
+			border: 2px solid colors.$accent-active;
+			box-shadow: none;
+		}
+	}
+
+	&.warning {
+		background-color: colors.$warning;
+		color: colors.$white;
+
+		&:hover {
+			background-color: colors.$warning-hover;
+		}
+
+		&:active {
+			background-color: colors.$warning-active;
+			box-shadow: none;
+		}
+	}
+
+	&.warning-outlined {
+		background-color: colors.$white;
+		color: colors.$warning;
+		border: 2px solid colors.$warning;
+
+		&:hover {
+			color: colors.$warning-hover;
+			border: 2px solid colors.$warning-hover;
+		}
+
+		&:active {
+			color: colors.$warning-active;
+			border: 2px solid colors.$warning-active;
+			box-shadow: none;
+		}
+	}
+
+	&.success {
+		background-color: colors.$success;
+		color: colors.$white;
+
+		&:hover {
+			background-color: colors.$success-hover;
+		}
+
+		&:active {
+			background-color: colors.$success-active;
+			box-shadow: none;
+		}
+	}
+
+	&.success-outlined {
+		background-color: colors.$white;
+		color: colors.$success;
+		border: 2px solid colors.$success;
+
+		&:hover {
+			color: colors.$success-hover;
+			border: 2px solid colors.$success-hover;
+		}
+
+		&:active {
+			color: colors.$success-active;
+			border: 2px solid colors.$success-active;
+			box-shadow: none;
+		}
+	}
+
+	&.error {
+		background-color: colors.$error;
+		color: colors.$white;
+
+		&:hover {
+			background-color: colors.$error-hover;
+		}
+
+		&:active {
+			background-color: colors.$error-active;
+			box-shadow: none;
+		}
+	}
+
+	&.error-outlined {
+		background-color: colors.$white;
+		color: colors.$error;
+		border: 2px solid colors.$error;
+
+		&:hover {
+			color: colors.$error-hover;
+			border: 2px solid colors.$error-hover;
+		}
+
+		&:active {
+			color: colors.$error-active;
+			border: 2px solid colors.$error-active;
+			box-shadow: none;
+		}
+	}
+}

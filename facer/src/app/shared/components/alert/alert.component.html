@@ -1,0 +1,9 @@
+<div class="alert" [ngClass]="background">
+	<span class="material-symbols-outlined">{{ icon }}</span>
+	<div class="alert__message">
+		<ng-content></ng-content>
+	</div>
+	<ng-container *ngIf="dismissable">
+		<span (click)="dismiss()" class="material-symbols-outlined">close</span>
+	</ng-container>
+</div>

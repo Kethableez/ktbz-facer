@@ -1,0 +1,100 @@
+@use '../colors';
+
+.highlighted {
+	&--white {
+		color: colors.$white;
+	}
+
+	&--success {
+		color: colors.$success;
+	}
+
+	&--error {
+		color: colors.$error;
+	}
+
+	&--warning {
+		color: colors.$warning;
+	}
+
+	&--accent {
+		color: colors.$accent;
+	}
+
+	&--primary {
+		color: colors.$primary;
+	}
+}
+
+.medium {
+	font-weight: 400;
+}
+
+.bold {
+	font-weight: 700;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.normal {
+	font-size: 16px;
+}
+
+.small {
+	font-size: 14px;
+}
+
+span,
+p,
+div {
+	line-height: 110%;
+}
+
+span,
+p,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: colors.$black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	line-height: 150%;
+	font-weight: 400;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+h2 {
+	font-size: 36px;
+}
+
+h3 {
+	font-size: 24px;
+}
+
+h4 {
+	font-size: 20px;
+}
+
+h5 {
+	font-size: 16px;
+}
+
+h6 {
+	font-size: 14px;
+}

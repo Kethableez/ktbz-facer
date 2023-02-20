@@ -1,0 +1,14 @@
+@use '../assets/styles/colors';
+
+.row {
+	display: flex;
+	flex-direction: row;
+	gap: 40px;
+	width: fit-content;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}

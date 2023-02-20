@@ -1,0 +1,65 @@
+@use '../colors';
+
+// Shadow
+
+$shadow-25: 0 4px 4px
+	rgba(
+		$color: #000000,
+		$alpha: 0.25,
+	);
+
+$shadow-05: 0 4px 4px
+	rgba(
+		$color: #000000,
+		$alpha: 0.05,
+	);
+
+// Background color
+
+.bg-white {
+	background-color: colors.$white;
+}
+
+.bg-black {
+	background-color: colors.$black;
+}
+
+.bg-primary {
+	background-color: colors.$primary;
+}
+
+.bg-secondary {
+	background-color: colors.$secondary;
+}
+
+.bg-muted {
+	background-color: colors.$muted;
+}
+
+.bg-tint {
+	background-color: colors.$tint;
+}
+
+.bg-shade {
+	background-color: colors.$shade;
+}
+
+.bg-accent {
+	background-color: colors.$accent;
+}
+
+.bg-warning {
+	background-color: colors.$warning;
+}
+
+.bg-error {
+	background-color: colors.$error;
+}
+
+.bg-success {
+	background-color: colors.$success;
+}
+
+.bg-success-2 {
+	background-color: colors.$success;
+}

@@ -1,0 +1,13 @@
+<div class="formControl" [ngClass]="subClass">
+	<ng-container *ngIf="type === 'checkbox'">
+		<input [id]="name" type="checkbox" [formControl]="control" />
+	</ng-container>
+	<label [for]="name">{{ label }}</label>
+	<ng-container *ngIf="type === 'textarea'">
+		<textarea [id]="name" [placeholder]="placeholder" [formControl]="control"></textarea>
+	</ng-container>
+	<ng-container *ngIf="type === 'text'" #default>
+		<input [id]="name" type="text" [placeholder]="placeholder" [formControl]="control" />
+	</ng-container>
+	<ktbz-input-error [errors]="errors" *ngIf="errors && control.touched && !focus"></ktbz-input-error>
+</div>

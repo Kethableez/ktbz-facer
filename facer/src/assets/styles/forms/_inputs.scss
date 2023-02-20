@@ -1,0 +1,71 @@
+@use '../general';
+@use '../colors';
+
+label {
+	font-size: 16px;
+	font-weight: 700;
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+	// width: 100%;
+	font-size: 16px;
+	box-shadow: general.$shadow-05;
+	border: 2px solid colors.$pale-gray;
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+
+	outline: none;
+	appearance: none;
+	transition: border 0.2s ease-in-out;
+
+	&::placeholder {
+		color: colors.$pale-gray;
+		font-weight: 400;
+	}
+}
+
+label {
+	user-select: none;
+	cursor: pointer;
+}
+
+input[type='checkbox'] {
+	cursor: pointer;
+	position: relative;
+	transition: 0.2s ease-in-out;
+	width: 24px;
+	height: 24px;
+	border-radius: 6px;
+	border: 2px solid colors.$pale-gray;
+	background-color: colors.$white;
+	box-shadow: general.$shadow-05;
+	outline: none;
+	appearance: none;
+
+	&:checked {
+		background-color: colors.$accent;
+		border: 2px solid colors.$accent;
+	}
+}
+
+textarea {
+	resize: vertical;
+}
+
+input[type='text'],
+input[type='password'],
+textarea {
+	&.ng-invalid.ng-touched:not(:focus-within) {
+		border: 2px solid colors.$error;
+	}
+
+	&.ng-valid.ng-touched:not(:focus-within) {
+		border: 2px solid colors.$success;
+	}
+
+	&:focus-within {
+		border: 2px solid colors.$accent;
+	}
+}

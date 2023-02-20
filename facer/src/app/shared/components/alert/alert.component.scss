@@ -1,0 +1,22 @@
+@use '../../../../assets/styles/general';
+.alert {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 18px 18px;
+	border-radius: 10px;
+	gap: 18px;
+
+	span {
+		color: white;
+	}
+
+	span.material-symbols-outlined {
+		cursor: pointer;
+	}
+
+	&__message {
+		font-size: 20px;
+		flex-grow: 1;
+	}
+}

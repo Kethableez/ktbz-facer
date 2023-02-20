@@ -1,0 +1,7 @@
+@use '../../../../assets/styles/general';
+
+.box {
+	padding: 36px;
+	border-radius: 20px;
+	box-shadow: general.$shadow-25;
+}
