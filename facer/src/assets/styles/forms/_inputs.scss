@@ -37,6 +37,7 @@ input[type='checkbox'] {
 	transition: 0.2s ease-in-out;
 	width: 24px;
 	height: 24px;
+	flex-shrink: 0;
 	border-radius: 6px;
 	border: 2px solid colors.$pale-gray;
 	background-color: colors.$white;
@@ -47,6 +48,13 @@ input[type='checkbox'] {
 	&:checked {
 		background-color: colors.$accent;
 		border: 2px solid colors.$accent;
+	}
+
+	&:checked::after {
+		font-family: 'FontAwesome';
+		content: '\f00c';
+		color: #fff;
+		font-size: 20px;
 	}
 }
 

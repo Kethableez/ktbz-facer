@@ -1,0 +1,22 @@
+<h2 class="bold">
+	Login
+	<span (click)="close()" class="material-symbols-outlined exit">close</span>
+</h2>
+<form [formGroup]="registerForm">
+	<ktbz-control label="Username" type="text" [control]="registerForm.controls.username"></ktbz-control>
+	<ktbz-control label="E-mail" type="text" [control]="registerForm.controls.email"></ktbz-control>
+	<ktbz-control label="Password" type="password" [control]="registerForm.controls.password"></ktbz-control>
+	<ktbz-control label="First name" type="text" [control]="registerForm.controls.firstName"></ktbz-control>
+	<ktbz-control label="Last name" type="text" [control]="registerForm.controls.lastName"></ktbz-control>
+	<ktbz-control
+		label="I want to use my face as authentication method for future logins"
+		type="checkbox"
+		[control]="registerForm.controls.useFace"
+	></ktbz-control>
+	<button *ngIf="useFace" class="btn accent">
+		Scan my face
+		<span class="material-symbols-outlined">sensor_occupied</span>
+	</button>
+
+	<button [disabled]="!registerForm.valid" class="btn primary">Register</button>
+</form>

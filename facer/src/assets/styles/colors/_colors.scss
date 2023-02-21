@@ -1,31 +1,32 @@
 $white: #ffffff;
+$white-hover: #d3d3d3;
+
 $black: #2c2738;
 $pale-gray: #d8d8d8;
 
 $primary: #323232;
-$primary-hover: #464646;
-$primary-active: #1e1e1e;
+$primary-hover: #1e1e1e;
 
 $secondary: #756f86;
-$secondary-hover: #8e88a1;
-$secondary-active: #5f5a6c;
+$secondary-hover: #5f5a6c;
 
 $accent: #2b78e4;
-$accent-hover: #2f83f7;
-$accent-active: #2463ba;
+$accent-hover: #2463ba;
 
 $warning: #f2ac57;
-$warning-hover: #ffb65c;
-$warning-active: #c88d45;
+$warning-hover: #c88d45;
 
 $success: #14a38b;
-$success-hover: #19c6a9;
-$success-active: #108470;
+$success-hover: #108470;
 
 $error: #ff7171;
-$error-hover: #f78686;
-$error-active: #da6060;
+$error-hover: #da6060;
 
 $muted: #7c9cbf;
 $tint: #ebf4f8;
 $shade: #b2b8be;
+
+$transparent: rgba(
+	$color: #ffffff,
+	$alpha: 0,
+);

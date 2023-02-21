@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, Optional } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -20,6 +20,8 @@ export class ControlComponent {
 	placeholder: string = '';
 
 	focus = false;
+
+	passwordVisible = false;
 
 	@HostListener('focusin')
 	onFocusin() {
@@ -49,5 +51,13 @@ export class ControlComponent {
 
 	get errors() {
 		return this.control.errors;
+	}
+
+	changeVisibility(mode: string) {
+		this.passwordVisible = mode === 'on';
+	}
+
+	get passwordType() {
+		return this.passwordVisible ? 'text' : 'password';
 	}
 }

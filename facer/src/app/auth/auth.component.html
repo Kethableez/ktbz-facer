@@ -1,0 +1,30 @@
+<div class="page--full bg-img">
+	<div class="flex">
+		<div class="col">
+			<h1 class="bold highlighted--white">
+				Create new
+				<span class="italic highlighted--muted">ACCOUNT</span>
+			</h1>
+			<button class="btn white" (click)="select('register')"><span class="material-symbols-outlined">person_add</span></button>
+		</div>
+		<div class="col">
+			<h1 class="bold">
+				Login to your
+				<span class="italic highlighted--success">ACCOUNT</span>
+			</h1>
+			<button class="btn primary" (click)="select('login')">
+				<span class="material-symbols-outlined">login</span>
+			</button>
+		</div>
+	</div>
+</div>
+<div class="formWrapper" *ngIf="isFormOpened">
+	<ktbz-box>
+		<ng-container *ngIf="selectedForm === 'login'; else register">
+			<ktbz-login (onClose)="closeForms()"></ktbz-login>
+		</ng-container>
+		<ng-template #register>
+			<ktbz-register (onClose)="closeForms()"></ktbz-register>
+		</ng-template>
+	</ktbz-box>
+</div>

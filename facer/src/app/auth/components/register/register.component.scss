@@ -1,0 +1,22 @@
+form {
+	margin-top: 36px;
+	display: flex;
+	flex-direction: column;
+
+	button {
+		margin-top: 36px;
+	}
+}
+
+span.exit {
+	font-size: 32px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	user-select: none;
+}
+
+h2 {
+	position: relative;
+}

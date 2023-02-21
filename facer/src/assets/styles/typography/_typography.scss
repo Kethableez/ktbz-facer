@@ -24,6 +24,10 @@
 	&--primary {
 		color: colors.$primary;
 	}
+
+	&--muted {
+		color: colors.$muted;
+	}
 }
 
 .medium {

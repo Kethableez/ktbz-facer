@@ -1,0 +1,9 @@
+<h2 class="bold">
+	Login
+	<span (click)="close()" class="material-symbols-outlined">close</span>
+</h2>
+<form [formGroup]="standardLoginForm">
+	<ktbz-control label="Username / E-mail" type="text" [control]="standardLoginForm.controls.username"></ktbz-control>
+	<ktbz-control label="password" type="password" [control]="standardLoginForm.controls.password"></ktbz-control>
+	<button [disabled]="!standardLoginForm.valid" class="btn primary">Login</button>
+</form>
