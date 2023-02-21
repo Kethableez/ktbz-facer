@@ -7,9 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
 	declarations: [AuthComponent, LoginComponent, RegisterComponent],
-	imports: [CommonModule, SharedModule, AuthRoutingModule, ReactiveFormsModule],
+	imports: [CommonModule, WebcamModule, SharedModule, AuthRoutingModule, ReactiveFormsModule],
 })
 export class AuthModule {}

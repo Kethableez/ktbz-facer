@@ -30,4 +30,6 @@ export class RegisterComponent implements OnInit {
 	}
 
 	ngOnInit(): void {}
+
+	toggleScan(value: boolean) {}
 }

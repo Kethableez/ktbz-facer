@@ -13,7 +13,7 @@
 		type="checkbox"
 		[control]="registerForm.controls.useFace"
 	></ktbz-control>
-	<button *ngIf="useFace" class="btn accent">
+	<button *ngIf="useFace" class="btn accent" (click)="toggleScan(true)">
 		Scan my face
 		<span class="material-symbols-outlined">sensor_occupied</span>
 	</button>
