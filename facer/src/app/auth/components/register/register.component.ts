@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { WebcamImage } from 'ngx-webcam';
 
 @Component({
 	selector: 'ktbz-register',
@@ -11,6 +12,10 @@ export class RegisterComponent implements OnInit {
 	onClose = new EventEmitter<void>();
 
 	constructor(private builder: FormBuilder) {}
+
+	scanEnabled = false;
+
+	userImage!: WebcamImage;
 
 	registerForm = this.builder.group({
 		username: ['', Validators.required],
@@ -31,5 +36,12 @@ export class RegisterComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	toggleScan(value: boolean) {}
+	toggleScan(value: boolean) {
+		this.scanEnabled = value;
+	}
+
+	saveImage(image: WebcamImage) {
+		this.toggleScan(false);
+		this.userImage = image;
+	}
 }

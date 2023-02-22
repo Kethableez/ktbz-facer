@@ -9,7 +9,7 @@
 	<ktbz-control label="First name" type="text" [control]="registerForm.controls.firstName"></ktbz-control>
 	<ktbz-control label="Last name" type="text" [control]="registerForm.controls.lastName"></ktbz-control>
 	<ktbz-control
-		label="I want to use my face as authentication method for future logins"
+		label="I want to use my face as authentication method"
 		type="checkbox"
 		[control]="registerForm.controls.useFace"
 	></ktbz-control>
@@ -20,3 +20,6 @@
 
 	<button [disabled]="!registerForm.valid" class="btn primary">Register</button>
 </form>
+<div class="scannerWrapper" *ngIf="scanEnabled">
+	<ktbz-webcam (onImageSave)="saveImage($event)"></ktbz-webcam>
+</div>
