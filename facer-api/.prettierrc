@@ -1,4 +1,9 @@
 {
-  "singleQuote": true,
-  "trailingComma": "all"
+	"singleQuote": true,
+	"trailingComma": "es5",
+	"printWidth": 80,
+	"eslintIntegration": true,
+	"useTabs": true,
+	"endOfLine": "auto",
+	"tabWidth": 2
 }
