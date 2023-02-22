@@ -1,0 +1,20 @@
+<div class="formControl" [ngClass]="subClass">
+	<ng-container *ngIf="type === 'checkbox'">
+		<input [id]="name" type="checkbox" [formControl]="control" />
+	</ng-container>
+	<label [for]="name">{{ label }}</label>
+	<ng-container *ngIf="type === 'textarea'">
+		<textarea [id]="name" [placeholder]="placeholder" [formControl]="control"></textarea>
+	</ng-container>
+	<ng-container *ngIf="type === 'text'" #default>
+		<input ktbzDisableAutofill [id]="name" type="text" [placeholder]="placeholder" [formControl]="control" />
+	</ng-container>
+	<ng-container *ngIf="type === 'password'" #default>
+    <div class="formControl__passwordWrapper">
+      <input ktbzDisableAutofill [id]="name" [type]="passwordType" [placeholder]="placeholder" [formControl]="control" />
+      <span *ngIf="!passwordVisible" class="material-symbols-outlined" (click)="changeVisibility('on')">visibility</span>
+      <span *ngIf="passwordVisible" class="material-symbols-outlined" (click)="changeVisibility('off')">visibility_off</span>
+    </div>
+	</ng-container>
+	<ktbz-input-error [errors]="errors" *ngIf="errors && control.touched && !focus"></ktbz-input-error>
+</div>

@@ -1,0 +1,44 @@
+.formControl {
+	display: flex;
+	// gap: 8px;
+	margin: 8px 0;
+	position: relative;
+
+  &__passwordWrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    input {
+      flex-grow: 1;
+    }
+  }
+}
+
+.vertical {
+	flex-direction: column;
+	label {
+		margin-bottom: 8px;
+	}
+}
+
+.horizontal {
+	flex-direction: row;
+	align-items: center;
+	label {
+		margin-left: 8px;
+	}
+}
+
+span {
+	cursor: pointer;
+	right: 18px;
+	top: 50%;
+  transform: translateY(-47%);
+	position: absolute;
+	transition: 0.2s ease-in-out;
+	user-select: none;
+
+	&:hover {
+		color: #515151;
+	}
+}

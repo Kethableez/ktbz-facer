@@ -1,0 +1,22 @@
+<h2 class="bold">
+	Login
+</h2>
+<div class="loginMethodWrapper">
+	<div class="selectableButton" [class.active]="isActive('traditional')" (click)="selectMethod('traditional')">
+		<span class="bold">Traditional</span>
+	</div>
+	<div class="selectableButton" [class.active]="isActive('faceId')" (click)="selectMethod('faceId')"><span class="bold">Face ID</span></div>
+	<div class="selectableButton" [class.active]="isActive('liveFaceId')" (click)="selectMethod('liveFaceId')">
+		<span class="bold">Live Face ID</span>
+	</div>
+</div>
+<form [formGroup]="standardLoginForm" *ngIf="isActive('traditional')">
+	<ktbz-control label="Username / E-mail" type="text" [control]="standardLoginForm.controls.username"></ktbz-control>
+	<ktbz-control label="password" type="password" [control]="standardLoginForm.controls.password"></ktbz-control>
+
+  <div class="form__buttons">
+    <button (click)="close()" class="btn error-outlined">Cancel</button>
+    <button [disabled]="!standardLoginForm.valid" class="btn primary">Login</button>
+  </div>
+</form>
+<ktbz-webcam *ngIf="isActive('faceId')" variant="login"></ktbz-webcam>
