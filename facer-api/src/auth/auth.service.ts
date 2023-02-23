@@ -25,12 +25,14 @@ export class AuthService {
 		return { message: 'Refresh token in progress' };
 	}
 
-	async register(registerData: RegisterRequest): Promise<User> {
+	async register(
+		registerData: RegisterRequest
+	): Promise<{ userId: string; message: string }> {
 		const user = await this.userService.createUser({
 			...registerData,
 			password: await bcrypt.hash(registerData.password, bcrypt.genSaltSync()),
 		});
-		return user;
+		return { userId: user._id.toString(), message: 'Registered with success!' };
 	}
 
 	async login(user: any): Promise<TokenResponse> {
@@ -45,7 +47,7 @@ export class AuthService {
 		if (user && (await this.verifyPassword(pass, user.password))) {
 			return user;
 		}
-		return null;
+		throw new HttpException('Invalid username or password', 404);
 	}
 
 	async verifyPassword(
@@ -54,7 +56,10 @@ export class AuthService {
 	): Promise<boolean> {
 		const isMatching = await bcrypt.compare(password, hashedPassword);
 		if (!isMatching)
-			throw new HttpException('Bad password', HttpStatus.BAD_REQUEST);
+			throw new HttpException(
+				'Invalid username or password',
+				HttpStatus.BAD_REQUEST
+			);
 		return isMatching;
 	}
 }

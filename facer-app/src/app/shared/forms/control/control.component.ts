@@ -1,4 +1,14 @@
-import { Component, HostListener, Input, OnInit, Optional } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	HostListener,
+	Input,
+	OnChanges,
+	OnInit,
+	Optional,
+	SimpleChanges,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -37,7 +47,7 @@ export class ControlComponent {
 		return ['text', 'textarea', 'password'].includes(this.type) ? 'vertical' : 'horizontal';
 	}
 
-	constructor() {}
+	constructor(private ref: ChangeDetectorRef) {}
 
 	get name() {
 		const parent = this.control.parent;

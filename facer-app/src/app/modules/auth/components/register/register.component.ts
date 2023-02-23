@@ -1,10 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { untilDestroyed } from '@ngneat/until-destroy';
 import { WebcamImage } from 'ngx-webcam';
+import { filter } from 'rxjs';
 import { FileProcess } from 'src/app/core/file-process';
+import { HttpErrorService } from 'src/app/core/services/http-error.service';
+import { notUndefined } from 'src/app/core/utils/filter-not-undefined';
 import { NameAvailabilityValidator } from 'src/app/modules/utils/name-availability.validator';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, RegisterRequest } from '../../services/auth.service';
 
+@UntilDestroy()
 @Component({
 	selector: 'ktbz-register',
 	templateUrl: './register.component.html',
@@ -14,44 +20,34 @@ export class RegisterComponent implements OnInit {
 	@Output()
 	onClose = new EventEmitter<void>();
 
-	constructor(private builder: FormBuilder, private authService: AuthService) {}
+	error$ = this.errorService.getNamespaceError('register');
+
+	successMessage: string | null = null;
 
 	scanEnabled = false;
 
 	userImage!: WebcamImage;
 
-	registerForm = this.builder.nonNullable.group({
-		username: [
-			'',
-			{
-				validators: [Validators.required],
-				asyncValidators: [NameAvailabilityValidator.createValidator('username', this.authService)],
-				updateOn: 'blur',
-			},
-		],
-		email: [
-			'',
-			{
-				validators: [Validators.required],
-				asyncValidators: [NameAvailabilityValidator.createValidator('email', this.authService)],
-				updateOn: 'blur',
-			},
-		],
-		password: ['', Validators.required],
-		firstName: ['', Validators.required],
-		lastName: ['', Validators.required],
-		useFace: [false],
-	});
+	registerForm!: FormGroup;
+
+	get useFace() {
+		return this.getControl('useFaceAsAuthMethod').value;
+	}
+
+	constructor(private builder: FormBuilder, private authService: AuthService, private errorService: HttpErrorService) {}
 
 	close() {
 		this.onClose.emit();
+		this.clearError();
 	}
 
-	get useFace() {
-		return this.registerForm.controls.useFace.value;
+	clearError() {
+		this.errorService.removeError('register');
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.initForm();
+	}
 
 	toggleScan(value: boolean) {
 		this.scanEnabled = value;
@@ -63,12 +59,46 @@ export class RegisterComponent implements OnInit {
 	}
 
 	submit() {
-		const payload = { ...this.registerForm.value };
-		if (payload.useFace && this.userImage) {
+		const payload = this.registerForm.value as RegisterRequest;
+		if (payload.useFaceAsAuthMethod && this.userImage) {
 			const formData = FileProcess.dataURLtoFormData(payload.username as string, this.userImage.imageAsDataUrl);
-			console.log({ payload: payload, imageData: formData });
 		}
 
-		console.log({ payload: payload });
+		this.authService
+			.register({ payload: payload })
+			.pipe(untilDestroyed(this), filter(notUndefined))
+			.subscribe(response => {
+				this.registerForm.reset();
+				this.successMessage = 'Registered with success';
+			});
+	}
+
+	private initForm() {
+		this.registerForm = this.builder.nonNullable.group({
+			username: [
+				null,
+				{
+					validators: [Validators.required],
+					asyncValidators: [NameAvailabilityValidator.createValidator('username', this.authService)],
+					updateOn: 'blur',
+				},
+			],
+			email: [
+				null,
+				{
+					validators: [Validators.required],
+					asyncValidators: [NameAvailabilityValidator.createValidator('email', this.authService)],
+					updateOn: 'blur',
+				},
+			],
+			password: [null, Validators.required],
+			firstName: [null, Validators.required],
+			lastName: [null, Validators.required],
+			useFaceAsAuthMethod: [false],
+		});
+	}
+
+	getControl(prop: string): FormControl {
+		return this.registerForm.controls[prop as keyof FormGroup<any>] as FormControl;
 	}
 }

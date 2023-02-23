@@ -1,19 +1,18 @@
 <div class="webcamWrapper">
 	<div class="webcamWrapper__capture" *ngIf="!image">
-    <button [ngClass]="variant === 'register' ? 'btn' : 'btn-sm'" class="white rounded switchBtn" (click)="switchCamera()">
-      <span class="material-symbols-outlined">cameraswitch</span>
-    </button>
-		<div class="webcamMask" *ngIf="variant ==='register'"></div>
+		<button [ngClass]="variant === 'register' ? 'btn' : 'btn-sm'" class="white rounded switchBtn" (click)="switchCamera()">
+			<span class="material-symbols-outlined">cameraswitch</span>
+		</button>
+		<div class="webcamMask" *ngIf="variant === 'register'"></div>
 		<div class="webcamItems">
-      <div class="buttons">
-        <button *ngIf="variant === 'register'" class="btn error-outlined"  (click)="close()">Cancel</button>
-        <button [ngClass]="variant === 'register' ? 'btn accent' : 'btn primary'" (click)="capture()">Capture photo</button>
-      </div>
+			<div class="buttons">
+				<button *ngIf="variant === 'register'" class="btn error-outlined" (click)="close()">Cancel</button>
+				<button [ngClass]="variant === 'register' ? 'btn accent' : 'btn primary'" (click)="capture()">Capture photo</button>
+			</div>
 		</div>
 		<webcam
 			[width]="videoSize.width"
 			[height]="videoSize.height"
-
 			[allowCameraSwitch]="false"
 			[switchCamera]="nextWebcam$"
 			[trigger]="trigger$"
@@ -23,9 +22,9 @@
 	<div class="webcamWrapper__preview" *ngIf="image && variant === 'register'">
 		<img [src]="image.imageAsDataUrl" />
 		<div class="buttons">
-      <button class="btn error-outlined" (click)="close()">Cancel</button>
-				<button class="btn accent" (click)="takeNew()">Take new photo</button>
-				<button class="btn success" (click)="saveImage()">Looks good to me</button>
+			<button class="btn error-outlined" (click)="close()">Cancel</button>
+			<button class="btn accent" (click)="takeNew()">Take new photo</button>
+			<button class="btn success" (click)="saveImage()">Looks good to me</button>
 		</div>
 	</div>
 </div>

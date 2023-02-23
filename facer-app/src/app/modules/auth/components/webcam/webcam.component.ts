@@ -1,8 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { WebcamImage } from 'ngx-webcam';
 import { Subject } from 'rxjs';
 import { FileProcess } from 'src/app/core/file-process';
 
+enum WebcamVariants {
+	REGISTER = 'register',
+	LOGIN = 'login',
+}
 @Component({
 	selector: 'ktbz-webcam',
 	templateUrl: './webcam.component.html',
@@ -10,7 +14,7 @@ import { FileProcess } from 'src/app/core/file-process';
 })
 export class WebcamComponent {
 	@Input()
-	variant: 'register' | 'login' = 'register';
+	variant: WebcamVariants.REGISTER | string = WebcamVariants.REGISTER;
 
 	@Output()
 	onImageSave = new EventEmitter<WebcamImage>();
@@ -32,16 +36,16 @@ export class WebcamComponent {
 		return this.trigger.asObservable();
 	}
 
-	constructor(private elementRef: ElementRef) {}
-
 	get videoSize() {
-		return this.elementRef.nativeElement && this.variant !== 'register'
+		return this.elementRef.nativeElement && this.variant !== WebcamVariants.REGISTER
 			? {
 					width: this.elementRef.nativeElement.offsetWidth,
 					height: (this.elementRef.nativeElement.offsetWidth * 3) / 4,
 			  }
 			: { width: 1280, height: 920 };
 	}
+
+	constructor(private elementRef: ElementRef) {}
 
 	switchCamera() {
 		this.nextWebcam.next(true);
@@ -61,11 +65,6 @@ export class WebcamComponent {
 
 	saveImage() {
 		if (this.image) {
-			console.log(this.image);
-			// const b = dataURLtoFormData('test123', this.image.imageAsDataUrl);
-			const b = FileProcess.dataURLtoFormData('test123', this.image.imageAsDataUrl);
-			console.log(b.getAll('file'));
-
 			this.onImageSave.emit(this.image);
 		}
 	}
