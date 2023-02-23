@@ -5,6 +5,7 @@ interface Errors {
 	unique?: boolean;
 	minlength?: { actualLength: number; requiredLength: number };
 	maxlength?: { actualLength: number; requiredLength: number };
+	taken: { field: 'username' | 'email' };
 	required?: true;
 }
 
@@ -13,6 +14,7 @@ interface Errors {
 })
 export class InputErrorPipe implements PipeTransform {
 	transform(error: ErrorPair): string {
+		console.log(error);
 		switch (error.name) {
 			case 'required':
 				return 'This field is required';
@@ -22,6 +24,9 @@ export class InputErrorPipe implements PipeTransform {
 
 			case 'maxlength':
 				return `Maximum length is ${(error as any).value.requiredLength}`;
+
+			case 'taken':
+				return `This ${(error as any).value.field} is already taken`;
 
 			default:
 				return 'Unknown error';

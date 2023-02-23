@@ -6,15 +6,19 @@
 	<ng-container *ngIf="type === 'textarea'">
 		<textarea [id]="name" [placeholder]="placeholder" [formControl]="control"></textarea>
 	</ng-container>
-	<ng-container *ngIf="type === 'text'" #default>
-		<input ktbzDisableAutofill [id]="name" type="text" [placeholder]="placeholder" [formControl]="control" />
+	<ng-container *ngIf="type === 'text'">
+		<div class="formControl__inputWrapper">
+			<input ktbzDisableAutofill [id]="name" type="text" [placeholder]="placeholder" [formControl]="control" />
+			<!-- <span *ngIf="control.pending" class="material-symbols-outlined highlighted--muted rotate">brightness_3</span> -->
+			<i *ngIf="control.pending" class="gg-spinner-two-alt highlighted--muted"></i>
+		</div>
 	</ng-container>
-	<ng-container *ngIf="type === 'password'" #default>
-    <div class="formControl__passwordWrapper">
-      <input ktbzDisableAutofill [id]="name" [type]="passwordType" [placeholder]="placeholder" [formControl]="control" />
-      <span *ngIf="!passwordVisible" class="material-symbols-outlined" (click)="changeVisibility('on')">visibility</span>
-      <span *ngIf="passwordVisible" class="material-symbols-outlined" (click)="changeVisibility('off')">visibility_off</span>
-    </div>
+	<ng-container *ngIf="type === 'password'">
+		<div class="formControl__inputWrapper">
+			<input ktbzDisableAutofill [id]="name" [type]="passwordType" [placeholder]="placeholder" [formControl]="control" />
+			<span *ngIf="!passwordVisible" class="material-symbols-outlined" (click)="changeVisibility('on')">visibility</span>
+			<span *ngIf="passwordVisible" class="material-symbols-outlined" (click)="changeVisibility('off')">visibility_off</span>
+		</div>
 	</ng-container>
 	<ktbz-input-error [errors]="errors" *ngIf="errors && control.touched && !focus"></ktbz-input-error>
 </div>

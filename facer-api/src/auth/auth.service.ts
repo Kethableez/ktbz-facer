@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { BaseResponse } from 'src/core/models/base-response.dto';
 import { RegisterRequest } from 'src/user/models/register-request.dto';
 import { User } from 'src/user/models/user.schema';
 import { UserService } from 'src/user/user.service';
@@ -19,6 +20,10 @@ export class AuthService {
 		private readonly userService: UserService,
 		private readonly jwtService: JwtService
 	) {}
+
+	async refresh(): Promise<BaseResponse> {
+		return { message: 'Refresh token in progress' };
+	}
 
 	async register(registerData: RegisterRequest): Promise<User> {
 		const user = await this.userService.createUser({
@@ -37,7 +42,7 @@ export class AuthService {
 
 	async validateUser(property: string, pass: string): Promise<any> {
 		const user = await this.userService.getUserByUsernameOrEmail(property);
-		if (user && bcrypt.compareSync(pass, user.password)) {
+		if (user && (await this.verifyPassword(pass, user.password))) {
 			return user;
 		}
 		return null;

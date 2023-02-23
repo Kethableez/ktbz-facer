@@ -1,21 +1,22 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { WebcamImage } from 'ngx-webcam';
 import { Subject } from 'rxjs';
+import { FileProcess } from 'src/app/core/file-process';
 
 @Component({
 	selector: 'ktbz-webcam',
 	templateUrl: './webcam.component.html',
 	styleUrls: ['./webcam.component.scss'],
 })
-export class WebcamComponent implements AfterViewInit {
-  @Input()
-  variant: 'register' | 'login' = 'register';
+export class WebcamComponent {
+	@Input()
+	variant: 'register' | 'login' = 'register';
 
 	@Output()
 	onImageSave = new EventEmitter<WebcamImage>();
 
-  @Output()
-  onClose = new EventEmitter<void>();
+	@Output()
+	onClose = new EventEmitter<void>();
 
 	private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
 
@@ -31,28 +32,19 @@ export class WebcamComponent implements AfterViewInit {
 		return this.trigger.asObservable();
 	}
 
-	constructor(
-    private elementRef: ElementRef
-  ) {}
+	constructor(private elementRef: ElementRef) {}
 
-  ngAfterViewInit(): void {
-    if (this.elementRef.nativeElement) {
-      console.log(this.elementRef.nativeElement.width)
-    }
-  }
-
-  get videoSize() {
-    return this.elementRef.nativeElement && this.variant !== 'register' ? {
-      width: this.elementRef.nativeElement.offsetWidth,
-      height: this.elementRef.nativeElement.offsetWidth * 3 / 4
-    } : { width: 1280, height: 920}
-  }
+	get videoSize() {
+		return this.elementRef.nativeElement && this.variant !== 'register'
+			? {
+					width: this.elementRef.nativeElement.offsetWidth,
+					height: (this.elementRef.nativeElement.offsetWidth * 3) / 4,
+			  }
+			: { width: 1280, height: 920 };
+	}
 
 	switchCamera() {
 		this.nextWebcam.next(true);
-    if (this.elementRef.nativeElement) {
-      console.log(this.elementRef.nativeElement.offsetWidth)
-    }
 	}
 
 	capture() {
@@ -69,11 +61,16 @@ export class WebcamComponent implements AfterViewInit {
 
 	saveImage() {
 		if (this.image) {
+			console.log(this.image);
+			// const b = dataURLtoFormData('test123', this.image.imageAsDataUrl);
+			const b = FileProcess.dataURLtoFormData('test123', this.image.imageAsDataUrl);
+			console.log(b.getAll('file'));
+
 			this.onImageSave.emit(this.image);
 		}
 	}
 
-  close() {
-    this.onClose.emit();
-  }
+	close() {
+		this.onClose.emit();
+	}
 }

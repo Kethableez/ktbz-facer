@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { first, isEmpty } from 'lodash';
 import { Model } from 'mongoose';
+import { AvailabilityResponse } from './models/availability.dto';
 import { RegisterRequest } from './models/register-request.dto';
 import { User, UserDocument } from './models/user.schema';
 
@@ -28,8 +30,15 @@ export class UserService {
 		const user = await this.userModel.find({
 			$or: [{ username: property }, { email: property }],
 		});
-		console.log(user);
 		if (!user) throw new NotFoundException();
-		return user[0];
+		return first(user);
+	}
+
+	async nameAvailability(
+		type: 'email' | 'username',
+		value: string
+	): Promise<AvailabilityResponse> {
+		const isAvailable = isEmpty(await this.userModel.find({ [type]: value }));
+		return { available: isAvailable };
 	}
 }

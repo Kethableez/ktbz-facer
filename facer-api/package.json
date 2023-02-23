@@ -1,6 +1,6 @@
 {
 	"name": "facer-api",
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"description": "",
 	"author": "",
 	"private": true,
@@ -39,6 +39,7 @@
 		"class-transformer": "^0.5.1",
 		"class-validator": "^0.13.2",
 		"cookie-parser": "^1.4.6",
+		"lodash": "^4.17.21",
 		"mongoose": "^6.6.3",
 		"passport": "^0.6.0",
 		"passport-jwt": "^4.0.0",
@@ -53,6 +54,7 @@
 		"@nestjs/testing": "^9.3.9",
 		"@types/express": "^4.17.14",
 		"@types/jest": "27.5.0",
+		"@types/lodash": "^4.14.191",
 		"@types/node": "^16.0.0",
 		"@types/supertest": "^2.0.11",
 		"@typescript-eslint/eslint-plugin": "^5.0.0",

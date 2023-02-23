@@ -1,6 +1,4 @@
-<h2 class="bold">
-	Login
-</h2>
+<h2 class="bold">Login</h2>
 <form [formGroup]="registerForm">
 	<ktbz-control label="Username" type="text" [control]="registerForm.controls.username"></ktbz-control>
 	<ktbz-control label="E-mail" type="text" [control]="registerForm.controls.email"></ktbz-control>
@@ -18,9 +16,9 @@
 	</button>
 
 	<div class="form__buttons">
-    <button (click)="close()" class="btn error-outlined">Cancel</button>
-	<button [disabled]="!registerForm.valid" class="btn primary">Register</button>
-  </div>
+		<button (click)="close()" class="btn error-outlined">Cancel</button>
+		<button [disabled]="!registerForm.valid" (click)="submit()" class="btn primary">Register</button>
+	</div>
 </form>
 <div class="scannerWrapper" *ngIf="scanEnabled">
 	<ktbz-webcam (onImageSave)="saveImage($event)" (onClose)="toggleScan(false)"></ktbz-webcam>

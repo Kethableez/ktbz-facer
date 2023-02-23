@@ -73,6 +73,10 @@ textarea {
 		border: 2px solid colors.$success;
 	}
 
+	&.ng-pending.ng-touched:not(:focus-within) {
+		border: 2px solid colors.$muted;
+	}
+
 	&:focus-within {
 		border: 2px solid colors.$accent;
 	}

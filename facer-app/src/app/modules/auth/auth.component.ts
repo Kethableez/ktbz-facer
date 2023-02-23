@@ -11,7 +11,6 @@ export class AuthComponent implements OnInit {
 	isFormOpened = true;
 	selectedForm = 'login';
 
-
 	ngOnInit(): void {}
 
 	select(action: string) {
@@ -20,7 +19,6 @@ export class AuthComponent implements OnInit {
 	}
 
 	closeForms() {
-		console.log('close');
 		this.isFormOpened = false;
 	}
 }
