@@ -27,8 +27,9 @@ export class UserService {
 	async getUserByUsernameOrEmail(property: string): Promise<User> {
 		const user = await this.userModel.find({
 			$or: [{ username: property }, { email: property }],
-		})[0];
+		});
+		console.log(user);
 		if (!user) throw new NotFoundException();
-		return user;
+		return user[0];
 	}
 }

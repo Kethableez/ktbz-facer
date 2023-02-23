@@ -6,11 +6,12 @@ import {
 	HttpCode,
 	Req,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { RegisterRequest } from 'src/user/models/register-request.dto';
 import { User } from 'src/user/models/user.schema';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import { LocalAuthGuard } from './guards/local.guard';
 import { LoginRequest } from './models/login-request.model';
 import { TokenResponse } from './models/token-response.dto';
 
@@ -24,12 +25,13 @@ export class AuthController {
 		return await this.authService.register(request);
 	}
 
-	@ApiTags('auth')
+	// @ApiTags('auth')
 	@UseGuards(LocalAuthGuard)
-	@HttpCode(200)
 	@Post('login')
+	@HttpCode(200)
+	@ApiBody({ type: LoginRequest })
 	async login(@Req() request): Promise<TokenResponse> {
-		console.log(request);
 		return await this.authService.login(request.user);
+		// return { accessToken: request.user };
 	}
 }
