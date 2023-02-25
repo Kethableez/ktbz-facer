@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpErrorService } from 'src/app/core/services/http-error.service';
 import { environment } from 'src/environments/environment';
 
@@ -28,6 +28,7 @@ export interface LoginRequest {
 })
 export class AuthService {
 	private readonly apiUrl = environment.apiUrl;
+	private readonly aiUrl = environment.aiUrl;
 
 	constructor(private http: HttpClient, private errorService: HttpErrorService) {}
 
@@ -39,11 +40,22 @@ export class AuthService {
 		return this.http.post<NameAvailability>(url, payload);
 	}
 
-	register(payload: { payload: RegisterRequest; data?: FormData }) {
+	register(request: { payload: RegisterRequest; data?: FormData }) {
 		const url = `${this.apiUrl}/auth/register`;
-		return this.http
-			.post<{ userId: string }>(url, payload.payload)
-			.pipe(catchError((error: any) => of(this.errorService.addError('register', error.error.message))));
+		return this.http.post<{ userId: string; message: string }>(url, request.payload).pipe(
+			switchMap(response => {
+				if (request.data) {
+					const fileUrl = `${this.aiUrl}/files/upload`;
+					request.data.append('userId', response.userId);
+					return this.http.post<{ message: string }>(fileUrl, request.data).pipe(map(() => response.message));
+				}
+				return of(response.message);
+			}),
+			catchError((error: any) => {
+				this.errorService.addError('register', error.error.message);
+				return of(null);
+			})
+		);
 	}
 
 	login(payload: LoginRequest) {

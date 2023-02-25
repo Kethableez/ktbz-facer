@@ -4,6 +4,7 @@
 
 export const environment = {
 	apiUrl: 'http://localhost:9000/api/v1',
+	aiUrl: 'http://localhost:5000/ai/v1',
 	production: false,
 };
 

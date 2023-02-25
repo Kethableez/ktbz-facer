@@ -59,18 +59,23 @@ export class RegisterComponent implements OnInit {
 	}
 
 	submit() {
-		const payload = this.registerForm.value as RegisterRequest;
-		if (payload.useFaceAsAuthMethod && this.userImage) {
-			const formData = FileProcess.dataURLtoFormData(payload.username as string, this.userImage.imageAsDataUrl);
-		}
-
+		const request = {
+			payload: this.registerForm.value as RegisterRequest,
+			data: this.formData,
+		};
 		this.authService
-			.register({ payload: payload })
+			.register(request)
 			.pipe(untilDestroyed(this), filter(notUndefined))
 			.subscribe(response => {
 				this.registerForm.reset();
-				this.successMessage = 'Registered with success';
+				this.successMessage = response;
 			});
+	}
+
+	private get formData() {
+		return this.getControl('useFaceAsAuthMethod').value && this.userImage
+			? FileProcess.dataURLtoFormData(this.getControl('username').value, this.userImage.imageAsDataUrl)
+			: undefined;
 	}
 
 	private initForm() {

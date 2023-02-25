@@ -23,7 +23,7 @@ export class AuthController {
 	@Post('register')
 	async register(
 		@Body() request: RegisterRequest
-	): Promise<{ userId: string }> {
+	): Promise<{ userId: string; message: string }> {
 		return await this.authService.register(request);
 	}
 
