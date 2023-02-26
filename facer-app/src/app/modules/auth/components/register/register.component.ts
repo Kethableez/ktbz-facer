@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { untilDestroyed } from '@ngneat/until-destroy';
 import { WebcamImage } from 'ngx-webcam';
-import { filter } from 'rxjs';
+import { filter, Observable, of, tap } from 'rxjs';
 import { FileProcess } from 'src/app/core/file-process';
 import { HttpErrorService } from 'src/app/core/services/http-error.service';
 import { notUndefined } from 'src/app/core/utils/filter-not-undefined';
@@ -20,13 +20,15 @@ export class RegisterComponent implements OnInit {
 	@Output()
 	onClose = new EventEmitter<void>();
 
-	error$ = this.errorService.getNamespaceError('register');
-
-	successMessage: string | null = null;
+	error$: Observable<null | any> = of(null);
+	warning$: Observable<null | any> = of(null);
+	success$: Observable<null | any> = of(null);
 
 	scanEnabled = false;
 
 	userImage!: WebcamImage;
+
+	isForRetry = false;
 
 	registerForm!: FormGroup;
 
@@ -38,24 +40,32 @@ export class RegisterComponent implements OnInit {
 
 	close() {
 		this.onClose.emit();
-		this.clearError();
+		this.clearAll();
 	}
 
 	clearError() {
-		this.errorService.removeError('register');
+		this.error$ = of(null);
+	}
+
+	clearWarning() {
+		this.warning$ = of(null);
 	}
 
 	ngOnInit(): void {
 		this.initForm();
 	}
 
-	toggleScan(value: boolean) {
+	toggleScan(value: boolean, isForRetry = false) {
 		this.scanEnabled = value;
+		this.isForRetry = isForRetry;
 	}
 
 	saveImage(image: WebcamImage) {
-		this.toggleScan(false);
+		this.toggleScan(false, this.isForRetry);
 		this.userImage = image;
+		if (this.isForRetry) {
+			this.retryImage();
+		}
 	}
 
 	submit() {
@@ -65,15 +75,52 @@ export class RegisterComponent implements OnInit {
 		};
 		this.authService
 			.register(request)
-			.pipe(untilDestroyed(this), filter(notUndefined))
+			.pipe(untilDestroyed(this))
 			.subscribe(response => {
-				this.registerForm.reset();
-				this.successMessage = response;
+				if (response.error && response.status === 404) this.handleWarning(response.error, this.authService.userId);
+				else if (response.error) this.handleError(response.error);
+				else this.handleSuccess(response);
 			});
 	}
 
+	retryImage() {
+		const fd = this.formData as FormData;
+		fd.append('userId', this.authService.userId);
+		this.clearAll();
+		this.authService
+			.uploadFile(fd)
+			.pipe(untilDestroyed(this))
+			.subscribe(response => {
+				if (response.error && response.status === 404) this.handleWarning(response.error, this.authService.userId);
+				else if (response.error) this.handleError(response.error);
+				else this.handleSuccess(response);
+			});
+	}
+
+	clearAll() {
+		this.clearError();
+		this.clearWarning();
+		this.clearSuccess();
+	}
+
+	clearSuccess() {
+		this.success$ = of(null);
+	}
+
+	handleWarning(errorResponse: any, userId: string) {
+		this.registerForm.reset();
+		this.warning$ = of(errorResponse);
+	}
+	handleError(errorResponse: any) {
+		this.error$ = of(errorResponse);
+	}
+	handleSuccess(response: any) {
+		this.registerForm.reset();
+		this.success$ = of(response);
+	}
+
 	private get formData() {
-		return this.getControl('useFaceAsAuthMethod').value && this.userImage
+		return (this.getControl('useFaceAsAuthMethod').value && this.userImage) || (this.isForRetry && this.userImage)
 			? FileProcess.dataURLtoFormData(this.getControl('username').value, this.userImage.imageAsDataUrl)
 			: undefined;
 	}
@@ -105,5 +152,13 @@ export class RegisterComponent implements OnInit {
 
 	getControl(prop: string): FormControl {
 		return this.registerForm.controls[prop as keyof FormGroup<any>] as FormControl;
+	}
+
+	get disabled() {
+		return (
+			(!this.getControl('useFaceAsAuthMethod').value && !this.registerForm.valid) ||
+			(this.getControl('useFaceAsAuthMethod').value && !this.userImage) ||
+			this.isForRetry
+		);
 	}
 }

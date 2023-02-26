@@ -8,7 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { BaseResponse } from 'src/core/models/base-response.dto';
-import { RegisterRequest } from 'src/user/models/register-request.dto';
+import { RegisterRequest } from 'src/auth/models/register-request.dto';
 import { User } from 'src/user/models/user.schema';
 import { UserService } from 'src/user/user.service';
 import { TokenResponse } from './models/token-response.dto';
@@ -28,9 +28,12 @@ export class AuthService {
 	async register(
 		registerData: RegisterRequest
 	): Promise<{ userId: string; message: string }> {
+		const faceAuth = registerData.useFaceAsAuthMethod ? 'pending' : 'disabled';
 		const user = await this.userService.createUser({
 			...registerData,
 			password: await bcrypt.hash(registerData.password, bcrypt.genSaltSync()),
+			faceAuth: faceAuth,
+			requestedFaceAuthChange: faceAuth === 'pending',
 		});
 		return { userId: user._id.toString(), message: 'Registered with success!' };
 	}

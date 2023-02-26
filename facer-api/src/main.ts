@@ -2,6 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { useContainer } from 'class-validator';
 import * as cookieParser from 'cookie-parser';
 import { config } from 'rxjs';
@@ -32,10 +33,33 @@ function setupSwagger(app: INestApplication) {
 	SwaggerModule.setup('api', app, document);
 }
 
+function setupRabbitMQ(app: INestApplication, configService: ConfigService) {
+	const user = configService.get('RABBIT_USER');
+	const password = configService.get('RABBIT_PASSWORD');
+	const host = configService.get('RABBIT_HOST');
+	const port = configService.get('RABBIT_PORT');
+	const queue = configService.get('RABBIT_QUEUE_NAME');
+	app.connectMicroservice<MicroserviceOptions>({
+		transport: Transport.RMQ,
+		options: {
+			urls: [`amqp://${user}:${password}@${host}:${port}`],
+			queue: queue,
+			queueOptions: {
+				durable: true,
+			},
+		},
+	});
+}
+
 async function bootstrap() {
+	// const app =
 	const app = await setupApp();
 	const configService = app.get(ConfigService);
+	setupRabbitMQ(app, configService);
+
 	setupSwagger(app);
+
+	await app.startAllMicroservices();
 	await app.listen(configService.get('PORT'));
 }
 bootstrap();

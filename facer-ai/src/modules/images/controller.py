@@ -2,23 +2,23 @@ from flask_smorest import Blueprint
 from flask_smorest.fields import Upload
 from flask.views import MethodView
 from marshmallow import Schema, fields
-from src.modules.files.schema import FileSchema, UserIdSchema
-from src.modules.files.service import uploadFile
+from src.modules.images.schema import FileSchema, UserIdSchema
+from src.modules.images.service import uploadFile
 
-filesApi =  Blueprint(
+imagesApi =  Blueprint(
     "Files API",
     __name__,
     url_prefix="/ai/v1/files",
     description="Api to manage images"
 )
 
-@filesApi.route('/upload')
+@imagesApi.route('/upload')
 class Upload(MethodView):
   
   @classmethod
-  @filesApi.arguments(FileSchema, location='files')
-  @filesApi.arguments(UserIdSchema, location='form')
-  @filesApi.response(200)
+  @imagesApi.arguments(FileSchema, location='files')
+  @imagesApi.arguments(UserIdSchema, location='form')
+  @imagesApi.response(200)
   def post(cls, file, userId):
     response = uploadFile(file['file'], userId['userId'])
     return response

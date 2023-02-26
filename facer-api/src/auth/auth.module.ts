@@ -8,6 +8,10 @@ import { AuthController } from './auth.controller';
 import { UserModule } from 'src/user/user.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import {
+	UserExists,
+	UserExistsRule,
+} from 'src/core/validators/user-exists.validator';
 
 @Module({
 	imports: [
@@ -23,7 +27,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 			}),
 		}),
 	],
-	providers: [AuthService, LocalStrategy, JwtStrategy],
+	providers: [AuthService, UserExistsRule, LocalStrategy, JwtStrategy],
 	controllers: [AuthController],
 })
 export class AuthModule {}

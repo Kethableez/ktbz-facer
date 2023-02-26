@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpErrorService } from 'src/app/core/services/http-error.service';
+import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { environment } from 'src/environments/environment';
 
 export interface NameAvailability {
@@ -30,7 +31,9 @@ export class AuthService {
 	private readonly apiUrl = environment.apiUrl;
 	private readonly aiUrl = environment.aiUrl;
 
-	constructor(private http: HttpClient, private errorService: HttpErrorService) {}
+	userId: string = '';
+
+	constructor(private http: HttpClient, private errorService: HttpErrorService, private notificationService: NotificationsService) {}
 
 	checkAvailability(value: string, type: 'email' | 'username'): Observable<NameAvailability> {
 		const url = `${this.apiUrl}/user/availability/${type}`;
@@ -40,20 +43,29 @@ export class AuthService {
 		return this.http.post<NameAvailability>(url, payload);
 	}
 
+	uploadFile(request: FormData) {
+		const fileUrl = `${this.aiUrl}/files/upload`;
+		return this.http.post<{ message: string }>(fileUrl, request).pipe(
+			catchError((error: any) => {
+				return of(error);
+			})
+		);
+	}
+
 	register(request: { payload: RegisterRequest; data?: FormData }) {
 		const url = `${this.apiUrl}/auth/register`;
 		return this.http.post<{ userId: string; message: string }>(url, request.payload).pipe(
 			switchMap(response => {
 				if (request.data) {
+					this.userId = response.userId;
 					const fileUrl = `${this.aiUrl}/files/upload`;
 					request.data.append('userId', response.userId);
-					return this.http.post<{ message: string }>(fileUrl, request.data).pipe(map(() => response.message));
+					return this.http.post<{ message: string }>(fileUrl, request.data);
 				}
-				return of(response.message);
+				return of(response);
 			}),
 			catchError((error: any) => {
-				this.errorService.addError('register', error.error.message);
-				return of(null);
+				return of(error);
 			})
 		);
 	}

@@ -21,22 +21,21 @@ button {
 	font-size: 20px;
 	padding: 0.8rem 2.2rem;
 
-  &.rounded {
-    padding: 0.8rem;
-    border-radius: 2000px;
-  }
+	&.rounded {
+		padding: 0.8rem;
+		border-radius: 2000px;
+	}
 }
 
 .btn-sm {
 	font-size: 16px;
 	padding: 0.4rem 1.8rem;
 
-  &.rounded {
-    padding: 0.4rem;
-    border-radius: 2000px;
-  }
+	&.rounded {
+		padding: 0.4rem;
+		border-radius: 2000px;
+	}
 }
-
 
 .btn,
 .btn-sm {
@@ -54,13 +53,12 @@ button {
 
 			&:hover {
 				background-color: colors.$primary-hover;
-			border: 2px solid colors.$primary-hover;
-
+				border: 2px solid colors.$primary-hover;
 			}
 
 			&:active {
 				background-color: colors.$primary-hover;
-			border: 2px solid colors.$primary-hover;
+				border: 2px solid colors.$primary-hover;
 
 				box-shadow: none;
 			}
@@ -88,17 +86,17 @@ button {
 
 		&.secondary {
 			background-color: colors.$secondary;
-      border: 2px solid colors.$secondary;
+			border: 2px solid colors.$secondary;
 			color: colors.$white;
 
 			&:hover {
 				background-color: colors.$secondary-hover;
-        border: 2px solid colors.$secondary-hover;
+				border: 2px solid colors.$secondary-hover;
 			}
 
 			&:active {
 				background-color: colors.$secondary-hover;
-        border: 2px solid colors.$secondary-hover;
+				border: 2px solid colors.$secondary-hover;
 				box-shadow: none;
 			}
 			span {
@@ -125,17 +123,17 @@ button {
 
 		&.accent {
 			background-color: colors.$accent;
-      border: 2px solid colors.$accent;
+			border: 2px solid colors.$accent;
 			color: colors.$white;
 
 			&:hover {
 				background-color: colors.$accent-hover;
-        border: 2px solid colors.$accent-hover;
+				border: 2px solid colors.$accent-hover;
 			}
 
 			&:active {
 				background-color: colors.$accent-hover;
-        border: 2px solid colors.$accent-hover;
+				border: 2px solid colors.$accent-hover;
 				box-shadow: none;
 			}
 			span {
@@ -162,17 +160,17 @@ button {
 
 		&.warning {
 			background-color: colors.$warning;
-      border: 2px solid colors.$warning;
+			border: 2px solid colors.$warning;
 			color: colors.$white;
 
 			&:hover {
 				background-color: colors.$warning-hover;
-        border: 2px solid colors.$warning-hover;
+				border: 2px solid colors.$warning-hover;
 			}
 
 			&:active {
 				background-color: colors.$warning-hover;
-        border: 2px solid colors.$warning-hover;
+				border: 2px solid colors.$warning-hover;
 				box-shadow: none;
 			}
 		}
@@ -196,17 +194,17 @@ button {
 
 		&.success {
 			background-color: colors.$success;
-      border: 2px solid colors.$success;
+			border: 2px solid colors.$success;
 			color: colors.$white;
 
 			&:hover {
 				background-color: colors.$success-hover;
-        border: 2px solid colors.$success-hover;
+				border: 2px solid colors.$success-hover;
 			}
 
 			&:active {
 				background-color: colors.$success-hover;
-        border: 2px solid colors.$success-hover;
+				border: 2px solid colors.$success-hover;
 				box-shadow: none;
 			}
 		}
@@ -230,17 +228,17 @@ button {
 
 		&.error {
 			background-color: colors.$error;
-      border: 2px solid colors.$error;
+			border: 2px solid colors.$error;
 			color: colors.$white;
 
 			&:hover {
 				background-color: colors.$error-hover;
-        border: 2px solid colors.$error-hover;
+				border: 2px solid colors.$error-hover;
 			}
 
 			&:active {
 				background-color: colors.$error-hover;
-        border: 2px solid colors.$error-hover;
+				border: 2px solid colors.$error-hover;
 				box-shadow: none;
 			}
 		}
@@ -264,17 +262,17 @@ button {
 
 		&.white {
 			background-color: colors.$white;
-      border: 2px solid colors.$white;
-			color: colors.$white;
+			border: 2px solid colors.$white;
+			color: colors.$black;
 
 			&:hover {
 				background-color: colors.$white-hover;
-        border: 2px solid colors.$white-hover;
+				border: 2px solid colors.$white-hover;
 			}
 
 			&:active {
 				background-color: colors.$white-hover;
-        border: 2px solid colors.$white-hover;
+				border: 2px solid colors.$white-hover;
 				box-shadow: none;
 			}
 		}

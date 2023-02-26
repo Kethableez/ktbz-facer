@@ -7,10 +7,12 @@ import {
 	MaxLength,
 	MinLength,
 } from 'class-validator';
+import { UserExists } from 'src/core/validators/user-exists.validator';
 
 export class RegisterRequest {
 	@IsNotEmpty()
 	@IsString()
+	@UserExists('username')
 	@ApiProperty()
 	username: string;
 
@@ -18,6 +20,7 @@ export class RegisterRequest {
 	@IsString()
 	@IsEmail()
 	@ApiProperty()
+	@UserExists('email')
 	email: string;
 
 	@IsNotEmpty()

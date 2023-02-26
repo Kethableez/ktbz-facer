@@ -33,7 +33,10 @@ export class User {
 
 	@Prop({ required: true })
 	@ApiProperty()
-	useFaceAsAuthMethod: boolean;
+	faceAuth: string;
+
+	@Prop({ required: true })
+	requestedFaceAuthChange: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

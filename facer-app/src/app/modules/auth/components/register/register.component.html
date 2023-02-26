@@ -2,8 +2,20 @@
 <ktbz-alert *ngIf="error$ | async as error" (onDismiss)="clearError()" type="error">
 	<span class="bold highlighted--white">{{ error.message }}</span>
 </ktbz-alert>
-<ktbz-alert *ngIf="successMessage" type="success" [dismissable]="false">
-	<span class="bold highlighted--white">{{ successMessage }}</span>
+<ktbz-alert *ngIf="success$ | async as success" type="success" [dismissable]="false">
+	<span class="bold highlighted--white">Registered with success</span>
+</ktbz-alert>
+<ktbz-alert *ngIf="warning$ | async as warning" type="warning" [dismissable]="false">
+	<div>
+		<span class="bold highlighted--white">
+			We couldnt process given image. Make sure that your surrounding lightning is correct, and your face is places inside rectangle.
+		</span>
+		<span class="bold highlighted--white">Do you want to take new picture now?</span>
+		<div class="buttonsWrapper">
+			<button class="btn-sm primary" (click)="toggleScan(true, true)">Yes</button>
+			<button class="btn-sm white" (click)="clearWarning()">Remind me later</button>
+		</div>
+	</div>
 </ktbz-alert>
 <form [formGroup]="registerForm">
 	<ktbz-control label="Username" type="text" [control]="getControl('username')"></ktbz-control>
@@ -23,7 +35,7 @@
 
 	<div class="form__buttons">
 		<button (click)="close()" class="btn error-outlined">Cancel</button>
-		<button [disabled]="!registerForm.valid" (click)="submit()" class="btn primary">Register</button>
+		<button [disabled]="disabled" (click)="submit()" class="btn primary">Register</button>
 	</div>
 </form>
 <div class="scannerWrapper" *ngIf="scanEnabled">

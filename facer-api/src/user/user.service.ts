@@ -2,15 +2,25 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { first, isEmpty } from 'lodash';
 import { Model } from 'mongoose';
+import { RegisterRequest } from '../auth/models/register-request.dto';
 import { AvailabilityResponse } from './models/availability.dto';
-import { RegisterRequest } from './models/register-request.dto';
 import { User, UserDocument } from './models/user.schema';
 
+export interface FileProcessStatus {
+	status: string;
+	userId: string;
+}
 @Injectable()
 export class UserService {
 	constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-	async createUser(request: RegisterRequest): Promise<User> {
+	async createUser(
+		request: RegisterRequest & {
+			faceAuth: string;
+			requestedFaceAuthChange: boolean;
+		}
+	): Promise<User> {
+		delete request.useFaceAsAuthMethod;
 		const newUser = new this.userModel({ ...request });
 		return newUser.save();
 	}
@@ -40,5 +50,22 @@ export class UserService {
 	): Promise<AvailabilityResponse> {
 		const isAvailable = isEmpty(await this.userModel.find({ [type]: value }));
 		return { available: isAvailable };
+	}
+
+	async updateAuthStatus(payload: FileProcessStatus) {
+		await this.userModel.findByIdAndUpdate(payload.userId, {
+			faceAuth: payload.status,
+			requestedFaceAuthChange: payload.status !== 'success',
+		});
+	}
+
+	async checkIfRequested(payload: { userId: string }) {
+		try {
+			const user = await this.getUserById(payload.userId);
+			if (user && user.requestedFaceAuthChange) return { requested: true };
+			else return { requested: false };
+		} catch (err) {
+			return { requested: false };
+		}
 	}
 }
