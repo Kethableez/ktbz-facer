@@ -59,12 +59,14 @@ export class UserService {
 		});
 	}
 
-	async checkIfRequested(payload: { userId: string }) {
+	async checkIfRequested(userId: string) {
 		try {
-			const user = await this.getUserById(payload.userId);
+			const user = await this.getUserById(userId);
+			console.log(user, user.requestedFaceAuthChange);
 			if (user && user.requestedFaceAuthChange) return { requested: true };
 			else return { requested: false };
 		} catch (err) {
+			console.log(err);
 			return { requested: false };
 		}
 	}

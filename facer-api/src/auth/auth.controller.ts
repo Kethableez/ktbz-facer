@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local.guard';
 import { LoginRequest } from './models/login-request.dto';
 import { TokenResponse } from './models/token-response.dto';
+import { spawn } from 'child_process';
 
 @Controller('auth')
 @ApiTags('Auth')

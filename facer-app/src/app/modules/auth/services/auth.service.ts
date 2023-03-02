@@ -5,6 +5,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpErrorService } from 'src/app/core/services/http-error.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { environment } from 'src/environments/environment';
+import { v4 } from 'uuid';
 
 export interface NameAvailability {
 	available: boolean;
@@ -50,6 +51,18 @@ export class AuthService {
 				return of(error);
 			})
 		);
+	}
+
+	sse() {
+		const clientId = v4();
+		const sseUrl = `${this.apiUrl}/user/sse/${clientId}`;
+		// return this.http.get(sseUrl);
+		return new Observable(obs => {
+			const es = new EventSource(sseUrl);
+			es.addEventListener('message', evt => {
+				obs.next(JSON.parse(evt.data));
+			});
+		});
 	}
 
 	register(request: { payload: RegisterRequest; data?: FormData }) {

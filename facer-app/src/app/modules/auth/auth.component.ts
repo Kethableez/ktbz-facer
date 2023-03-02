@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
 	selector: 'ktbz-auth',
@@ -6,10 +8,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 	styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-	constructor() {}
+	constructor(private authService: AuthService) {}
 
 	isFormOpened = true;
 	selectedForm = 'login';
+
+	sse$ = this.authService.sse().pipe(tap(r => console.log(r)));
 
 	select(action: string) {
 		this.isFormOpened = true;

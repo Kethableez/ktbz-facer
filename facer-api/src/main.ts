@@ -40,12 +40,18 @@ function setupRabbitMQ(app: INestApplication, configService: ConfigService) {
 	const port = configService.get('RABBIT_PORT');
 	const queue = configService.get('RABBIT_QUEUE_NAME');
 	app.connectMicroservice<MicroserviceOptions>({
-		transport: Transport.RMQ,
+		// transport: Transport.RMQ,
+		// options: {
+		// 	urls: [`amqp://${user}:${password}@${host}:${port}`],
+		// 	queue: queue,
+		// 	queueOptions: {
+		// 		durable: true,
+		// 	},
+		// },
+		transport: Transport.KAFKA,
 		options: {
-			urls: [`amqp://${user}:${password}@${host}:${port}`],
-			queue: queue,
-			queueOptions: {
-				durable: true,
+			client: {
+				brokers: ['localhost:9092'],
 			},
 		},
 	});

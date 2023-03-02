@@ -3,6 +3,7 @@ from datetime import datetime
 from os import path
 from typing import Type
 from cryptography.fernet import Fernet
+import requests
 
 import cv2
 import face_recognition as fr
@@ -10,9 +11,21 @@ import numpy as np
 from flask_mongoengine import Document
 from src.modules.encodings.service import encodeDLIB
 from src.modules.images.schema import FaceDetectionError, ImageDocument, InvalidUserIdError
-from src.rabbit import client
 from werkzeug.datastructures import FileStorage
 from src.common import settings
+import json
+from kafka import KafkaProducer
+
+def serializer(message):
+  return json.dumps(message).encode('utf-8')
+
+def deserializer(message):
+  return json.loads(message.decode('utf-8'))
+
+kp = KafkaProducer(
+  bootstrap_servers = 'localhost:9092',
+  value_serializer=serializer,
+)
 
 fernet = Fernet(settings.cryptoKey)
 
@@ -21,20 +34,21 @@ def uploadFile(file: FileStorage, userId: str):
   if not path.exists('./data'):
     os.mkdir('./data')
 
-  payload = client.send('file-process.is-requested', { 'userId': userId })
-  if payload['requested']:
+  response = requests.get('http://localhost:9000/api/v1/user/check-if-requested/{}'.format(userId), headers={"Key": "TwojaStara"}).json()
+  print(response)
+  if response['requested']:
     if validateImg(file, userId):
       existingDocument = findFileByUserId(userId)
       if existingDocument == None:
         saveFile(file.filename, userId)
-        client.send('file-process.process-end', { 'status': 'success', 'userId': userId })
+        kp.send('file-process.end', { 'status': 'success', 'userId': userId })
         return { 'message': 'Uploaded new file'}
       else:
         updateFile(existingDocument)
-        client.send('file-process.process-end', { 'status': 'success', 'userId': userId })
+        kp.send('file-process.end', { 'status': 'success', 'userId': userId })
         return { 'message': 'Updated existing file'}
     else:
-      client.send('file-process.process-end', { 'status': 'failed', 'userId': userId })
+      kp.send('file-process.end', { 'status': 'failed', 'userId': userId })
       raise FaceDetectionError()
   else:
     raise InvalidUserIdError()

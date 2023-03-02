@@ -5,7 +5,6 @@ from flask_socketio import SocketIO
 from src.config import FlaskConf
 from src.modules.routes import configureRoutes
 from time import sleep
-from src.rabbit import client
 
 def createApi():
   api = Flask('facer-ai')
