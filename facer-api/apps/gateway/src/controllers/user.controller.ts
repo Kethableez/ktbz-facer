@@ -30,8 +30,8 @@ export class UserController {
 	}
 
 	@Get('current')
-	@UseInterceptors(CatchExceptionInterceptor)
 	@UseGuards(JwtAuthGuard)
+	@UseInterceptors(CatchExceptionInterceptor)
 	getCurrentUserData(@Req() request): Observable<User> {
 		return this.gatewayClient.send('get-user', { userId: request.user.userId });
 	}

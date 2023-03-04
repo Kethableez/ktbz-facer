@@ -1,5 +1,6 @@
+import { RmqService } from '@ktbz/common';
 import { CatchExceptionInterceptor } from '@ktbz/common/interceptors/catch-exception.interceptor';
-import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { Controller, UseInterceptors } from '@nestjs/common';
 import {
 	Ctx,
 	MessagePattern,
@@ -10,7 +11,10 @@ import { FileService } from './file.service';
 
 @Controller()
 export class FileController {
-	constructor(private readonly fileService: FileService) {}
+	constructor(
+		private readonly fileService: FileService,
+		private readonly rmqService: RmqService
+	) {}
 
 	@MessagePattern('file-recieved')
 	@UseInterceptors(CatchExceptionInterceptor)
@@ -18,9 +22,7 @@ export class FileController {
 		@Payload() payload: { file: Express.Multer.File; userId: string },
 		@Ctx() context: RmqContext
 	) {
-		const channel = context.getChannelRef();
-		const msg = context.getMessage();
-		channel.ack(msg);
+		this.rmqService.ack(context);
 		const resp = await this.fileService.saveFile(payload);
 		return resp;
 	}

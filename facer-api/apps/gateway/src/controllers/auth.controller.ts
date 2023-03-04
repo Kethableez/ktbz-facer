@@ -17,18 +17,18 @@ import { LocalAuthGuard } from 'apps/auth/src/guards/local.guard';
 export class AuthController {
 	constructor(@Inject('AUTH') private authClient: ClientProxy) {}
 
+	@Post('login')
 	@UseGuards(LocalAuthGuard)
 	@UseInterceptors(CatchExceptionInterceptor)
-	@Post('login')
 	async login(@Req() request) {
 		return this.authClient.send('login', { user: request.user });
 	}
 
-	@UseInterceptors(CatchExceptionInterceptor, FileInterceptor('file'))
 	@Post('face-login')
+	@UseInterceptors(CatchExceptionInterceptor, FileInterceptor('file'))
 	async faceLogin(
 		@UploadedFile() file: Express.Multer.File,
-		@Body() body: any
+		@Body() body: { model: string }
 	) {
 		return this.authClient.send('face-login', {
 			file: file,

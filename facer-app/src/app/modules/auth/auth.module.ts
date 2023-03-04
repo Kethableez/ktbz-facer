@@ -9,10 +9,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WebcamModule } from 'ngx-webcam';
 import { WebcamComponent } from './components/webcam/webcam.component';
-import { WebsocketComponent } from './components/websocket/websocket.component';
 
 @NgModule({
-	declarations: [AuthComponent, LoginComponent, RegisterComponent, WebcamComponent, WebsocketComponent],
+	declarations: [AuthComponent, LoginComponent, RegisterComponent, WebcamComponent],
 	imports: [CommonModule, WebcamModule, SharedModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
 })
 export class AuthModule {}

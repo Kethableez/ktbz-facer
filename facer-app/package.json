@@ -20,7 +20,6 @@
 		"@angular/router": "^14.1.0",
 		"@ngneat/until-destroy": "^9.2.3",
 		"@types/uuid": "^9.0.1",
-		"ngx-socket-io": "4.3",
 		"ngx-webcam": "^0.4.1",
 		"rxjs": "~7.5.0",
 		"tslib": "^2.3.0",

@@ -1,5 +1,4 @@
 import { CatchExceptionInterceptor } from '@ktbz/common/interceptors/catch-exception.interceptor';
-import { HttpService } from '@nestjs/axios/dist';
 import { Controller, Inject } from '@nestjs/common';
 import {
 	Body,
@@ -12,16 +11,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('file')
 export class FileController {
-	constructor(
-		@Inject('FILE') private fileClient: ClientProxy,
-		private httpService: HttpService
-	) {}
+	constructor(@Inject('FILE') private fileClient: ClientProxy) {}
 
-	@UseInterceptors(CatchExceptionInterceptor, FileInterceptor('file'))
 	@Post('upload')
+	@UseInterceptors(CatchExceptionInterceptor, FileInterceptor('file'))
 	async uploadFile(
 		@UploadedFile() file: Express.Multer.File,
-		@Body() body: any
+		@Body() body: { userId: string }
 	) {
 		return this.fileClient.send('file-recieved', {
 			file: file,
