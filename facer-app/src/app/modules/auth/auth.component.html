@@ -1,6 +1,7 @@
 <div class="page--full bg-img">
 	<div class="flex">
-		<div class="col">
+		<ktbz-websocket></ktbz-websocket>
+		<!-- <div class="col">
 			<h1 class="bold highlighted--white">
 				Create new
 				<span class="italic highlighted--muted">ACCOUNT</span>
@@ -15,10 +16,10 @@
 			<button class="btn primary" (click)="select('login')">
 				<span class="material-symbols-outlined">login</span>
 			</button>
-		</div>
+		</div> -->
 	</div>
 </div>
-<div class="formWrapper" *ngIf="isFormOpened">
+<!-- <div class="formWrapper" *ngIf="isFormOpened">
 	<ktbz-box>
 		<ng-container *ngIf="selectedForm === 'login'; else register">
 			<ktbz-login (onClose)="closeForms()"></ktbz-login>
@@ -27,6 +28,6 @@
 			<ktbz-register (onClose)="closeForms()"></ktbz-register>
 		</ng-template>
 	</ktbz-box>
-</div>
+</div> -->
 
 <!-- <ng-container *ngIf="sse$ | async"></ng-container> -->

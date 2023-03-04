@@ -1,6 +1,6 @@
 <div class="webcamWrapper">
 	<div class="webcamWrapper__capture" *ngIf="!image">
-		<button [ngClass]="variant === 'register' ? 'btn' : 'btn-sm'" class="white rounded switchBtn" (click)="switchCamera()">
+		<button type="button" [ngClass]="variant === 'register' ? 'btn' : 'btn-sm'" class="white rounded switchBtn" (click)="switchCamera()">
 			<span class="material-symbols-outlined">cameraswitch</span>
 		</button>
 		<div class="webcamMask" *ngIf="variant === 'register'"></div>
@@ -25,6 +25,14 @@
 			<button class="btn error-outlined" (click)="close()">Cancel</button>
 			<button class="btn accent" (click)="takeNew()">Take new photo</button>
 			<button class="btn success" (click)="saveImage()">Looks good to me</button>
+		</div>
+	</div>
+	<div class="webcamWrapper__preview--login" *ngIf="image && variant === 'login'">
+		<img [src]="image.imageAsDataUrl" />
+		<div class="buttons">
+			<button class="btn-sm error-outlined" (click)="close()">Cancel</button>
+			<button class="btn-sm accent" (click)="takeNew()">Take new</button>
+			<button class="btn-sm success" (click)="saveImage()">Login</button>
 		</div>
 	</div>
 </div>

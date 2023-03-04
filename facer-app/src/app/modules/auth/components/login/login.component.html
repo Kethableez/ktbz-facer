@@ -25,4 +25,9 @@
 		<button [disabled]="!standardLoginForm.valid" (click)="submit()" class="btn primary">Login</button>
 	</div>
 </form>
-<ktbz-webcam *ngIf="isActive(LoginMethods.FACE_ID)" variant="login"></ktbz-webcam>
+<form [formGroup]="faceIdForm" *ngIf="isActive(LoginMethods.FACE_ID)">
+	<ktbz-webcam variant="login" (onImageSave)="processRequest($event)"></ktbz-webcam>
+	<select formControlName="model">
+		<option value="dlib">DLIB</option>
+	</select>
+</form>

@@ -89,4 +89,9 @@ export class AuthService {
 			.post<{ userId: string }>(url, payload)
 			.pipe(catchError((error: any) => of(this.errorService.addError('login', error.error.message))));
 	}
+
+	faceLogin(formData: FormData) {
+		const url = `${this.apiUrl}/auth/face-login`;
+		return this.http.post(url, formData).pipe(catchError((error: any) => of(this.errorService.addError('login', error.error.message))));
+	}
 }
