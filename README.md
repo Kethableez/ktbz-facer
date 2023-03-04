@@ -6,7 +6,7 @@ This is repository for Master Degree Thesis.
 Project contains 3 main modules:
 
 1. **Facer APP** _[Angular]_ - Client application to test different authentication methods including Face Recognition System (FRS).
-2. **Facer API** _[Nest]_ - Rest API with standard authentication and basic user and content management.
+2. **Facer API** _[Nest]_ - REST API build as microservices with gateway and RabbitMQ communication for handling user registration and authentication
 3. **Facer AI** _[Python]_ - AI module with different Face Recognition methods including my own attempt and Rest API to comunicate with Client App.
 
 ## Goal
@@ -38,6 +38,7 @@ This project has 3 main goals:
 
 ### Tools
 
+![rabbitMQ](https://img.shields.io/badge/rabbitmq-FF6600?style=for-the-badge&logo=RabbitMQ&logoColor=white)
 ![nginx](https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white)
 ![Tensorflow](https://img.shields.io/badge/tensorflow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
