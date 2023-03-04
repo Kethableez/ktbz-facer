@@ -11,3 +11,18 @@ services:
       - "15672:15672"
     env_file:
       - ./rabbitmq.env
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    command: mongod --port 27000
+    networks:
+      - internal
+    expose:
+      - 27000
+    ports:
+      - "27000:27000"
+
+networks:
+  internal:
+    driver: bridge
