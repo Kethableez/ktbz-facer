@@ -16,6 +16,20 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@ktbz/common": [
+        "libs/common/src"
+      ],
+      "@ktbz/common/*": [
+        "libs/common/src/*"
+      ],
+      "@user": [
+        "apps/user/src"
+      ],
+      "@user/*": [
+        "apps/user/src/*"
+      ]
+    }
   }
 }

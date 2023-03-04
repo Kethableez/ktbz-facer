@@ -13,8 +13,6 @@ export class AuthComponent {
 	isFormOpened = true;
 	selectedForm = 'login';
 
-	sse$ = this.authService.sse().pipe(tap(r => console.log(r)));
-
 	select(action: string) {
 		this.isFormOpened = true;
 		this.selectedForm = action;

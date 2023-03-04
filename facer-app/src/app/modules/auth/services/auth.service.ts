@@ -53,25 +53,25 @@ export class AuthService {
 		);
 	}
 
-	sse() {
-		const clientId = v4();
-		const sseUrl = `${this.apiUrl}/user/sse/${clientId}`;
-		// return this.http.get(sseUrl);
-		return new Observable(obs => {
-			const es = new EventSource(sseUrl);
-			es.addEventListener('message', evt => {
-				obs.next(JSON.parse(evt.data));
-			});
-		});
-	}
+	// sse() {
+	// 	const clientId = v4();
+	// 	const sseUrl = `${this.apiUrl}/user/sse/${clientId}`;
+	// 	// return this.http.get(sseUrl);
+	// 	return new Observable(obs => {
+	// 		const es = new EventSource(sseUrl);
+	// 		es.addEventListener('message', evt => {
+	// 			obs.next(JSON.parse(evt.data));
+	// 		});
+	// 	});
+	// }
 
 	register(request: { payload: RegisterRequest; data?: FormData }) {
-		const url = `${this.apiUrl}/auth/register`;
+		const url = `${this.apiUrl}/user/register`;
 		return this.http.post<{ userId: string; message: string }>(url, request.payload).pipe(
 			switchMap(response => {
 				if (request.data) {
 					this.userId = response.userId;
-					const fileUrl = `${this.aiUrl}/files/upload`;
+					const fileUrl = `${this.apiUrl}/file/upload`;
 					request.data.append('userId', response.userId);
 					return this.http.post<{ message: string }>(fileUrl, request.data);
 				}
