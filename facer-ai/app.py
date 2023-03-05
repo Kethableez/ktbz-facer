@@ -14,5 +14,5 @@ api = createApi()
 #   socket.emit('test', {'message': 'ty kurwo'})
 
 if __name__ == '__main__':
-  api.run(port=settings.app_port)
+  api.run(host="0.0.0.0", port=settings.app_port)
   # socket.run(api, debug=True)

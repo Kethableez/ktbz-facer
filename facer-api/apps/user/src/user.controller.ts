@@ -8,7 +8,7 @@ import {
 	Ctx,
 	MessagePattern,
 	Payload,
-	RmqContext
+	RmqContext,
 } from '@nestjs/microservices';
 import { CatchExceptionInterceptor } from '../../../libs/common/src/interceptors/catch-exception.interceptor';
 import { User } from './models/user.schema';
@@ -23,7 +23,10 @@ export class UserController {
 
 	@MessagePattern('create-user')
 	@UseInterceptors(CatchExceptionInterceptor)
-	createUserEvent(@Payload() data: RegisterRequest, @Ctx() context: RmqContext): Promise<BaseResponse & any> {
+	createUserEvent(
+		@Payload() data: RegisterRequest,
+		@Ctx() context: RmqContext
+	): Promise<BaseResponse & any> {
 		this.rmqService.ack(context);
 		const response = this.userService.createUser(data);
 		return response;
@@ -31,7 +34,10 @@ export class UserController {
 
 	@MessagePattern('get-user')
 	@UseInterceptors(CatchExceptionInterceptor)
-	getUserEvent(@Payload() data: UserId, @Ctx() context: RmqContext): Promise<User> {
+	getUserEvent(
+		@Payload() data: UserId,
+		@Ctx() context: RmqContext
+	): Promise<User> {
 		this.rmqService.ack(context);
 		const response = this.userService.getUserById(data.userId);
 		return response;
@@ -39,7 +45,10 @@ export class UserController {
 
 	@MessagePattern('check-availability')
 	@UseInterceptors(CatchExceptionInterceptor)
-	checkNameAvailabilityEvent(@Payload() data: { selector: 'username' | 'email', name: string}, @Ctx() context: RmqContext): Promise<Availability> {
+	checkNameAvailabilityEvent(
+		@Payload() data: { selector: 'username' | 'email'; name: string },
+		@Ctx() context: RmqContext
+	): Promise<Availability> {
 		this.rmqService.ack(context);
 		const response = this.userService.nameAvailability(
 			data.selector,
@@ -50,7 +59,10 @@ export class UserController {
 
 	@MessagePattern('get-user-by-name')
 	@UseInterceptors(CatchExceptionInterceptor)
-	getUserByNameEvent(@Payload() data: { property: string}, @Ctx() context: RmqContext): Promise<User> {
+	getUserByNameEvent(
+		@Payload() data: { property: string },
+		@Ctx() context: RmqContext
+	): Promise<User> {
 		this.rmqService.ack(context);
 		const response = this.userService.getUserByUsernameOrEmail(data.property);
 		return response;
@@ -58,14 +70,20 @@ export class UserController {
 
 	@MessagePattern('check-if-requested')
 	@UseInterceptors(CatchExceptionInterceptor)
-	checkIfRequestedEvent(@Payload() data: UserId, @Ctx() context: RmqContext): Promise<{ requested: boolean}> {
+	checkIfRequestedEvent(
+		@Payload() data: UserId,
+		@Ctx() context: RmqContext
+	): Promise<{ requested: boolean }> {
 		this.rmqService.ack(context);
 		const response = this.userService.checkIfRequested(data);
 		return response;
 	}
 
 	@MessagePattern('file-process-end')
-	fileProcessEndEvent(@Payload() data: { userId: string, status: string }, @Ctx() context: RmqContext): void {
+	fileProcessEndEvent(
+		@Payload() data: { userId: string; status: string },
+		@Ctx() context: RmqContext
+	): void {
 		this.rmqService.ack(context);
 		this.userService.updateAuthStatus(data);
 	}

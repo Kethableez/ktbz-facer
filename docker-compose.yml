@@ -11,6 +11,8 @@ services:
       - "15672:15672"
     env_file:
       - ./rabbitmq.env
+    networks:
+      - internal
 
   mongo:
     container_name: mongo
@@ -18,10 +20,104 @@ services:
     command: mongod --port 27000
     networks:
       - internal
-    expose:
-      - 27000
     ports:
       - "27000:27000"
+
+  facer-ai:
+    container_name: facer-ai
+    build:
+      context: ./facer-ai
+      target: facer-ai
+    depends_on:
+      - mongo
+    networks:
+      - internal
+    volumes:
+      - ./vols/storage:/ai/data
+    expose:
+      - 5000
+    ports:
+      - "5000:5000"
+
+  facer-api-gateway:
+    container_name: facer-api-gateway
+    build:
+      context: ./facer-api
+      dockerfile: ./apps/gateway/Dockerfile
+      target: dev
+    env_file:
+      - ./facer-api/libs/common/.env
+    command: npm run start:dev gateway
+    depends_on:
+      - mongo
+      - rabbitmq
+      - facer-api-auth
+      - facer-api-user
+      - facer-api-file
+    volumes:
+      - ./facer-api:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '9000:9000'
+    expose:
+      - 9000
+    networks:
+      - internal
+
+  facer-api-auth:
+    container_name: facer-api-auth
+    build:
+      context: ./facer-api
+      dockerfile: ./apps/auth/Dockerfile
+      target: dev
+    env_file:
+      - ./facer-api/libs/common/.env
+    command: npm run start:dev auth
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - ./facer-api:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - internal
+
+  facer-api-user:
+    container_name: facer-api-user
+    build:
+      context: ./facer-api
+      dockerfile: ./apps/user/Dockerfile
+      target: dev
+    env_file:
+      - ./facer-api/libs/common/.env
+    command: npm run start:dev user
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - ./facer-api:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - internal
+
+  facer-api-file:
+    container_name: facer-api-file
+    command: npm run start:dev file
+    build:
+      context: ./facer-api
+      dockerfile: ./apps/file/Dockerfile
+      target: dev
+    env_file:
+      - ./facer-api/libs/common/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - ./facer-api:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - internal
+    
 
 networks:
   internal:

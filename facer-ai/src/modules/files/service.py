@@ -1,19 +1,15 @@
 import os
 from datetime import datetime
 from os import path
-from typing import Type
 from cryptography.fernet import Fernet
-import requests
 
 import cv2
 import face_recognition as fr
 import numpy as np
-from flask_mongoengine import Document
 from src.modules.model.service import encodeDLIB
-from src.modules.files.schema import FaceDetectionError, ImageDocument, InvalidUserIdError
+from src.modules.files.schema import FaceDetectionError
 from werkzeug.datastructures import FileStorage
 from src.common import settings
-import json
 
 
 fernet = Fernet(settings.cryptoKey)

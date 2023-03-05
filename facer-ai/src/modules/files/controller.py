@@ -1,7 +1,5 @@
 from flask_smorest import Blueprint
-from flask_smorest.fields import Upload
 from flask.views import MethodView
-from marshmallow import Schema, fields
 from src.modules.files.schema import UserIdSchema
 from src.common.schema import FileSchema
 from src.modules.files.service import uploadFile

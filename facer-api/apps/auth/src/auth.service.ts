@@ -23,6 +23,11 @@ export class AuthService {
 		private jwtService: JwtService
 	) {}
 
+	private readonly apiModelUrl = [
+		this.configService.get('API_AI_URI'),
+		'model/static-recognise',
+	].join('/');
+
 	async hashPassword(plainPassword: PlainPassword): Promise<string> {
 		return await bcrypt.hash(
 			plainPassword.password,
@@ -67,7 +72,10 @@ export class AuthService {
 		return isMatching;
 	}
 
-	async faceLogin(file: Express.Multer.File, model: string): Promise<TokenResponse> {
+	async faceLogin(
+		file: Express.Multer.File,
+		model: string
+	): Promise<TokenResponse> {
 		const fd = this.getFormData(file, model);
 		const response = await this.handleApiCall(fd);
 		const user = await firstValueFrom(
@@ -80,18 +88,16 @@ export class AuthService {
 		formData: FormData
 	): Promise<{ foundId: string }> {
 		return await firstValueFrom(
-			this.httpService
-				.post('http://localhost:5000/ai/v1/model/static-recognise', formData)
-				.pipe(
-					map((response) => response.data),
-					catchError((err: AxiosError) => {
-						const { code, message } = err.response.data as any;
-						throw new RpcException({
-							message: message,
-							statusCode: code,
-						});
-					})
-				)
+			this.httpService.post(this.apiModelUrl, formData).pipe(
+				map((response) => response.data),
+				catchError((err: AxiosError) => {
+					const { code, message } = err.response.data as any;
+					throw new RpcException({
+						message: message,
+						statusCode: code,
+					});
+				})
+			)
 		);
 	}
 

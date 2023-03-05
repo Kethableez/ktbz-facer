@@ -4,6 +4,7 @@ import { SimpleBuffer } from '@ktbz/common/models/simple-buffer.model';
 import { HttpService } from '@nestjs/axios/dist/http.service';
 import { Injectable } from '@nestjs/common';
 import { Inject } from '@nestjs/common/decorators';
+import { ConfigService } from '@nestjs/config';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { AxiosError } from 'axios';
 import * as FormData from 'form-data';
@@ -16,8 +17,14 @@ export class FileService {
 	constructor(
 		private readonly httpService: HttpService,
 		private readonly fileRepository: FileRepository,
+		private readonly configService: ConfigService,
 		@Inject('USER') private userClient: ClientProxy
 	) {}
+
+	private readonly apiFileUrl = [
+		this.configService.get('API_AI_URI'),
+		'files/upload',
+	].join('/');
 
 	async saveFile(payload: FileWithUserId): Promise<BaseResponse> {
 		const formData = this.getFormData(payload.file, payload.userId);
@@ -35,32 +42,33 @@ export class FileService {
 
 	private async handleApiCall(formData: FormData, userId: string) {
 		return await firstValueFrom(
-			this.httpService
-				.post('http://localhost:5000/ai/v1/files/upload', formData)
-				.pipe(
-					map(async (response) => {
-						this.userClient.emit('file-process-end', {
-							userId: userId,
-							status: 'success',
-						});
-						return response;
-					}),
-					catchError(async (err: AxiosError) => {
-						const { code, message } = err.response.data as any;
-						this.userClient.emit('file-process-end', {
-							userId: userId,
-							status: 'failed',
-						});
-						throw new RpcException({
-							message: message,
-							statusCode: code,
-						});
-					})
-				)
+			this.httpService.post(this.apiFileUrl, formData).pipe(
+				map(async (response) => {
+					this.userClient.emit('file-process-end', {
+						userId: userId,
+						status: 'success',
+					});
+					return response;
+				}),
+				catchError(async (err: AxiosError) => {
+					const { code, message } = err.response.data as any;
+					this.userClient.emit('file-process-end', {
+						userId: userId,
+						status: 'failed',
+					});
+					throw new RpcException({
+						message: message,
+						statusCode: code,
+					});
+				})
+			)
 		);
 	}
 
-	private async handleFileSave(userId: string, filename: string): Promise<BaseResponse> {
+	private async handleFileSave(
+		userId: string,
+		filename: string
+	): Promise<BaseResponse> {
 		const existedFile = first(
 			await this.fileRepository.find({
 				userId: userId,

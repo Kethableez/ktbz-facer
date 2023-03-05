@@ -1,6 +1,5 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint
-# from src.modules.files.schema import FileSchema
 from src.common.schema import FileSchema
 from src.modules.model.schema import ModelSchema
 from src.modules.model.service import staticRecognise
