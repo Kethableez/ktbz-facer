@@ -1,6 +1,3 @@
-from flask import request
-from flask_socketio import SocketIO, emit
-from flask_sockets import Sockets
 from src.api import createApi
 from src.common import settings
 

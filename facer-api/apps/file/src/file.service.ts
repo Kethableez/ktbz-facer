@@ -1,12 +1,14 @@
+import { FileWithUserId } from '@ktbz/common/models/file-with-user-id.model';
+import { BaseResponse } from '@ktbz/common/models/response/base-response.model';
+import { SimpleBuffer } from '@ktbz/common/models/simple-buffer.model';
 import { HttpService } from '@nestjs/axios/dist/http.service';
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Inject } from '@nestjs/common/decorators';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { AxiosError } from 'axios';
 import * as FormData from 'form-data';
 import { first } from 'lodash';
-import { ObjectId } from 'mongoose';
-import { firstValueFrom, map, catchError } from 'rxjs';
+import { catchError, firstValueFrom, map } from 'rxjs';
 import { FileRepository } from './file.repository';
 
 @Injectable()
@@ -17,7 +19,7 @@ export class FileService {
 		@Inject('USER') private userClient: ClientProxy
 	) {}
 
-	async saveFile(payload: { file: Express.Multer.File; userId: string }) {
+	async saveFile(payload: FileWithUserId): Promise<BaseResponse> {
 		const formData = this.getFormData(payload.file, payload.userId);
 
 		const requestedPayload = await firstValueFrom(
@@ -58,29 +60,29 @@ export class FileService {
 		);
 	}
 
-	private async handleFileSave(userId: string, filename: string) {
+	private async handleFileSave(userId: string, filename: string): Promise<BaseResponse> {
 		const existedFile = first(
 			await this.fileRepository.find({
 				userId: userId,
 			})
 		);
 		if (existedFile) {
-			const updated = await this.fileRepository.findOneAndUpdate(
+			await this.fileRepository.findOneAndUpdate(
 				{ _id: existedFile._id },
 				{ lastModifiedAt: new Date() }
 			);
-			return { message: 'Updated user image', file: updated };
+			return { message: 'Updated user image' };
 		}
-		const newFile = await this.fileRepository.create({
+		await this.fileRepository.create({
 			filename: filename,
 			userId: userId,
 			createdAt: new Date(),
 			lastModifiedAt: new Date(),
 		});
-		return { message: 'Created user image', file: newFile };
+		return { message: 'Created user image' };
 	}
 
-	private getFormData(file: Express.Multer.File, userId: string) {
+	private getFormData(file: Express.Multer.File, userId: string): FormData {
 		const formData = new FormData();
 		formData.append('file', this.parseBufferData(file.buffer as any), {
 			filename: file.originalname,
@@ -90,7 +92,7 @@ export class FileService {
 		return formData;
 	}
 
-	private parseBufferData(buffer: { type: 'Buffer'; data: number[] }) {
+	private parseBufferData(buffer: SimpleBuffer): Buffer {
 		return Buffer.from(buffer.data);
 	}
 }

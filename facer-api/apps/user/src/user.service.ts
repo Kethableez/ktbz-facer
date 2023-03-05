@@ -1,9 +1,9 @@
+import { Availability } from '@ktbz/common/models/availability.model';
 import { RegisterRequest } from '@ktbz/common/models/request/register-request.model';
+import { BaseResponse } from '@ktbz/common/models/response/base-response.model';
 import {
-	HttpException,
 	Inject,
-	Injectable,
-	NotFoundException,
+	Injectable
 } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { first, isEmpty } from 'lodash';
@@ -18,7 +18,7 @@ export class UserService {
 		@Inject('AUTH') private authClient: ClientProxy
 	) {}
 
-	async createUser(request: RegisterRequest) {
+	async createUser(request: RegisterRequest): Promise<BaseResponse & any> {
 		const faceAuth = request.useFaceAsAuthMethod ? 'pending' : 'disabled';
 		const requestedFaceAuthChange = faceAuth === 'pending';
 		const hash = await firstValueFrom(
@@ -61,14 +61,14 @@ export class UserService {
 	async nameAvailability(
 		type: 'email' | 'username',
 		value: string
-	): Promise<{ available: boolean }> {
+	): Promise<Availability> {
 		const isAvailable = isEmpty(
 			await this.userRepository.find({ [type]: value })
 		);
 		return { available: isAvailable };
 	}
 
-	async checkIfRequested(payload: { userId: string }) {
+	async checkIfRequested(payload: { userId: string }): Promise<{ requested: boolean}> {
 		try {
 			const user = first(
 				await this.userRepository.find({ _id: payload.userId })
@@ -80,7 +80,7 @@ export class UserService {
 		}
 	}
 
-	async updateAuthStatus(payload: any) {
+	async updateAuthStatus(payload: any): Promise<void> {
 		await this.userRepository.findOneAndUpdate(
 			{ _id: payload.userId },
 			{

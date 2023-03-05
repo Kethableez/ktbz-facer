@@ -1,5 +1,7 @@
 import { RmqService } from '@ktbz/common';
 import { CatchExceptionInterceptor } from '@ktbz/common/interceptors/catch-exception.interceptor';
+import { FileWithModel } from '@ktbz/common/models/file-with-model.model';
+import { PlainPassword } from '@ktbz/common/models/plain-password.model';
 import { Controller, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
 	Ctx,
@@ -8,7 +10,7 @@ import {
 	RmqContext,
 } from '@nestjs/microservices';
 import { User } from '@user/models/user.schema';
-import { AuthService } from './auth.service';
+import { AuthService, TokenResponse } from './auth.service';
 import { CurrentUser } from './current-user.decorator';
 import { JwtGuard } from './guards/jwt.guard';
 
@@ -22,16 +24,16 @@ export class AuthController {
 	@MessagePattern('hash-password')
 	@UseInterceptors(CatchExceptionInterceptor)
 	hashPasswordEvent(
-		@Payload() plainPassword: { password: string },
+		@Payload() plainPassword: PlainPassword,
 		@Ctx() context: RmqContext
-	) {
+	): Promise<string> {
 		this.rmqService.ack(context);
 		return this.authService.hashPassword(plainPassword);
 	}
 
 	@MessagePattern('login')
 	@UseInterceptors(CatchExceptionInterceptor)
-	loginEvent(@Payload() payload: { user: any }, @Ctx() context: RmqContext) {
+	loginEvent(@Payload() payload: { user: any }, @Ctx() context: RmqContext): Promise<TokenResponse> {
 		this.rmqService.ack(context);
 		return this.authService.login(payload.user);
 	}
@@ -39,7 +41,7 @@ export class AuthController {
 	@UseGuards(JwtGuard)
 	@MessagePattern('validate')
 	@UseInterceptors(CatchExceptionInterceptor)
-	validateEvent(@CurrentUser() user: User, @Ctx() context: RmqContext) {
+	validateEvent(@CurrentUser() user: User, @Ctx() context: RmqContext): User{
 		this.rmqService.ack(context);
 		return user;
 	}
@@ -47,9 +49,9 @@ export class AuthController {
 	@MessagePattern('face-login')
 	@UseInterceptors(CatchExceptionInterceptor)
 	faceLoginEvent(
-		@Payload() payload: { file: any; model: string },
+		@Payload() payload: FileWithModel,
 		@Ctx() context: RmqContext
-	) {
+	): Promise<TokenResponse> {
 		this.rmqService.ack(context);
 		return this.authService.faceLogin(payload.file, payload.model);
 	}

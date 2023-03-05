@@ -1,3 +1,5 @@
+import { PlainPassword } from '@ktbz/common/models/plain-password.model';
+import { SimpleBuffer } from '@ktbz/common/models/simple-buffer.model';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -21,7 +23,7 @@ export class AuthService {
 		private jwtService: JwtService
 	) {}
 
-	async hashPassword(plainPassword: { password: string }) {
+	async hashPassword(plainPassword: PlainPassword): Promise<string> {
 		return await bcrypt.hash(
 			plainPassword.password,
 			this.configService.get('HASH_SALT')
@@ -65,7 +67,7 @@ export class AuthService {
 		return isMatching;
 	}
 
-	async faceLogin(file: Express.Multer.File, model: string) {
+	async faceLogin(file: Express.Multer.File, model: string): Promise<TokenResponse> {
 		const fd = this.getFormData(file, model);
 		const response = await this.handleApiCall(fd);
 		const user = await firstValueFrom(
@@ -93,7 +95,7 @@ export class AuthService {
 		);
 	}
 
-	private getFormData(file: Express.Multer.File, model: string) {
+	private getFormData(file: Express.Multer.File, model: string): FormData {
 		const formData = new FormData();
 		formData.append('file', this.parseBufferData(file.buffer as any), {
 			filename: '.',
@@ -102,7 +104,7 @@ export class AuthService {
 		return formData;
 	}
 
-	private parseBufferData(buffer: { type: 'Buffer'; data: number[] }) {
+	private parseBufferData(buffer: SimpleBuffer): Buffer {
 		return Buffer.from(buffer.data);
 	}
 }

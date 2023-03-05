@@ -4,8 +4,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from '@user/user.module';
 import * as Joi from 'joi';
-import { GatewayController } from './gateway.controller';
-import { GatewayService } from './gateway.service';
 import { UserController } from './controllers/user.controller';
 import { AuthController } from './controllers/auth.controller';
 import { AuthModule } from 'apps/auth/src/auth.module';
@@ -43,13 +41,11 @@ import { HttpModule } from '@nestjs/axios';
 		AuthModule,
 	],
 	controllers: [
-		GatewayController,
 		UserController,
 		AuthController,
 		FileController,
 	],
 	providers: [
-		GatewayService,
 		UserExistsRule,
 		JwtAuthGuard,
 		{ provide: APP_FILTER, useClass: GrpcServerExceptionFilter },

@@ -16,33 +16,36 @@ import { Observable } from 'rxjs';
 import { BaseResponse } from '@ktbz/common/models/response/base-response.model';
 import { User } from '@user/models/user.schema';
 import { JwtAuthGuard } from '@ktbz/common/auth/jwt-auth.guard';
+import { UserId } from '@ktbz/common/models/user-id.model';
+import { Name } from '@ktbz/common/models/name.model';
+import { Availability } from '@ktbz/common/models/availability.model';
 
 @Controller('user')
 export class UserController {
-	constructor(@Inject('USER') private gatewayClient: ClientProxy) {}
+	constructor(@Inject('USER') private userClient: ClientProxy) {}
 
 	@Post('register')
 	@UseInterceptors(CatchExceptionInterceptor)
 	registerUser(
 		@Body() request: RegisterRequest
-	): Observable<BaseResponse & { userId: string }> {
-		return this.gatewayClient.send('create-user', request);
+	): Observable<BaseResponse & UserId> {
+		return this.userClient.send('create-user', request);
 	}
 
 	@Get('current')
 	@UseGuards(JwtAuthGuard)
 	@UseInterceptors(CatchExceptionInterceptor)
-	getCurrentUserData(@Req() request): Observable<User> {
-		return this.gatewayClient.send('get-user', { userId: request.user.userId });
+	getCurrentUserData(@Req() request: any): Observable<User> {
+		return this.userClient.send('get-user', { userId: request.user.userId });
 	}
 
 	@Post('availability/:selector')
 	@UseInterceptors(CatchExceptionInterceptor)
 	checkAvailability(
 		@Param('selector') selector: string,
-		@Body() body: { name: string }
-	): Observable<{ available: boolean }> {
-		return this.gatewayClient.send('check-availability', {
+		@Body() body: Name
+	): Observable<Availability> {
+		return this.userClient.send('check-availability', {
 			selector: selector,
 			name: body.name,
 		});

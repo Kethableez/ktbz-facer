@@ -1,10 +1,11 @@
+from time import sleep
+
 from flask import Flask
 from flask_cors import CORS
 from flask_mongoengine import MongoEngine
-from flask_socketio import SocketIO
 from src.config import FlaskConf
 from src.modules.routes import configureRoutes
-from time import sleep
+
 
 def createApi():
   api = Flask('facer-ai')
