@@ -1,0 +1,12 @@
+<div class="dropdownContainer">
+	<label>Select data</label>
+	<div class="dropdownBody" [class.focus]="isFocused" [ngClass]="status" (click)="toggle()">
+		{{ displayValue }}
+
+		<i [ngClass]="state === 'open' ? 'chevron-up' : 'chevron-down'"></i>
+	</div>
+	<div class="dropdownItems" *ngIf="state === 'open'">
+		<div class="dropdownItem" [class.active]="isSelected(item)" (click)="selectItem(item)" *ngFor="let item of data">{{ item }}</div>
+	</div>
+	<ktbz-input-error [errors]="errors" *ngIf="errors && control.touched && !isFocused"></ktbz-input-error>
+</div>

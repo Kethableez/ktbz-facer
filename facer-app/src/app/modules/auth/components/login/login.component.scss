@@ -1,62 +1,62 @@
-@use '../../../../../assets/styles/colors';
-@use '../../../../../assets/styles/general';
+// @use '../../../../../assets/styles/colors';
+// @use '../../../../../assets/styles/general';
 
-form {
-	margin-top: 18px;
-	display: flex;
-	flex-direction: column;
+// form {
+// 	margin-top: 18px;
+// 	display: flex;
+// 	flex-direction: column;
 
-	button {
-		margin-top: 36px;
-	}
-}
+// 	button {
+// 		margin-top: 36px;
+// 	}
+// }
 
-ktbz-webcam {
-	margin: 36px;
-}
+// ktbz-webcam {
+// 	margin: 36px;
+// }
 
-span.material-symbols-outlined {
-	font-size: 32px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	cursor: pointer;
-	user-select: none;
-}
+// span.material-symbols-outlined {
+// 	font-size: 32px;
+// 	position: absolute;
+// 	top: 0;
+// 	right: 0;
+// 	cursor: pointer;
+// 	user-select: none;
+// }
 
-h2 {
-	position: relative;
-}
+// h2 {
+// 	position: relative;
+// }
 
-.loginMethodWrapper {
-	margin-top: 18px;
-	margin-bottom: 18px;
-	display: flex;
-	flex-direction: row;
-	gap: 9px;
-	align-items: center;
-	justify-items: center;
-}
+// .loginMethodWrapper {
+// 	margin-top: 18px;
+// 	margin-bottom: 18px;
+// 	display: flex;
+// 	flex-direction: row;
+// 	gap: 9px;
+// 	align-items: center;
+// 	justify-items: center;
+// }
 
-.selectableButton {
-	flex: 1 0 150px;
-	border-radius: 6px;
-	border: 2px solid colors.$white;
-	background-color: colors.$white;
-	box-shadow: general.$shadow-25;
-	padding: 0.4rem 0.8rem;
-	text-align: center;
+// .selectableButton {
+// 	flex: 1 0 150px;
+// 	border-radius: 6px;
+// 	border: 2px solid colors.$white;
+// 	background-color: colors.$white;
+// 	box-shadow: general.$shadow-25;
+// 	padding: 0.4rem 0.8rem;
+// 	text-align: center;
 
-	.bold {
-		color: colors.$accent;
-	}
+// 	.bold {
+// 		color: colors.$accent;
+// 	}
 
-	&.active {
-		border: 2px solid colors.$accent;
-		background-color: colors.$accent;
+// 	&.active {
+// 		border: 2px solid colors.$accent;
+// 		background-color: colors.$accent;
 
-		.bold {
-			color: colors.$white;
-		}
-	}
-}
+// 		.bold {
+// 			color: colors.$white;
+// 		}
+// 	}
+// }

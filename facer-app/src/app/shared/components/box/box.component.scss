@@ -1,7 +1,14 @@
 @use '../../../../assets/styles/general';
+@use '../../../../assets/styles/colors';
 
 .box {
-	padding: 36px;
-	border-radius: 20px;
-	box-shadow: general.$shadow-25;
+	padding: 26px;
+	border-radius: 16px;
+	box-shadow: 0 4px 8px rgba($color: #000000, $alpha: 0.08);
+}
+
+.box-outlined {
+	padding: 26px;
+	border-radius: 16px;
+	border: 1px solid colors.$neutral-500;
 }

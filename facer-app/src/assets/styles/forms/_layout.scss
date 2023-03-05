@@ -7,17 +7,26 @@
 	}
 	&__container {
 		display: flex;
+
 		flex-direction: column;
+		gap: 8px;
 	}
 
-  &__buttons {
-    display: flex;
-    flex-direction: row;
-    gap: 18px;
-    align-items: center;
+	&__buttons {
+		display: flex;
+		flex-direction: row;
+		gap: 18px;
+		align-items: center;
 
-    button {
-      flex-grow: 1;
-    }
-  }
+		button {
+			flex-grow: 1;
+		}
+	}
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 16px 0;
 }

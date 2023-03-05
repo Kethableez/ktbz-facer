@@ -1,0 +1,112 @@
+i {
+	&.faceSmile {
+		mask-image: url('../../icons/face-smile.svg');
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.eye {
+		mask-image: url('../../icons/eye.svg');
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: black;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.eyeSlash {
+		mask-image: url('../../icons/eye-slash.svg');
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: black;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.check {
+		mask-image: url('../../icons/check.svg');
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.success {
+		mask-image: url('../../icons/success.svg');
+		mask-position: center;
+		mask-repeat: no-repeat;
+		display: block;
+
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.error {
+		mask-image: url('../../icons/error.svg');
+		mask-position: center;
+		mask-repeat: no-repeat;
+		display: block;
+
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.info {
+		mask-image: url('../../icons/info.svg');
+		display: block;
+
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.warning {
+		mask-image: url('../../icons/warning.svg');
+		display: block;
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.close {
+		mask-image: url('../../icons/close.svg');
+		display: block;
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.chevron-up {
+		mask-image: url('../../icons/chevron-up.svg');
+		display: block;
+
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: black;
+		width: 24px;
+		height: 24px;
+	}
+
+	&.chevron-down {
+		mask-image: url('../../icons/chevron-down.svg');
+		display: block;
+
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: black;
+		width: 24px;
+		height: 24px;
+	}
+}

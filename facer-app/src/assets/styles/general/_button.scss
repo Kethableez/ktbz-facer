@@ -2,279 +2,393 @@
 @use '../colors';
 
 button {
+	display: flex !important;
 	cursor: pointer;
 	appearance: none;
 	outline: none;
-	font-weight: 700;
-	border-radius: 6px;
-	box-shadow: utils.$shadow-25;
+	font-weight: 500;
 	border: none;
 	transition: 0.1s ease-in-out;
-	display: flex;
 	flex-direction: row;
-	gap: 12px;
+	flex: 1 0 auto;
+	gap: 8px;
 	justify-content: center;
 	align-items: center;
 }
 
+.btn-sm {
+	border-radius: 8px;
+	padding: 12px;
+	font-size: 14px;
+	line-height: 16px;
+}
+
 .btn {
-	font-size: 20px;
-	padding: 0.8rem 2.2rem;
-
-	&.rounded {
-		padding: 0.8rem;
-		border-radius: 2000px;
-	}
-}
-
-.btn-sm {
+	border-radius: 10px;
+	padding: 14px 16px;
 	font-size: 16px;
-	padding: 0.4rem 1.8rem;
+	line-height: 20px;
+}
 
-	&.rounded {
-		padding: 0.4rem;
-		border-radius: 2000px;
+.btn-lg {
+	border-radius: 12px;
+	padding: 16px 24px;
+	font-size: 20px;
+	line-height: 24px;
+}
+
+.buttonGroup {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	.btn-sm {
+		border-radius: 0;
+		&:first-child {
+			border-radius: 8px 0 0 8px;
+		}
+
+		&:last-child {
+			border-radius: 0 8px 8px 0;
+		}
+	}
+
+	.btn {
+		border-radius: 0;
+		&:first-child {
+			border-radius: 10px 0 0 10px;
+		}
+
+		&:last-child {
+			border-radius: 0 10px 10px 0;
+		}
+	}
+
+	.btn-lg {
+		border-radius: 0;
+		&:first-child {
+			border-radius: 12px 0 0 12px;
+		}
+
+		&:last-child {
+			border-radius: 0 12px 12px 0;
+		}
 	}
 }
 
-.btn,
-.btn-sm {
-	&:disabled {
-		color: colors.$pale-gray;
-		background-color: colors.$transparent;
-		cursor: not-allowed;
-	}
+.primary {
+	background-color: colors.$primary-500;
+	color: colors.$white;
 
 	&:not(:disabled) {
-		&.primary {
-			background-color: colors.$primary;
-			border: 2px solid colors.$primary;
-			color: colors.$white;
-
-			&:hover {
-				background-color: colors.$primary-hover;
-				border: 2px solid colors.$primary-hover;
-			}
-
-			&:active {
-				background-color: colors.$primary-hover;
-				border: 2px solid colors.$primary-hover;
-
-				box-shadow: none;
-			}
-			span {
-				color: colors.$white;
-			}
+		&:hover {
+			background-color: colors.$primary-600;
 		}
 
-		&.primary-outlined {
-			background-color: colors.$white;
-			color: colors.$primary;
-			border: 2px solid colors.$primary;
-
-			&:hover {
-				color: colors.$primary-hover;
-				border: 2px solid colors.$primary-hover;
-			}
-
-			&:active {
-				color: colors.$primary-hover;
-				border: 2px solid colors.$primary-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.secondary {
-			background-color: colors.$secondary;
-			border: 2px solid colors.$secondary;
-			color: colors.$white;
-
-			&:hover {
-				background-color: colors.$secondary-hover;
-				border: 2px solid colors.$secondary-hover;
-			}
-
-			&:active {
-				background-color: colors.$secondary-hover;
-				border: 2px solid colors.$secondary-hover;
-				box-shadow: none;
-			}
-			span {
-				color: colors.$white;
-			}
-		}
-
-		&.secondary-outlined {
-			background-color: colors.$white;
-			color: colors.$secondary;
-			border: 2px solid colors.$secondary;
-
-			&:hover {
-				color: colors.$secondary-hover;
-				border: 2px solid colors.$secondary-hover;
-			}
-
-			&:active {
-				color: colors.$secondary-hover;
-				border: 2px solid colors.$secondary-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.accent {
-			background-color: colors.$accent;
-			border: 2px solid colors.$accent;
-			color: colors.$white;
-
-			&:hover {
-				background-color: colors.$accent-hover;
-				border: 2px solid colors.$accent-hover;
-			}
-
-			&:active {
-				background-color: colors.$accent-hover;
-				border: 2px solid colors.$accent-hover;
-				box-shadow: none;
-			}
-			span {
-				color: colors.$white;
-			}
-		}
-
-		&.accent-outlined {
-			background-color: colors.$white;
-			color: colors.$accent;
-			border: 2px solid colors.$accent;
-
-			&:hover {
-				color: colors.$accent-hover;
-				border: 2px solid colors.$accent-hover;
-			}
-
-			&:active {
-				color: colors.$accent-hover;
-				border: 2px solid colors.$accent-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.warning {
-			background-color: colors.$warning;
-			border: 2px solid colors.$warning;
-			color: colors.$white;
-
-			&:hover {
-				background-color: colors.$warning-hover;
-				border: 2px solid colors.$warning-hover;
-			}
-
-			&:active {
-				background-color: colors.$warning-hover;
-				border: 2px solid colors.$warning-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.warning-outlined {
-			background-color: colors.$white;
-			color: colors.$warning;
-			border: 2px solid colors.$warning;
-
-			&:hover {
-				color: colors.$warning-hover;
-				border: 2px solid colors.$warning-hover;
-			}
-
-			&:active {
-				color: colors.$warning-hover;
-				border: 2px solid colors.$warning-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.success {
-			background-color: colors.$success;
-			border: 2px solid colors.$success;
-			color: colors.$white;
-
-			&:hover {
-				background-color: colors.$success-hover;
-				border: 2px solid colors.$success-hover;
-			}
-
-			&:active {
-				background-color: colors.$success-hover;
-				border: 2px solid colors.$success-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.success-outlined {
-			background-color: colors.$white;
-			color: colors.$success;
-			border: 2px solid colors.$success;
-
-			&:hover {
-				color: colors.$success-hover;
-				border: 2px solid colors.$success-hover;
-			}
-
-			&:active {
-				color: colors.$success-hover;
-				border: 2px solid colors.$success-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.error {
-			background-color: colors.$error;
-			border: 2px solid colors.$error;
-			color: colors.$white;
-
-			&:hover {
-				background-color: colors.$error-hover;
-				border: 2px solid colors.$error-hover;
-			}
-
-			&:active {
-				background-color: colors.$error-hover;
-				border: 2px solid colors.$error-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.error-outlined {
-			background-color: colors.$transparent;
-			color: colors.$error;
-			border: 2px solid colors.$error;
-
-			&:hover {
-				color: colors.$error-hover;
-				border: 2px solid colors.$error-hover;
-			}
-
-			&:active {
-				color: colors.$error-hover;
-				border: 2px solid colors.$error-hover;
-				box-shadow: none;
-			}
-		}
-
-		&.white {
-			background-color: colors.$white;
-			border: 2px solid colors.$white;
-			color: colors.$black;
-
-			&:hover {
-				background-color: colors.$white-hover;
-				border: 2px solid colors.$white-hover;
-			}
-
-			&:active {
-				background-color: colors.$white-hover;
-				border: 2px solid colors.$white-hover;
-				box-shadow: none;
-			}
+		&:active {
+			background-color: colors.$primary-700;
 		}
 	}
+
+	&:disabled {
+		opacity: 20%;
+	}
 }
+
+.secondary {
+	border: 1px solid colors.$neutral-500;
+	color: colors.$black;
+	background-color: rgba($color: #000000, $alpha: 0);
+
+	&:not(:disabled) {
+		&:hover {
+			border: 1px solid colors.$neutral-700;
+		}
+
+		&:active {
+			border: 1px solid colors.$neutral-900;
+		}
+	}
+
+	&:disabled {
+		opacity: 20%;
+	}
+}
+
+.tertiary {
+	background-color: rgba($color: #000000, $alpha: 0);
+	color: colors.$black;
+
+	&:not(:disabled) {
+		&:hover {
+			background-color: colors.$neutral-200;
+		}
+
+		&:active {
+			background-color: colors.$neutral-300;
+		}
+	}
+
+	&:disabled {
+		opacity: 20%;
+	}
+}
+// .btn {
+// 	font-size: 20px;
+// 	padding: 0.8rem 2.2rem;
+
+// 	&.rounded {
+// 		padding: 0.8rem;
+// 		border-radius: 2000px;
+// 	}
+// }
+
+// .btn-sm {
+// 	font-size: 16px;
+// 	padding: 0.4rem 1.8rem;
+
+// 	&.rounded {
+// 		padding: 0.4rem;
+// 		border-radius: 2000px;
+// 	}
+// }
+
+// .btn,
+// .btn-sm {
+// 	&:disabled {
+// 		color: colors.$pale-gray;
+// 		background-color: colors.$transparent;
+// 		cursor: not-allowed;
+// 	}
+
+// 	&:not(:disabled) {
+// 		&.primary {
+// 			background-color: colors.$primary;
+// 			border: 2px solid colors.$primary;
+// 			color: colors.$white;
+
+// 			&:hover {
+// 				background-color: colors.$primary-hover;
+// 				border: 2px solid colors.$primary-hover;
+// 			}
+
+// 			&:active {
+// 				background-color: colors.$primary-hover;
+// 				border: 2px solid colors.$primary-hover;
+
+// 				box-shadow: none;
+// 			}
+// 			span {
+// 				color: colors.$white;
+// 			}
+// 		}
+
+// 		&.primary-outlined {
+// 			background-color: colors.$white;
+// 			color: colors.$primary;
+// 			border: 2px solid colors.$primary;
+
+// 			&:hover {
+// 				color: colors.$primary-hover;
+// 				border: 2px solid colors.$primary-hover;
+// 			}
+
+// 			&:active {
+// 				color: colors.$primary-hover;
+// 				border: 2px solid colors.$primary-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.secondary {
+// 			background-color: colors.$secondary;
+// 			border: 2px solid colors.$secondary;
+// 			color: colors.$white;
+
+// 			&:hover {
+// 				background-color: colors.$secondary-hover;
+// 				border: 2px solid colors.$secondary-hover;
+// 			}
+
+// 			&:active {
+// 				background-color: colors.$secondary-hover;
+// 				border: 2px solid colors.$secondary-hover;
+// 				box-shadow: none;
+// 			}
+// 			span {
+// 				color: colors.$white;
+// 			}
+// 		}
+
+// 		&.secondary-outlined {
+// 			background-color: colors.$white;
+// 			color: colors.$secondary;
+// 			border: 2px solid colors.$secondary;
+
+// 			&:hover {
+// 				color: colors.$secondary-hover;
+// 				border: 2px solid colors.$secondary-hover;
+// 			}
+
+// 			&:active {
+// 				color: colors.$secondary-hover;
+// 				border: 2px solid colors.$secondary-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.accent {
+// 			background-color: colors.$accent;
+// 			border: 2px solid colors.$accent;
+// 			color: colors.$white;
+
+// 			&:hover {
+// 				background-color: colors.$accent-hover;
+// 				border: 2px solid colors.$accent-hover;
+// 			}
+
+// 			&:active {
+// 				background-color: colors.$accent-hover;
+// 				border: 2px solid colors.$accent-hover;
+// 				box-shadow: none;
+// 			}
+// 			span {
+// 				color: colors.$white;
+// 			}
+// 		}
+
+// 		&.accent-outlined {
+// 			background-color: colors.$white;
+// 			color: colors.$accent;
+// 			border: 2px solid colors.$accent;
+
+// 			&:hover {
+// 				color: colors.$accent-hover;
+// 				border: 2px solid colors.$accent-hover;
+// 			}
+
+// 			&:active {
+// 				color: colors.$accent-hover;
+// 				border: 2px solid colors.$accent-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.warning {
+// 			background-color: colors.$warning;
+// 			border: 2px solid colors.$warning;
+// 			color: colors.$white;
+
+// 			&:hover {
+// 				background-color: colors.$warning-hover;
+// 				border: 2px solid colors.$warning-hover;
+// 			}
+
+// 			&:active {
+// 				background-color: colors.$warning-hover;
+// 				border: 2px solid colors.$warning-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.warning-outlined {
+// 			background-color: colors.$white;
+// 			color: colors.$warning;
+// 			border: 2px solid colors.$warning;
+
+// 			&:hover {
+// 				color: colors.$warning-hover;
+// 				border: 2px solid colors.$warning-hover;
+// 			}
+
+// 			&:active {
+// 				color: colors.$warning-hover;
+// 				border: 2px solid colors.$warning-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.success {
+// 			background-color: colors.$success;
+// 			border: 2px solid colors.$success;
+// 			color: colors.$white;
+
+// 			&:hover {
+// 				background-color: colors.$success-hover;
+// 				border: 2px solid colors.$success-hover;
+// 			}
+
+// 			&:active {
+// 				background-color: colors.$success-hover;
+// 				border: 2px solid colors.$success-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.success-outlined {
+// 			background-color: colors.$white;
+// 			color: colors.$success;
+// 			border: 2px solid colors.$success;
+
+// 			&:hover {
+// 				color: colors.$success-hover;
+// 				border: 2px solid colors.$success-hover;
+// 			}
+
+// 			&:active {
+// 				color: colors.$success-hover;
+// 				border: 2px solid colors.$success-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.error {
+// 			background-color: colors.$error;
+// 			border: 2px solid colors.$error;
+// 			color: colors.$white;
+
+// 			&:hover {
+// 				background-color: colors.$error-hover;
+// 				border: 2px solid colors.$error-hover;
+// 			}
+
+// 			&:active {
+// 				background-color: colors.$error-hover;
+// 				border: 2px solid colors.$error-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.error-outlined {
+// 			background-color: colors.$transparent;
+// 			color: colors.$error;
+// 			border: 2px solid colors.$error;
+
+// 			&:hover {
+// 				color: colors.$error-hover;
+// 				border: 2px solid colors.$error-hover;
+// 			}
+
+// 			&:active {
+// 				color: colors.$error-hover;
+// 				border: 2px solid colors.$error-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+
+// 		&.white {
+// 			background-color: colors.$white;
+// 			border: 2px solid colors.$white;
+// 			color: colors.$black;
+
+// 			&:hover {
+// 				background-color: colors.$white-hover;
+// 				border: 2px solid colors.$white-hover;
+// 			}
+
+// 			&:active {
+// 				background-color: colors.$white-hover;
+// 				border: 2px solid colors.$white-hover;
+// 				box-shadow: none;
+// 			}
+// 		}
+// 	}
+// }

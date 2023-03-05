@@ -1,24 +1,55 @@
 <div class="page--full bg-img">
 	<div class="flex">
 		<div class="col">
-			<h1 class="bold highlighted--white">
-				Create new
-				<span class="italic highlighted--muted">ACCOUNT</span>
-			</h1>
-			<button class="btn white" (click)="select('register')"><span class="material-symbols-outlined">person_add</span></button>
-		</div>
-		<div class="col">
-			<h1 class="bold">
-				Login to your
-				<span class="italic highlighted--success">ACCOUNT</span>
-			</h1>
-			<button class="btn primary" (click)="select('login')">
-				<span class="material-symbols-outlined">login</span>
-			</button>
+			<ktbz-box>
+				<h1>Login to your Account</h1>
+				<ktbz-tabs [tabs]="['Traditional', 'Face ID']"></ktbz-tabs>
+				<!-- <form class="formContainer" [formGroup]="dummyForm">
+					<ktbz-control label="Username" type="text" [control]="dummyForm.controls.username"></ktbz-control>
+
+					<ktbz-control label="Password" type="password" [control]="dummyForm.controls.password"></ktbz-control>
+					<div class="sp"></div>
+					<button class="btn primary">Login</button>
+					<button class="btn secondary">Create new account</button>
+				</form> -->
+
+				<form class="formContainer" [formGroup]="dummyFaceIdForm">
+					<div class="dummyVideo"></div>
+					<ktbz-dropdown label="Select model" [data]="['dlib']" [control]="dummyFaceIdForm.controls.model"></ktbz-dropdown>
+
+					<!-- <ktbz-control label="Password" type="password" [control]="dummyForm.controls.password"></ktbz-control> -->
+					<div class="sp"></div>
+					<button class="btn primary">Login</button>
+					<button class="btn secondary">Create new account</button>
+				</form>
+
+				<!-- <form class="formContainer" [formGroup]="dummyRegisterForm">
+					<ktbz-control label="Username" type="text" [control]="dummyRegisterForm.controls.username"></ktbz-control>
+					<ktbz-control label="Username" type="text" [control]="dummyRegisterForm.controls.email"></ktbz-control>
+					<ktbz-control label="Username" type="text" [control]="dummyRegisterForm.controls.password"></ktbz-control>
+					<ktbz-control label="Username" type="text" [control]="dummyRegisterForm.controls.firstName"></ktbz-control>
+					<ktbz-control label="Username" type="text" [control]="dummyRegisterForm.controls.lastName"></ktbz-control>
+					<ktbz-checkbox
+						type="switch"
+						label="I want to use my face as auth method"
+						[control]="dummyRegisterForm.controls.useFace"
+					></ktbz-checkbox>
+					<div class="sp"></div>
+
+					<button *ngIf="dummyRegisterForm.controls.useFace.value" class="btn primary">
+						Scan my face
+						<i class="faceSmile"></i>
+					</button>
+
+					<div class="sp"></div>
+					<button class="btn primary">Create Account</button>
+					<button class="btn secondary">Cancel</button>
+				</form> -->
+			</ktbz-box>
 		</div>
 	</div>
 </div>
-<div class="formWrapper" *ngIf="isFormOpened">
+<!-- <div class="formWrapper" *ngIf="isFormOpened">
 	<ktbz-box>
 		<ng-container *ngIf="selectedForm === 'login'; else register">
 			<ktbz-login (onClose)="closeForms()"></ktbz-login>
@@ -27,6 +58,6 @@
 			<ktbz-register (onClose)="closeForms()"></ktbz-register>
 		</ng-template>
 	</ktbz-box>
-</div>
+</div> -->
 
 <!-- <ng-container *ngIf="sse$ | async"></ng-container> -->

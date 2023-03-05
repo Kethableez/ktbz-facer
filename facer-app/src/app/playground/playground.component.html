@@ -1,79 +1,118 @@
-<ktbz-box background="bg-white">
-	<div class="row">
-		<div class="col">
-			<h1>HEADING 1</h1>
-			<h2>HEADING 2</h2>
-			<h3>HEADING 3</h3>
-			<h4>HEADING 4</h4>
-			<h5>HEADING 5</h5>
-			<h6>HEADING 6</h6>
+<div class="pad">
+	<!-- <ktbz-box [outlined]="true" background="bg-white">
+		<div class="row">
+			<div class="col">
+				<h1>HEADING 1</h1>
+				<h2>HEADING 2</h2>
+				<h3>HEADING 3</h3>
+				<h4>HEADING 4</h4>
+				<h5>HEADING 5</h5>
+				<h6>HEADING 6</h6>
+			</div>
+			<div class="col">
+				<h1 class="bold">HEADING 1</h1>
+				<h2 class="bold">HEADING 2</h2>
+				<h3 class="bold">HEADING 3</h3>
+				<h4 class="bold">HEADING 4</h4>
+				<h5 class="bold">HEADING 5</h5>
+				<h6 class="bold">HEADING 6</h6>
+			</div>
+			<div class="col">
+				<h1 class="italic">HEADING 1</h1>
+				<h2 class="italic">HEADING 2</h2>
+				<h3 class="italic">HEADING 3</h3>
+				<h4 class="italic">HEADING 4</h4>
+				<h5 class="italic">HEADING 5</h5>
+				<h6 class="italic">HEADING 6</h6>
+			</div>
+			<div class="col">
+				<h1 class="bold italic">HEADING 1</h1>
+				<h2 class="bold italic">HEADING 2</h2>
+				<h3 class="bold italic">HEADING 3</h3>
+				<h4 class="bold italic">HEADING 4</h4>
+				<h5 class="bold italic">HEADING 5</h5>
+				<h6 class="bold italic">HEADING 6</h6>
+			</div>
 		</div>
-		<div class="col">
-			<h1 class="bold">HEADING 1</h1>
-			<h2 class="bold">HEADING 2</h2>
-			<h3 class="bold">HEADING 3</h3>
-			<h4 class="bold">HEADING 4</h4>
-			<h5 class="bold">HEADING 5</h5>
-			<h6 class="bold">HEADING 6</h6>
+	</ktbz-box> -->
+
+	<ktbz-box background="bg-tint">
+		<h1>Forms</h1>
+		<form [formGroup]="form" class="form__container" style="width: 800px">
+			<ktbz-control label="Standard input" type="password" [control]="form.controls.inp" placeholder="Dupa"></ktbz-control>
+			<ktbz-control label="Textarea" type="textarea" [control]="form.controls.txt"></ktbz-control>
+			<ktbz-checkbox [label]="'Aaaaa'" type="switch" [control]="form.controls.chk"></ktbz-checkbox>
+			<ktbz-checkbox [label]="'Bbbbbb'" [control]="form.controls.chk2"></ktbz-checkbox>
+			<ktbz-dropdown [control]="form.controls.drp" [label]="'Twoja stara'" [data]="['Aaaa', 'Bbbbb', 'Cccc', 'Dddd']"></ktbz-dropdown>
+		</form>
+		<pre>{{ form.value | json }}</pre>
+	</ktbz-box>
+
+	<ktbz-box background="bg-white">
+		<h1>Buttons</h1>
+		<h3>Primary</h3>
+		<div class="wrapper">
+			<button class="btn-sm primary">Click me</button>
+			<button class="btn primary">Click me</button>
+			<button class="btn-lg primary">Click me</button>
+			<button [disabled]="true" class="btn-lg primary">Click me</button>
 		</div>
-		<div class="col">
-			<h1 class="italic">HEADING 1</h1>
-			<h2 class="italic">HEADING 2</h2>
-			<h3 class="italic">HEADING 3</h3>
-			<h4 class="italic">HEADING 4</h4>
-			<h5 class="italic">HEADING 5</h5>
-			<h6 class="italic">HEADING 6</h6>
+		<h3>Secondary</h3>
+		<div class="wrapper">
+			<button class="btn-sm secondary">Click me</button>
+			<button class="btn secondary">Click me</button>
+			<button class="btn-lg secondary">Click me</button>
+			<button [disabled]="true" class="btn-lg secondary">Click me</button>
 		</div>
-		<div class="col">
-			<h1 class="bold italic">HEADING 1</h1>
-			<h2 class="bold italic">HEADING 2</h2>
-			<h3 class="bold italic">HEADING 3</h3>
-			<h4 class="bold italic">HEADING 4</h4>
-			<h5 class="bold italic">HEADING 5</h5>
-			<h6 class="bold italic">HEADING 6</h6>
+		<h3>Tertiary</h3>
+		<div class="wrapper">
+			<button class="btn-sm tertiary">Click me</button>
+			<button class="btn tertiary">Click me</button>
+			<button class="btn-lg tertiary">Click me</button>
+			<button [disabled]="true" class="btn-lg tertiary">Click me</button>
 		</div>
-	</div>
-</ktbz-box>
+		<h3>Button group</h3>
+		<div class="buttonGroup">
+			<button class="btn-sm primary">Click me</button>
+			<button class="btn-sm primary">Click me</button>
+			<button class="btn-sm primary">Click me</button>
+		</div>
 
-<ktbz-box background="bg-tint">
-	<form [formGroup]="form" class="form__container" style="width: 400px">
-		<ktbz-control label="Standard input" [control]="form.controls.inp"></ktbz-control>
-		<ktbz-control label="Textarea" type="textarea" [control]="form.controls.txt"></ktbz-control>
-		<ktbz-control label="Textarea" type="checkbox" [control]="form.controls.chk"></ktbz-control>
-	</form>
-	<pre>{{ form.value | json }}</pre>
-</ktbz-box>
+		<div class="buttonGroup">
+			<button class="btn secondary">Click me</button>
+			<button class="btn secondary">Click me</button>
+			<button class="btn secondary">Click me</button>
+		</div>
 
-<ktbz-box background="bg-white">
-	<div class="wrapper">
-		<button class="btn primary">Click me</button>
-		<button class="btn primary-outlined">Click me</button>
+		<div class="buttonGroup">
+			<button class="btn-lg primary">Click me</button>
+			<button class="btn-lg secondary">Click me</button>
+			<button class="btn-lg tertiary">Click me</button>
+		</div>
+	</ktbz-box>
 
-		<button class="btn secondary">Click me</button>
-		<button class="btn secondary-outlined">Click me</button>
+	<ktbz-box [outlined]="true">
+		<h1>Other components</h1>
 
-		<button class="btn error">Click me</button>
-		<button class="btn error-outlined">Click me</button>
+		<h3>Tabs</h3>
+		<ktbz-tabs></ktbz-tabs>
 
-		<button class="btn success">Click me</button>
-		<button class="btn success-outlined">Click me</button>
-
-		<button class="btn accent">Click me</button>
-		<button class="btn accent-outlined">Click me</button>
-
-		<button class="btn warning">Click me</button>
-		<button class="btn warning-outlined">Click me</button>
-	</div>
-</ktbz-box>
-
-<ktbz-alert [dismissable]="true" [type]="'info'">Information message</ktbz-alert>
-<ktbz-alert [dismissable]="true" [type]="'success'">
-	<span class="bold highlighted--white">
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas recusandae, cumque voluptates impedit, repellendus quos sit sed
-		suscipit sequi ipsam quae accusantium, amet doloremque. Eveniet, doloremque. Molestiae cumque cum pariatur! Aliquam molestias distinctio
-		culpa ipsa totam repellendus facilis quaerat expedita unde, labore obcaecati iure autem provident in enim, alias fugiat perferendis
-		repudiandae deleniti nihil nam quibusdam dicta id nesciunt? Aut? Totam maiores consequuntur tempore error non dicta! Quos corrupti
-		aperiam fuga error debitis tenetur voluptates consequuntur magnam. Quia, officiis, assumenda ipsam voluptatem alias cum tenetur,
-		repudiandae sed reprehenderit ut eum.
-	</span>
-</ktbz-alert>
+		<h3>Alerts</h3>
+		<ktbz-alert type="info">Info message</ktbz-alert>
+		<ktbz-alert type="warning">Warning message</ktbz-alert>
+		<ktbz-alert type="error">Error message</ktbz-alert>
+		<ktbz-alert type="success">
+			Long success message with
+			<span class="bold">Util classes and buttons</span>
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta porro omnis veritatis quos fugiat cumque eum assumenda quibusdam
+			maiores nostrum reiciendis ipsum explicabo suscipit, animi, tenetur recusandae, veniam maxime reprehenderit! Asperiores aperiam
+			tenetur odio saepe nostrum! Minima vero magni distinctio officia accusantium reprehenderit? Porro similique excepturi, neque
+			laudantium quae, suscipit doloremque nulla corporis dignissimos incidunt mollitia ad. Accusamus, temporibus alias.
+			<br />
+			<div class="buttonGroup">
+				<button class="btn-sm primary">Aaaa</button>
+				<button class="btn-sm secondary">BBB</button>
+			</div>
+		</ktbz-alert>
+	</ktbz-box>
+</div>

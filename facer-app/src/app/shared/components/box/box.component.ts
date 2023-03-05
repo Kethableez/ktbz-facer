@@ -9,5 +9,12 @@ export class BoxComponent {
 	@Input()
 	background: string = 'bg-white';
 
+	@Input()
+	outlined = false;
+
 	constructor() {}
+
+	get boxClass() {
+		return this.outlined ? 'box-outlined' : 'box';
+	}
 }

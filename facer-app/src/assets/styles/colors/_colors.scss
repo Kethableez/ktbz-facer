@@ -1,32 +1,60 @@
+$primary-100: #fdf7f9;
+$primary-200: #fbeaee;
+$primary-300: #f6d5dd;
+$primary-400: #eca2b4;
+$primary-500: #d6375d;
+$primary-600: #c3284c;
+$primary-700: #ab2c4a;
+$primary-800: #891c35;
+$primary-900: #581222;
+
+$neutral-100: #fcfcfc;
+$neutral-200: #f4f5f6;
+$neutral-300: #eff0f1;
+$neutral-400: #e4e5e7;
+$neutral-500: #c6cace;
+$neutral-600: #8c959d;
+$neutral-700: #656d76;
+$neutral-800: #494f55;
+$neutral-900: #282c2f;
+
+$success-100: #f4fdf8;
+$success-200: #ebf7f0;
+$success-300: #30b56f;
+
+$error-100: #fff4f4;
+$error-200: #fbe4e4;
+$error-300: #e44646;
+
+$warning-100: #fff8ee;
+$warning-200: #fff0db;
+$warning-300: #ef8f11;
+
+$black: #02021c;
 $white: #ffffff;
-$white-hover: #d3d3d3;
 
-$black: #2c2738;
-$pale-gray: #d8d8d8;
-
-$primary: #323232;
-$primary-hover: #1e1e1e;
-
-$secondary: #756f86;
-$secondary-hover: #5f5a6c;
-
-$accent: #2b78e4;
-$accent-hover: #2463ba;
-
-$warning: #f2ac57;
-$warning-hover: #c88d45;
-
-$success: #14a38b;
-$success-hover: #108470;
-
-$error: #ff7171;
-$error-hover: #da6060;
-
-$muted: #7c9cbf;
-$tint: #ebf4f8;
-$shade: #b2b8be;
-
-$transparent: rgba(
+$trans-white-30: rgba(
 	$color: #ffffff,
-	$alpha: 0,
+	$alpha: 0.3,
+);
+$trans-white-50: rgba(
+	$color: #ffffff,
+	$alpha: 0.5,
+);
+$trans-white-70: rgba(
+	$color: #ffffff,
+	$alpha: 0.7,
+);
+
+$trans-black-30: rgba(
+	$color: #02021c,
+	$alpha: 0.3,
+);
+$trans-black-50: rgba(
+	$color: #02021c,
+	$alpha: 0.5,
+);
+$trans-black-70: rgba(
+	$color: #02021c,
+	$alpha: 0.7,
 );

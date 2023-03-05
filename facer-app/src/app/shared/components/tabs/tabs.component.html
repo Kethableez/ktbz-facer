@@ -1,0 +1,3 @@
+<div class="tabsContainer">
+	<div class="tab large semibold" [class.active]="isActive(tab)" (click)="setActive(tab)" *ngFor="let tab of tabs">{{ tab }}</div>
+</div>

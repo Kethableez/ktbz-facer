@@ -1,5 +1,5 @@
 .bg-img {
-	background-image: url('./../../../assets/img/bg-2.png');
+	background-image: url('../../../assets/img/bg-full.jpg');
 	background-position: center;
 	background-size: cover;
 }
@@ -7,10 +7,12 @@
 .flex {
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .col {
-	width: 50vw;
+	width: 30vw;
 	gap: 8px;
 	height: 100vh;
 	display: flex;
@@ -18,24 +20,18 @@
 	justify-content: center;
 	align-items: center;
 
-	.btn {
-		width: 15%;
+	ktbz-box {
+		width: 100%;
 	}
 }
 
-.formWrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	background-color: rgba($color: #000000, $alpha: 0.5);
+.dummyVideo {
+	background-image: url('../../../assets/img/bg-2.png');
+	height: 500px;
+	background-position: center;
+	background-size: cover;
+}
 
-	ktbz-box {
-		width: 40%;
-	}
+.sp {
+	height: 16px;
 }

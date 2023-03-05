@@ -1,11 +1,20 @@
 @use '../../../../assets/styles/general';
+@use '../../../../assets/styles/colors';
 .alert {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding: 18px 18px;
+	// padding: 18px 18px;
+	padding-right: 16px;
 	border-radius: 10px;
 	gap: 18px;
+
+	i.close {
+		background-color: colors.$neutral-800;
+		cursor: pointer;
+		width: 30px;
+		height: 30px;
+	}
 
 	span {
 		color: white;
@@ -16,7 +25,49 @@
 	}
 
 	&__message {
+		padding: 16px 0;
 		font-size: 20px;
 		flex-grow: 1;
 	}
+
+	&__icon {
+		padding: 0 8px;
+
+		i {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	&.success {
+		background-color: colors.$success-200;
+		i.success {
+			background-color: colors.$success-300;
+		}
+	}
+
+	&.error {
+		background-color: colors.$error-200;
+		i.error {
+			background-color: colors.$error-300;
+		}
+	}
+
+	&.warning {
+		background-color: colors.$warning-200;
+		i.warning {
+			background-color: colors.$warning-300;
+		}
+	}
+
+	&.info {
+		background-color: colors.$neutral-300;
+
+		i.info {
+			background-color: colors.$neutral-700;
+		}
+	}
+}
+i {
+	flex-shrink: 0;
 }
