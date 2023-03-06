@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { HttpErrorService } from 'src/app/core/services/http-error.service';
-import { NotificationsService } from 'src/app/core/services/notifications.service';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface NameAvailability {
@@ -24,16 +21,17 @@ export interface LoginRequest {
 	password: string;
 }
 
+export interface BaseResponse {
+	message: string;
+}
+
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
 	private readonly apiUrl = environment.apiUrl;
-	private readonly aiUrl = environment.aiUrl;
 
-	userId: string = '';
-
-	constructor(private http: HttpClient, private errorService: HttpErrorService, private notificationService: NotificationsService) {}
+	constructor(private http: HttpClient) {}
 
 	checkAvailability(value: string, type: 'email' | 'username'): Observable<NameAvailability> {
 		const url = `${this.apiUrl}/user/availability/${type}`;
@@ -43,36 +41,23 @@ export class AuthService {
 		return this.http.post<NameAvailability>(url, payload);
 	}
 
-	register(request: { payload: RegisterRequest; data?: FormData }) {
+	register(request: { payload: RegisterRequest; data?: FormData }): Observable<BaseResponse & { userId: string }> {
 		const url = `${this.apiUrl}/user/register`;
 		return this.http.post<{ userId: string; message: string }>(url, request.payload);
 	}
 
-	uploadFile(data: FormData) {
+	uploadFile(data: FormData): Observable<BaseResponse> {
 		const url = `${this.apiUrl}/file/upload`;
 		return this.http.post<{ message: string }>(url, data);
 	}
 
-	login(payload: LoginRequest) {
+	login(payload: LoginRequest): Observable<{ accessToken: string }> {
 		const url = `${this.apiUrl}/auth/login`;
-		return this.http.post<any>(url, payload);
+		return this.http.post<{ accessToken: string }>(url, payload);
 	}
 
-	faceLogin(formData: FormData) {
+	faceLogin(formData: FormData): Observable<{ accessToken: string }> {
 		const url = `${this.apiUrl}/auth/face-login`;
-		return this.http.post(url, formData).pipe(catchError((error: any) => of(this.errorService.addError('login', error.error.message))));
-	}
-
-	urlEnd: { [key: string]: string } = {
-		nameAvailability: 'availability/username',
-		emailAvailability: 'availability/email',
-		uploadFile: 'upload',
-		register: 'register',
-		login: 'login',
-		faceLogin: 'face-login',
-	};
-
-	getModuleUrl(module: string, end: string) {
-		return `${this.apiUrl}/${module}/${this.urlEnd[end]}`;
+		return this.http.post<{ accessToken: string }>(url, formData);
 	}
 }

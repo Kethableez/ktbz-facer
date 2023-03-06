@@ -1,13 +1,22 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
-import { WebcamImage } from 'ngx-webcam';
-import { Subject } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { WebcamImage, WebcamInitError } from 'ngx-webcam';
+import { merge, Subject } from 'rxjs';
 
 @Component({
-	selector: 'ktbz-register-face-scanner',
-	templateUrl: './register-face-scanner.component.html',
-	styleUrls: ['./register-face-scanner.component.scss'],
+	selector: 'ktbz-face-scanner',
+	templateUrl: './face-scanner.component.html',
+	styleUrls: ['./face-scanner.component.scss'],
 })
-export class RegisterFaceScannerComponent implements OnInit, AfterViewInit {
+export class FaceScannerComponent implements OnInit, AfterViewInit {
+	@HostListener('window:resize')
+	onResize() {}
+
+	@Input()
+	hasExternalTrigger = false;
+
+	@Input()
+	externalTrigger = new Subject<void>();
+
 	@Output()
 	onWebcamClose = new EventEmitter<void>();
 
@@ -25,7 +34,7 @@ export class RegisterFaceScannerComponent implements OnInit, AfterViewInit {
 	}
 
 	get trigger$() {
-		return this.trigger.asObservable();
+		return merge(this.trigger.asObservable(), this.externalTrigger.asObservable());
 	}
 
 	get previewUrl() {
@@ -71,6 +80,9 @@ export class RegisterFaceScannerComponent implements OnInit, AfterViewInit {
 
 	handleImage(image: WebcamImage) {
 		this.faceImage = image;
+		if (this.hasExternalTrigger) {
+			this.onPhotoSubmit.emit(this.faceImage);
+		}
 	}
 
 	submitPhoto() {
@@ -81,6 +93,10 @@ export class RegisterFaceScannerComponent implements OnInit, AfterViewInit {
 
 	closeWebcam() {
 		this.onWebcamClose.emit();
+	}
+
+	readError(err: WebcamInitError) {
+		console.log(err);
 	}
 
 	ngOnInit(): void {}

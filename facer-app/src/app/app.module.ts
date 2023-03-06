@@ -15,12 +15,16 @@ import { metaReducers } from './core/store/root.state';
 
 @NgModule({
 	declarations: [AppComponent],
-	imports: [BrowserModule,
-
-    StoreModule.forRoot({}, { metaReducers }),
-    EffectsModule.forRoot([HydrationEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    AppRoutingModule, SharedModule, ReactiveFormsModule, HttpClientModule],
+	imports: [
+		BrowserModule,
+		StoreModule.forRoot({}, { metaReducers }),
+		EffectsModule.forRoot([HydrationEffects]),
+		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+		AppRoutingModule,
+		SharedModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+	],
 	providers: [],
 	bootstrap: [AppComponent],
 })

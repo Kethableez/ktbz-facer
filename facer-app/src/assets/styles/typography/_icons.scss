@@ -1,11 +1,32 @@
+@use '../general';
+
+@media only screen and (max-width: general.$bp-sm) {
+	i {
+		width: 16px;
+		height: 16px;
+	}
+}
+
+@media only screen and (min-width: general.$bp-sm) {
+	i {
+		width: 20px;
+		height: 20px;
+	}
+}
+
+@media only screen and (min-width: general.$bp-md) {
+	i {
+		width: 24px;
+		height: 24px;
+	}
+}
+
 i {
 	&.faceSmile {
 		mask-image: url('../../icons/face-smile.svg');
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.eye {
@@ -13,8 +34,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: black;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.eyeSlash {
@@ -22,8 +41,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: black;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.check {
@@ -31,8 +48,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.success {
@@ -42,8 +57,6 @@ i {
 		display: block;
 
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.error {
@@ -53,8 +66,6 @@ i {
 		display: block;
 
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.info {
@@ -64,8 +75,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.warning {
@@ -74,8 +83,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.close {
@@ -84,8 +91,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.close-2 {
@@ -94,8 +99,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.chevron-up {
@@ -105,8 +108,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: black;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.chevron-down {
@@ -116,8 +117,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: black;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.camera {
@@ -126,8 +125,6 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 
 	&.rotate {
@@ -136,7 +133,5 @@ i {
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
-		width: 24px;
-		height: 24px;
 	}
 }

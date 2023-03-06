@@ -1,13 +1,15 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { clearLoginResponse, loginAction, loginErrorAction, loginSuccessAction } from '../actions/login.actions';
+import { clearLoginResponse, faceLoginAction, loginAction, loginErrorAction, loginSuccessAction } from '../actions/login.actions';
 
 export interface State {
 	inProgress: boolean;
+	accessToken: string | null;
 	success: string | null;
 	error: string | null;
 }
 
 export const initialState: State = {
+	accessToken: null,
 	inProgress: false,
 	success: null,
 	error: null,
@@ -21,8 +23,15 @@ export const loginReducer = createReducer(
 		error: null,
 		success: null,
 	})),
+	on(faceLoginAction, state => ({
+		...state,
+		inProgress: true,
+		error: null,
+		success: null,
+	})),
 	on(loginSuccessAction, (state, payload) => ({
 		...state,
+		accessToken: payload.accessToken,
 		inProgress: false,
 		success: payload.message,
 	})),

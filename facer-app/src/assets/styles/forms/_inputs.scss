@@ -3,6 +3,8 @@
 
 label {
 	color: colors.$black;
+	user-select: none;
+	cursor: pointer;
 	font-size: 14px;
 	line-height: 24px;
 }
@@ -48,55 +50,6 @@ textarea {
 		outline: 4px solid colors.$primary-300;
 	}
 }
-
-// 	// width: 100%;
-// 	font-size: 16px;
-// 	// box-shadow: general.$shadow-05;
-// 	// border: 2px solid colors.$pale-gray;
-// 	border-radius: 6px;
-// 	padding: 0.5rem 1rem;
-
-// 	outline: none;
-// 	appearance: none;
-// 	transition: border 0.2s ease-in-out;
-
-// 	&::placeholder {
-// 		// color: colors.$pale-gray;
-// 		font-weight: 400;
-// 	}
-// }
-
-label {
-	user-select: none;
-	cursor: pointer;
-}
-
-// input[type='checkbox'] {
-// 	cursor: pointer;
-// 	position: relative;
-// 	transition: 0.2s ease-in-out;
-// 	width: 24px;
-// 	height: 24px;
-// 	flex-shrink: 0;
-// 	border-radius: 6px;
-// 	// border: 2px solid colors.$pale-gray;
-// 	// background-color: colors.$white;
-// 	// box-shadow: general.$shadow-05;
-// 	outline: none;
-// 	appearance: none;
-
-// 	&:checked {
-// 		// background-color: colors.$accent;
-// 		// border: 2px solid colors.$accent;
-// 	}
-
-// 	&:checked::after {
-// 		font-family: 'FontAwesome';
-// 		content: '\f00c';
-// 		color: #fff;
-// 		font-size: 20px;
-// 	}
-// }
 
 textarea {
 	resize: vertical;

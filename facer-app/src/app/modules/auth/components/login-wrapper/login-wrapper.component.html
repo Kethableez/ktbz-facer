@@ -1,12 +1,18 @@
 <div class="loginWrapper">
-  <ktbz-box>
-    <h2>Welcome back!</h2>
-    <ktbz-tabs [tabs]="tabs" (onTabSelection)="selectLoginMethod($event)"></ktbz-tabs>
-    <ng-container *ngIf="selectedLoginMethod === 'traditional'; else faceId">
-      <ktbz-traditional-login (onChangeForm)="switchToRegisterForm()"></ktbz-traditional-login>
-    </ng-container>
-    <ng-template #faceId>
-      <ktbz-face-login (onFormChange)="switchToRegisterForm()"></ktbz-face-login>
-    </ng-template>
-  </ktbz-box>
+	<ktbz-box>
+		<h2>Welcome back!</h2>
+		<ktbz-tabs [tabs]="tabs" (onTabSelection)="selectLoginMethod($event)"></ktbz-tabs>
+		<div class="alertsWrapper">
+			<ktbz-alert *ngIf="success$ | async as success" [dismissable]="false" type="success">{{ success }}</ktbz-alert>
+			<ktbz-alert *ngIf="error$ | async as error" [dismissable]="false" type="error">
+				<div *ngFor="let line of error.split('\n')">{{ line }}</div>
+			</ktbz-alert>
+		</div>
+		<ng-container *ngIf="selectedLoginMethod === 'traditional'; else faceId">
+			<ktbz-traditional-login (onChangeForm)="switchToRegisterForm()"></ktbz-traditional-login>
+		</ng-container>
+		<ng-template #faceId>
+			<ktbz-face-login (onFormChange)="switchToRegisterForm()"></ktbz-face-login>
+		</ng-template>
+	</ktbz-box>
 </div>

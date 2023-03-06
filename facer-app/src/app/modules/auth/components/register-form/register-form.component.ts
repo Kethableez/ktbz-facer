@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RootState } from 'src/app/core/store/root.state';
-import { MustMatchValidator } from 'src/app/modules/utils/must-match.validator';
-import { NameAvailabilityValidator } from 'src/app/modules/utils/name-availability.validator';
-import { notEmptyStr } from 'src/app/modules/utils/not-empty-str.validator';
+import { MustMatchValidator } from 'src/app/core/utils/must-match.validator';
 import { Store } from '@ngrx/store';
 import { AuthService, RegisterRequest } from '../../services/auth.service';
 import { clearRegisterResponse, registerAction } from '../../store/actions/register.actions';
@@ -17,6 +15,8 @@ import { WebcamImage } from 'ngx-webcam';
 import { FileProcess } from 'src/app/core/file-process';
 import { filter, map } from 'rxjs';
 import { clearFileResponse, uploadFileAction } from '../../store/actions/file.actions';
+import { NameAvailabilityValidator } from 'src/app/core/utils/name-availability.validator';
+import { notEmptyStr } from 'src/app/core/utils/not-empty-str.validator';
 
 @Component({
 	selector: 'ktbz-register-form',

@@ -3,7 +3,7 @@ import { RootState } from 'src/app/core/store/root.state';
 import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../../services/auth.service';
-import { registerAction, registerCompletedAction, registerErrorAction, registerSuccessAction } from '../actions/register.actions';
+import { registerAction, registerErrorAction, registerSuccessAction } from '../actions/register.actions';
 import { catchError, map, switchMap, of, filter, tap } from 'rxjs';
 import { uploadFileAction } from '../actions/file.actions';
 
@@ -17,7 +17,7 @@ export class RegisterEffects {
 			switchMap(action =>
 				this.authService.register(action).pipe(
 					map(response => {
-						return registerCompletedAction({
+						return registerSuccessAction({
 							uploadFile: action.payload.useFaceAsAuthMethod && !!action.data,
 							data: action.data,
 							userId: response.userId,
@@ -32,7 +32,7 @@ export class RegisterEffects {
 
 	registerSuccess$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(registerCompletedAction),
+			ofType(registerSuccessAction),
 			filter(action => action.uploadFile && !!action.data),
 			map(action => uploadFileAction({ data: action.data as FormData }))
 		)

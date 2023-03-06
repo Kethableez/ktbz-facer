@@ -1,11 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import {
-	clearRegisterResponse,
-	registerAction,
-	registerCompletedAction,
-	registerErrorAction,
-	registerSuccessAction,
-} from '../actions/register.actions';
+import { clearRegisterResponse, registerAction, registerErrorAction, registerSuccessAction } from '../actions/register.actions';
 
 export interface State {
 	inProgress: boolean;
@@ -29,7 +23,7 @@ export const registerReducer = createReducer(
 		error: null,
 		success: null,
 	})),
-	on(registerCompletedAction, (state, payload) => ({
+	on(registerSuccessAction, (state, payload) => ({
 		...state,
 		inProgress: false,
 		userId: payload.userId,

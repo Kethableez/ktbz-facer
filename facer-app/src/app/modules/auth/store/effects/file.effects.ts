@@ -20,10 +20,7 @@ export class FileEffects {
 				data.append('userId', userId as string);
 				return this.authService.uploadFile(action.data).pipe(
 					map(response => uploadFileSuccessAction(response)),
-					catchError(response => {
-						console.log(response);
-						return of(uploadFileErrorAction({ message: response.error.message }));
-					})
+					catchError(response => of(uploadFileErrorAction({ message: response.error.message })))
 				);
 			})
 		)

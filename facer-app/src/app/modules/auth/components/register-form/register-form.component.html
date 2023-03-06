@@ -1,7 +1,7 @@
 <div class="registerWrapper">
 	<ng-container *ngIf="faceScanActive">
 		<div class="webcamWrapper">
-			<ktbz-register-face-scanner (onPhotoSubmit)="processPhoto($event)" (onWebcamClose)="toggleScanner()"></ktbz-register-face-scanner>
+			<ktbz-face-scanner (onPhotoSubmit)="processPhoto($event)" (onWebcamClose)="toggleScanner()"></ktbz-face-scanner>
 		</div>
 	</ng-container>
 
@@ -24,18 +24,18 @@
 				</div>
 			</ktbz-alert>
 
-			<div class="form__controls-row">
-				<ktbz-control [label]="'Username'" [control]="getControl('username')"></ktbz-control>
-				<ktbz-control [label]="'E-mail'" [control]="getControl('email')"></ktbz-control>
-			</div>
-			<div class="form__controls-row">
-				<ktbz-control [label]="'First name'" [control]="getControl('firstName')"></ktbz-control>
-				<ktbz-control [label]="'Last name'" [control]="getControl('lastName')"></ktbz-control>
-			</div>
-			<div class="form__controls-row">
-				<ktbz-control [label]="'Password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
-				<ktbz-control [label]="'Confirm password'" [type]="'password'" [control]="getControl('confirmPassword')"></ktbz-control>
-			</div>
+			<!-- <div class="form__controls-row"> -->
+			<ktbz-control [label]="'Username'" [control]="getControl('username')"></ktbz-control>
+			<ktbz-control [label]="'E-mail'" [control]="getControl('email')"></ktbz-control>
+			<!-- </div> -->
+			<!-- <div class="form__controls-row"> -->
+			<ktbz-control [label]="'First name'" [control]="getControl('firstName')"></ktbz-control>
+			<ktbz-control [label]="'Last name'" [control]="getControl('lastName')"></ktbz-control>
+			<!-- </div> -->
+			<!-- <div class="form__controls-row"> -->
+			<ktbz-control [label]="'Password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
+			<ktbz-control [label]="'Confirm password'" [type]="'password'" [control]="getControl('confirmPassword')"></ktbz-control>
+			<!-- </div> -->
 
 			<ktbz-checkbox
 				[label]="'I want to use my face as auth method'"

@@ -1,3 +1,10 @@
 .loginWrapper {
-  flex-grow: 1;
+	flex-grow: 1;
+}
+
+.alertsWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 40px;
 }

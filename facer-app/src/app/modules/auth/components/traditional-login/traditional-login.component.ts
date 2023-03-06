@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RootState } from 'src/app/core/store/root.state';
 import { Store } from '@ngrx/store';
-import { notEmptyStr } from 'src/app/modules/utils/not-empty-str.validator';
-import { loginErrorMessage, loginSuccessMessage } from '../../store/selectors/auth.selectors';
-import { clearLoginResponse, loginAction } from '../../store/actions/login.actions';
+import { RootState } from 'src/app/core/store/root.state';
+import { notEmptyStr } from 'src/app/core/utils/not-empty-str.validator';
+import { loginAction } from '../../store/actions/login.actions';
 
 @Component({
 	selector: 'ktbz-traditional-login',
@@ -19,11 +18,7 @@ export class TraditionalLoginComponent implements OnInit {
 
 	constructor(private builder: FormBuilder, private store$: Store<RootState>) {}
 
-	error$ = this.store$.select(loginErrorMessage);
-	success$ = this.store$.select(loginSuccessMessage);
-
 	ngOnInit(): void {
-		this.store$.dispatch(clearLoginResponse());
 		this.initForm();
 	}
 

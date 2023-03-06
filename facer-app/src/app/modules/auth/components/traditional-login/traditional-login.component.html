@@ -1,14 +1,9 @@
 <form [formGroup]="loginForm" class="form__container">
-  <ktbz-alert *ngIf="success$ | async as success" [dismissable]="false" type="success"> {{ success }}</ktbz-alert>
-  <ktbz-alert *ngIf="error$ | async as error" [dismissable]="false" type="error">
-    <div *ngFor="let line of error.split('\n')"> {{line}}</div>
-  </ktbz-alert>
-  <ktbz-control [label]="'Username / E-mail'" [control]="getControl('username')"></ktbz-control>
-  <ktbz-control [label]="'Your password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
+	<ktbz-control [label]="'Username / E-mail'" [control]="getControl('username')"></ktbz-control>
+	<ktbz-control [label]="'Your password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
 
-  <div class="form__buttons-col">
-
-    <button (click)="submitForm()" [disabled]="!loginForm.valid" class="btn primary"> Login </button>
-    <button (click)="switchToCreateAccount()" class="btn secondary"> Create new account </button>
-  </div>
+	<div class="form__buttons-col">
+		<button (click)="submitForm()" [disabled]="!loginForm.valid" class="btn primary">Login</button>
+		<button (click)="switchToCreateAccount()" class="btn secondary">Create new account</button>
+	</div>
 </form>
