@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
 		this.toggleScan(false, this.isForRetry);
 		this.userImage = image;
 		if (this.isForRetry) {
-			this.retryImage();
+			// this.retryImage();
 		}
 	}
 
@@ -83,19 +83,19 @@ export class RegisterComponent implements OnInit {
 		// 	});
 	}
 
-	retryImage() {
-		const fd = this.formData as FormData;
-		fd.append('userId', this.authService.userId);
-		this.clearAll();
-		this.authService
-			.uploadFile(fd)
-			.pipe(untilDestroyed(this))
-			.subscribe(response => {
-				if (response.error && response.status === 404) this.handleWarning(response.error, this.authService.userId);
-				else if (response.error) this.handleError(response.error);
-				else this.handleSuccess(response);
-			});
-	}
+	// retryImage() {
+	// 	const fd = this.formData as FormData;
+	// 	fd.append('userId', this.authService.userId);
+	// 	this.clearAll();
+	// 	this.authService
+	// 		.uploadFile(fd)
+	// 		.pipe(untilDestroyed(this))
+	// 		.subscribe(response => {
+	// 			if (response.error && response.status === 404) this.handleWarning(response.error, this.authService.userId);
+	// 			else if (response.error) this.handleError(response.error);
+	// 			else this.handleSuccess(response);
+	// 		});
+	// }
 
 	clearAll() {
 		this.clearError();

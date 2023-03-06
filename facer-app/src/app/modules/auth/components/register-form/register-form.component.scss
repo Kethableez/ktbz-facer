@@ -1,16 +1,20 @@
 @use '../../../../../assets/styles/colors';
 
 .webcamWrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: colors.$white;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  border-radius: 16px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: colors.$white;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	border-radius: 16px;
+}
+
+.spacer {
+	height: 20px;
 }
 
 .registerWrapper {
-  position: relative;
+	position: relative;
 }

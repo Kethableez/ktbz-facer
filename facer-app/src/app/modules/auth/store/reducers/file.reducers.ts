@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { clearLoginResponse, loginAction, loginErrorAction, loginSuccessAction } from '../actions/login.actions';
+import { clearFileResponse, uploadFileAction, uploadFileErrorAction, uploadFileSuccessAction } from '../actions/file.actions';
 
 export interface State {
 	inProgress: boolean;
@@ -13,33 +13,33 @@ export const initialState: State = {
 	error: null,
 };
 
-export const loginReducer = createReducer(
+export const fileReducer = createReducer(
 	initialState,
-	on(loginAction, state => ({
+	on(uploadFileAction, state => ({
 		...state,
 		inProgress: true,
 		error: null,
 		success: null,
 	})),
-	on(loginSuccessAction, (state, payload) => ({
+	on(uploadFileSuccessAction, (state, payload) => ({
 		...state,
 		inProgress: false,
 		success: payload.message,
 	})),
-	on(loginErrorAction, (state, payload) => ({
+	on(uploadFileErrorAction, (state, payload) => ({
 		...state,
 		inProgress: false,
-		error: typeof payload.message === 'string' ? payload.message : (payload.message as string[]).join('\n'),
+		error: payload.message,
 	})),
-	on(clearLoginResponse, state => ({
+	on(clearFileResponse, state => ({
 		...state,
 		error: null,
 		success: null,
 	}))
 );
 
-export const loginFeatureKey = 'login';
+export const fileFeatureKey = 'file';
 
 export function reducer(state: State | undefined, action: Action) {
-	return loginReducer(state, action);
+	return fileReducer(state, action);
 }

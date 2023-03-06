@@ -1,26 +1,8 @@
 @use '../../../../assets/styles/general';
 @use '../../../../assets/styles/colors';
 
-@media screen and (max-width: general.$bp-sm) {
-  .box {
-	  padding: 20px;
-
-  }
-}
-
-@media screen and (max-width: general.$bp-lg) {
-  .box {
-    padding: 32px;
-  }
-}
-
-@media screen and (min-width: general.$bp-lg) {
-  .box {
-    padding: 72px;
-  }
-}
-
 .box {
+	padding: 72px;
 	border-radius: 16px;
 	box-shadow: 0 4px 8px rgba($color: #000000, $alpha: 0.08);
 }

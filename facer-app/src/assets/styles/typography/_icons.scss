@@ -88,6 +88,16 @@ i {
 		height: 24px;
 	}
 
+	&.close-2 {
+		mask-image: url('../../icons/close-2.svg');
+		display: block;
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: white;
+		width: 24px;
+		height: 24px;
+	}
+
 	&.chevron-up {
 		mask-image: url('../../icons/chevron-up.svg');
 		display: block;
@@ -110,23 +120,23 @@ i {
 		height: 24px;
 	}
 
-  &.camera {
-    mask-image: url('../../icons/camera.svg');
+	&.camera {
+		mask-image: url('../../icons/camera.svg');
 		display: block;
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
 		width: 24px;
 		height: 24px;
-  }
+	}
 
-  &.rotate {
-    mask-image: url('../../icons/rotate.svg');
+	&.rotate {
+		mask-image: url('../../icons/rotate.svg');
 		display: block;
 		mask-position: center;
 		mask-repeat: no-repeat;
 		background-color: white;
 		width: 24px;
 		height: 24px;
-  }
+	}
 }

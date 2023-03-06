@@ -1,20 +1,42 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 import * as Register from '../reducers/register.reducers';
+import * as Login from '../reducers/login.reducers';
+import * as File from '../reducers/file.reducers';
 
 export const selectAuthState = createFeatureSelector('auth');
 
-export const selectRegisterState = createSelector(selectAuthState, (state: any) => state.register);
+export const selectRegisterState: MemoizedSelector<object, Register.State> = createSelector(
+	selectAuthState,
+	(state: any) => state.register
+);
+
+export const selectFileState: MemoizedSelector<object, File.State> = createSelector(selectAuthState, (state: any) => state.file);
+
+export const selectLoginState: MemoizedSelector<object, Login.State> = createSelector(selectAuthState, (state: any) => state.login);
 
 export const isRegisterInProgress = createSelector(selectRegisterState, state => state.inProgress);
 
+export const registeredUserId = createSelector(selectRegisterState, state => state.userId);
+
 export const registerSuccessMessage = createSelector(selectRegisterState, state => state.success);
 
-export const registerErrorMessage = createSelector(selectRegisterState, state => state.error)
-
-export const selectLoginState = createSelector(selectAuthState, (state: any) => state.login);
+export const registerErrorMessage = createSelector(selectRegisterState, state => state.error);
 
 export const isLoginInProgress = createSelector(selectLoginState, state => state.inProgress);
 
 export const loginSuccessMessage = createSelector(selectLoginState, state => state.success);
 
-export const loginErrorMessage = createSelector(selectLoginState, state => state.error)
+export const loginErrorMessage = createSelector(selectLoginState, state => state.error);
+
+export const isFileUploadInProgress = createSelector(selectFileState, state => state.inProgress);
+
+export const fileUploadSuccessMessage = createSelector(selectFileState, state => state.success);
+
+export const fileUploadErrorMessage = createSelector(selectFileState, state => state.error);
+
+export const afterRegisterData = createSelector(
+	registeredUserId,
+	isRegisterInProgress,
+	registerErrorMessage,
+	(userId, inProgress, error) => ({ userId, inProgress, error })
+);

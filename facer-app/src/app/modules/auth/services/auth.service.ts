@@ -43,33 +43,19 @@ export class AuthService {
 		return this.http.post<NameAvailability>(url, payload);
 	}
 
-	uploadFile(request: FormData) {
-		const fileUrl = `${this.aiUrl}/files/upload`;
-		return this.http.post<{ message: string }>(fileUrl, request).pipe(
-			catchError((error: any) => {
-				return of(error);
-			})
-		);
-	}
-
 	register(request: { payload: RegisterRequest; data?: FormData }) {
 		const url = `${this.apiUrl}/user/register`;
-		return this.http.post<{ userId: string; message: string }>(url, request.payload).pipe(
-			switchMap(response => {
-				if (request.data) {
-					this.userId = response.userId;
-					const fileUrl = `${this.apiUrl}/file/upload`;
-					request.data.append('userId', response.userId);
-					return this.http.post<{ message: string }>(fileUrl, request.data).pipe(map(() => ({ message: response.message })));
-				}
-				return of({ message: response.message});
-			})
-		);
+		return this.http.post<{ userId: string; message: string }>(url, request.payload);
+	}
+
+	uploadFile(data: FormData) {
+		const url = `${this.apiUrl}/file/upload`;
+		return this.http.post<{ message: string }>(url, data);
 	}
 
 	login(payload: LoginRequest) {
 		const url = `${this.apiUrl}/auth/login`;
-		return this.http.post<any>(url, payload)
+		return this.http.post<any>(url, payload);
 	}
 
 	faceLogin(formData: FormData) {
@@ -77,16 +63,16 @@ export class AuthService {
 		return this.http.post(url, formData).pipe(catchError((error: any) => of(this.errorService.addError('login', error.error.message))));
 	}
 
-  urlEnd: { [key: string]: string } = {
-    nameAvailability: 'availability/username',
-    emailAvailability: 'availability/email',
-    uploadFile: 'upload',
-    register: 'register',
-    login: 'login',
-    faceLogin: 'face-login'
-  }
+	urlEnd: { [key: string]: string } = {
+		nameAvailability: 'availability/username',
+		emailAvailability: 'availability/email',
+		uploadFile: 'upload',
+		register: 'register',
+		login: 'login',
+		faceLogin: 'face-login',
+	};
 
-  getModuleUrl(module: string, end: string) {
-    return `${this.apiUrl}/${module}/${this.urlEnd[end]}`;
-  }
+	getModuleUrl(module: string, end: string) {
+		return `${this.apiUrl}/${module}/${this.urlEnd[end]}`;
+	}
 }

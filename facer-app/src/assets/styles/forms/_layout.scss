@@ -1,49 +1,5 @@
 @use '../general';
 
-@media screen and (max-width: general.$bp-sm) {
-  .form__container {
-    gap: 8px;
-    margin-top: 10px
-  }
-
-  .form__controls-row {
-    gap: 8px;
-  }
-
-  .form__buttons-row {
-		gap: 10px;
-
-	}
-
-  .form__buttons-col {
-    gap: 10px;
-    margin-top: 10px;
-  }
-
-}
-
-@media screen and (max-width: general.$bp-lg) {
-  .form__container {
-    gap: 12px;
-    margin-top: 20px
-  }
-
-  .form__controls-row {
-    gap: 12px;
-  }
-
-  .form__buttons-row {
-		gap: 16px;
-
-	}
-
-  .form__buttons-col {
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-}
-
 .form {
 	&__control {
 		display: flex;
@@ -56,19 +12,19 @@
 
 		flex-direction: column;
 		gap: 16px;
-	  margin-top: 40px;
+		margin-top: 40px;
 	}
 
-  &__controls-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
+	&__controls-row {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 16px;
 
-    ktbz-control {
-      flex-grow: 1;
-    }
-  }
+		ktbz-control {
+			flex-grow: 1;
+		}
+	}
 
 	&__buttons-row {
 		display: flex;
@@ -81,12 +37,12 @@
 		}
 	}
 
-  &__buttons-col {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 20px;
-  }
+	&__buttons-col {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		margin-top: 20px;
+	}
 }
 
 // form {
@@ -95,5 +51,3 @@
 // 	gap: 16px;
 // 	margin-top: 40px;
 // }
-
-

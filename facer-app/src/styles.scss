@@ -10,5 +10,7 @@ body {
 }
 
 video {
-	border-radius: 20px !important;
+	border-radius: 16px !important;
+	object-fit: cover;
+	aspect-ratio: unset;
 }
