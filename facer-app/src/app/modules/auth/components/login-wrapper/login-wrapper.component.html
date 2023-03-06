@@ -1,0 +1,12 @@
+<div class="loginWrapper">
+  <ktbz-box>
+    <h2>Welcome back!</h2>
+    <ktbz-tabs [tabs]="tabs" (onTabSelection)="selectLoginMethod($event)"></ktbz-tabs>
+    <ng-container *ngIf="selectedLoginMethod === 'traditional'; else faceId">
+      <ktbz-traditional-login (onChangeForm)="switchToRegisterForm()"></ktbz-traditional-login>
+    </ng-container>
+    <ng-template #faceId>
+      <ktbz-face-login (onFormChange)="switchToRegisterForm()"></ktbz-face-login>
+    </ng-template>
+  </ktbz-box>
+</div>

@@ -11,33 +11,29 @@ import { AuthService } from './services/auth.service';
 export class AuthComponent {
 	constructor(private authService: AuthService, private builder: FormBuilder) {}
 
-	dummyForm = this.builder.group({
-		username: ['', Validators.required],
-		password: ['', Validators.required],
-	});
+	// dummyForm = this.builder.group({
+	// 	username: ['', Validators.required],
+	// 	password: ['', Validators.required],
+	// });
 
-	dummyRegisterForm = this.builder.group({
-		username: ['', Validators.required],
-		email: ['', Validators.required],
-		firstName: ['', Validators.required],
-		lastName: ['', Validators.required],
-		password: ['', Validators.required],
-		useFace: ['', Validators.required],
-	});
+	// dummyRegisterForm = this.builder.group({
+	// 	username: ['', Validators.required],
+	// 	email: ['', Validators.required],
+	// 	firstName: ['', Validators.required],
+	// 	lastName: ['', Validators.required],
+	// 	password: ['', Validators.required],
+	// 	useFace: ['', Validators.required],
+	// });
 
-	dummyFaceIdForm = this.builder.group({
-		model: [null, Validators.required],
-	});
+	// dummyFaceIdForm = this.builder.group({
+	// 	model: [null, Validators.required],
+	// });
 
-	isFormOpened = true;
-	selectedForm = 'login';
+	// isFormOpened = true;
+	activeForm = 'register';
 
-	select(action: string) {
-		this.isFormOpened = true;
-		this.selectedForm = action;
-	}
-
-	closeForms() {
-		this.isFormOpened = false;
+	selectForm(action: string) {
+    console.log(action);
+		this.activeForm = action;
 	}
 }

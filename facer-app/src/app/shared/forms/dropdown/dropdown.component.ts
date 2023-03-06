@@ -26,6 +26,7 @@ export class DropdownComponent implements OnInit {
 	onClick(event: any) {
 		const path = event.path || event.composedPath();
 		const inPath = path.find((e: any) => e === this.elRef.nativeElement);
+    this.markAsTouched();
 		if (!inPath) {
 			this.toggle('closed');
 		}
@@ -46,7 +47,6 @@ export class DropdownComponent implements OnInit {
 	ngOnInit(): void {}
 
 	toggle(state?: 'open' | 'closed') {
-		if (!this.control.touched) this.control.markAsTouched();
 		if (state) {
 			this.isFocused = state === 'open';
 			this.state = state;
@@ -78,4 +78,8 @@ export class DropdownComponent implements OnInit {
 	get errors() {
 		return this.control.errors;
 	}
+
+  markAsTouched() {
+    if (!this.control.touched && this.state === 'open') this.control.markAsTouched();
+  }
 }

@@ -1,9 +1,13 @@
 <div class="page--full bg-img">
 	<div class="flex">
 		<div class="col">
-			<ktbz-box>
-				<h1>Login to your Account</h1>
-				<ktbz-tabs [tabs]="['Traditional', 'Face ID']"></ktbz-tabs>
+      <ktbz-login-wrapper *ngIf="activeForm==='login'" (onChangeForm)="selectForm('register')"></ktbz-login-wrapper>
+      <ktbz-register-form *ngIf="activeForm === 'register'" (onFormChange)="selectForm('login')"></ktbz-register-form>
+    </div>
+  </div>
+			<!-- <ktbz-box> -->
+				<!-- <h1>Login to your Account</h1> -->
+				<!-- <ktbz-tabs [tabs]="['Traditional', 'Face ID']"></ktbz-tabs> -->
 				<!-- <form class="formContainer" [formGroup]="dummyForm">
 					<ktbz-control label="Username" type="text" [control]="dummyForm.controls.username"></ktbz-control>
 
@@ -13,15 +17,15 @@
 					<button class="btn secondary">Create new account</button>
 				</form> -->
 
-				<form class="formContainer" [formGroup]="dummyFaceIdForm">
+				<!-- <form class="formContainer" [formGroup]="dummyFaceIdForm">
 					<div class="dummyVideo"></div>
-					<ktbz-dropdown label="Select model" [data]="['dlib']" [control]="dummyFaceIdForm.controls.model"></ktbz-dropdown>
+					<ktbz-dropdown label="Select model" [data]="['dlib']" [control]="dummyFaceIdForm.controls.model"></ktbz-dropdown> -->
 
 					<!-- <ktbz-control label="Password" type="password" [control]="dummyForm.controls.password"></ktbz-control> -->
-					<div class="sp"></div>
+					<!-- <div class="sp"></div>
 					<button class="btn primary">Login</button>
 					<button class="btn secondary">Create new account</button>
-				</form>
+				</form> -->
 
 				<!-- <form class="formContainer" [formGroup]="dummyRegisterForm">
 					<ktbz-control label="Username" type="text" [control]="dummyRegisterForm.controls.username"></ktbz-control>
@@ -45,9 +49,9 @@
 					<button class="btn primary">Create Account</button>
 					<button class="btn secondary">Cancel</button>
 				</form> -->
-			</ktbz-box>
-		</div>
-	</div>
+			<!-- </ktbz-box> -->
+		<!-- </div> -->
+	<!-- </div> -->
 </div>
 <!-- <div class="formWrapper" *ngIf="isFormOpened">
 	<ktbz-box>

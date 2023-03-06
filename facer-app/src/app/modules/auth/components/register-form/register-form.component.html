@@ -1,0 +1,31 @@
+<div class="registerWrapper">
+  <ktbz-box>
+    <h2> Create new Account</h2>
+
+
+<form [formGroup]="registerForm" class="form__container">
+  <div class="form__controls-row">
+    <ktbz-control [label]="'Username'" [control]="getControl('username')"></ktbz-control>
+  <ktbz-control [label]="'E-mail'" [control]="getControl('email')"></ktbz-control>
+  </div>
+  <div class="form__controls-row">
+    <ktbz-control [label]="'Password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
+    <ktbz-control [label]="'Confirm password'" [type]="'password'" [control]="getControl('confirmPassword')"></ktbz-control>
+
+  </div>
+  <div class="form__controls-row">
+    <ktbz-control [label]="'First name'" [control]="getControl('firstName')"></ktbz-control>
+  <ktbz-control [label]="'Last name'" [control]="getControl('lastName')"></ktbz-control>
+  </div>
+  <ktbz-checkbox [label]="'I want to use my face as auth method'" [type]="'switch'" [control]="getControl('useFace')"></ktbz-checkbox>
+
+  <div class="form__buttons-col">
+    <button *ngIf="getControl('useFace').value" class="btn tertiary"> Scan my face</button>
+    <button class="btn primary" (click)="submitForm()"> Create </button>
+    <button class="btn secondary" (click)="switchToLoginForm()"> Cancel</button>
+
+  </div>
+</form>
+
+  </ktbz-box>
+</div>
