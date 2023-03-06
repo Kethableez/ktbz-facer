@@ -62,6 +62,7 @@ export class UserService {
 		type: 'email' | 'username',
 		value: string
 	): Promise<Availability> {
+		const user = await this.userRepository.find({ [type]: value })
 		const isAvailable = isEmpty(
 			await this.userRepository.find({ [type]: value })
 		);

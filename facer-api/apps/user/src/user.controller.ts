@@ -46,13 +46,13 @@ export class UserController {
 	@MessagePattern('check-availability')
 	@UseInterceptors(CatchExceptionInterceptor)
 	checkNameAvailabilityEvent(
-		@Payload() data: { selector: 'username' | 'email'; name: string },
+		@Payload() data: { selector: 'username' | 'email'; value: string },
 		@Ctx() context: RmqContext
 	): Promise<Availability> {
 		this.rmqService.ack(context);
 		const response = this.userService.nameAvailability(
 			data.selector,
-			data.name
+			data.value
 		);
 		return response;
 	}

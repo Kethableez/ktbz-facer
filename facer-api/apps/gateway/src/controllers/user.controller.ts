@@ -43,11 +43,11 @@ export class UserController {
 	@UseInterceptors(CatchExceptionInterceptor)
 	checkAvailability(
 		@Param('selector') selector: string,
-		@Body() body: Name
+		@Body() body: { [key: string]: string }
 	): Observable<Availability> {
 		return this.userClient.send('check-availability', {
 			selector: selector,
-			name: body.name,
+			value: body[selector],
 		});
 	}
 }

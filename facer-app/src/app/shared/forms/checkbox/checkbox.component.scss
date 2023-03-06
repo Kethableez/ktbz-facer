@@ -8,6 +8,8 @@
 		gap: 8px;
 
 		.checkbox-box {
+      flex-shrink: 0;
+
 			width: 24px;
 			height: 24px;
 			border: 1px solid colors.$neutral-500;
@@ -25,6 +27,7 @@
 		}
 
 		.checkbox-switch {
+      flex-shrink: 0;
 			padding: 0 2px;
 			display: flex;
 			flex-direction: row;
@@ -35,6 +38,8 @@
 			transition: 0.1s ease-in-out;
 
 			&__thumb {
+      flex-shrink: 0;
+
 				width: 20px;
 				height: 20px;
 				background-color: colors.$white;

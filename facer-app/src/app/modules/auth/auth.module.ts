@@ -15,9 +15,10 @@ import { LoginWrapperComponent } from './components/login-wrapper/login-wrapper.
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { RegisterFaceScannerComponent } from './components/register-face-scanner/register-face-scanner.component';
 import { LoginFaceScannerComponent } from './components/login-face-scanner/login-face-scanner.component';
+import { AuthStateModule } from './store/auth-state.module';
 
 @NgModule({
 	declarations: [AuthComponent, LoginComponent, RegisterComponent, WebcamComponent, TraditionalLoginComponent, FaceLoginComponent, LoginWrapperComponent, RegisterFormComponent, RegisterFaceScannerComponent, LoginFaceScannerComponent],
-	imports: [CommonModule, WebcamModule, SharedModule, AuthRoutingModule, ReactiveFormsModule, FormsModule],
+	imports: [CommonModule, WebcamModule, SharedModule, AuthRoutingModule, ReactiveFormsModule, FormsModule, AuthStateModule],
 })
 export class AuthModule {}

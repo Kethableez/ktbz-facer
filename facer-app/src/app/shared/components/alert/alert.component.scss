@@ -8,6 +8,9 @@
 	padding-right: 16px;
 	border-radius: 10px;
 	gap: 18px;
+  p.alert__paragraph {
+    margin: 2px 0;
+  }
 
 	i.close {
 		background-color: colors.$neutral-800;
@@ -31,7 +34,7 @@
 	}
 
 	&__icon {
-		padding: 0 8px;
+		padding-inline: 16px 8px;
 
 		i {
 			width: 30px;

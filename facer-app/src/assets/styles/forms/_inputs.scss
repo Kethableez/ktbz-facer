@@ -2,10 +2,44 @@
 @use '../colors';
 
 label {
-	// par small regular
 	color: colors.$black;
 	font-size: 14px;
 	line-height: 24px;
+}
+
+@media screen and (max-width: general.$bp-sm) {
+  input[type='text'],
+input[type='password'],
+textarea {
+  border-radius: 8px;
+	padding: 8px 10px;
+	font-size: 12px;
+	line-height: 20px;
+}
+}
+
+@media screen and (min-width: general.$bp-sm) and  (max-width: general.$bp-lg) {
+  input[type='text'],
+  input[type='password'],
+  textarea {
+    border-radius: 8px;
+	padding: 8px 10px;
+	font-size: 14px;
+	line-height: 20px;
+  }
+}
+
+@media screen and (min-width: general.$bp-lg) {
+  input[type='text'],
+  input[type='password'],
+  textarea {
+
+
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 16px;
+    line-height: 28px;
+  }
 }
 
 input[type='text'],
@@ -14,11 +48,8 @@ textarea {
 	appearance: none;
 	outline: none;
 	border: 1px solid colors.$neutral-500;
-	border-radius: 10px;
-	padding: 10px 12px;
+
 	font-family: 'Manrope', sans-serif;
-	font-size: 16px;
-	line-height: 28px;
 	transition: border 0.2s ease-in-out, outline 0.1s ease-in-out;
 	flex-grow: 1;
 

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export interface ErrorPair {
 	name: string;
-	value: null | boolean | { actuallength: number; requiredLength: number };
+	value: null | boolean | { actuallength: number; requiredLength: number } | { field: string};
 }
 
 @Component({

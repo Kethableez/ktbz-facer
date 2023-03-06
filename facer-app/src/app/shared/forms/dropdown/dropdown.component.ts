@@ -66,6 +66,7 @@ export class DropdownComponent implements OnInit {
 
 	selectItem(item: string) {
 		this.control.setValue(item);
+    this.toggle('closed');
 	}
 
 	get status() {

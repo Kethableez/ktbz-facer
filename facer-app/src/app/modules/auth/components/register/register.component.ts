@@ -69,18 +69,18 @@ export class RegisterComponent implements OnInit {
 	}
 
 	submit() {
-		const request = {
-			payload: this.registerForm.value as RegisterRequest,
-			data: this.formData,
-		};
-		this.authService
-			.register(request)
-			.pipe(untilDestroyed(this))
-			.subscribe(response => {
-				if (response.error && response.status === 404) this.handleWarning(response.error, this.authService.userId);
-				else if (response.error) this.handleError(response.error);
-				else this.handleSuccess(response);
-			});
+		// const request = {
+		// 	payload: this.registerForm.value as RegisterRequest,
+		// 	data: this.formData,
+		// };
+		// this.authService
+		// 	.register(request)
+		// 	.pipe(untilDestroyed(this))
+		// 	.subscribe(response => {
+		// 		if (response.error && response.status === 404) this.handleWarning(response.error, this.authService.userId);
+		// 		else if (response.error) this.handleError(response.error);
+		// 		else this.handleSuccess(response);
+		// 	});
 	}
 
 	retryImage() {
@@ -146,7 +146,7 @@ export class RegisterComponent implements OnInit {
 			password: [null, Validators.required],
 			firstName: [null, Validators.required],
 			lastName: [null, Validators.required],
-			useFaceAsAuthMethod: [false],
+			useFaceAsAuthMethod: [true],
 		});
 	}
 

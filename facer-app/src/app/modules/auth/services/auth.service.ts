@@ -5,7 +5,6 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpErrorService } from 'src/app/core/services/http-error.service';
 import { NotificationsService } from 'src/app/core/services/notifications.service';
 import { environment } from 'src/environments/environment';
-import { v4 } from 'uuid';
 
 export interface NameAvailability {
 	available: boolean;
@@ -53,18 +52,6 @@ export class AuthService {
 		);
 	}
 
-	// sse() {
-	// 	const clientId = v4();
-	// 	const sseUrl = `${this.apiUrl}/user/sse/${clientId}`;
-	// 	// return this.http.get(sseUrl);
-	// 	return new Observable(obs => {
-	// 		const es = new EventSource(sseUrl);
-	// 		es.addEventListener('message', evt => {
-	// 			obs.next(JSON.parse(evt.data));
-	// 		});
-	// 	});
-	// }
-
 	register(request: { payload: RegisterRequest; data?: FormData }) {
 		const url = `${this.apiUrl}/user/register`;
 		return this.http.post<{ userId: string; message: string }>(url, request.payload).pipe(
@@ -73,25 +60,33 @@ export class AuthService {
 					this.userId = response.userId;
 					const fileUrl = `${this.apiUrl}/file/upload`;
 					request.data.append('userId', response.userId);
-					return this.http.post<{ message: string }>(fileUrl, request.data);
+					return this.http.post<{ message: string }>(fileUrl, request.data).pipe(map(() => ({ message: response.message })));
 				}
-				return of(response);
-			}),
-			catchError((error: any) => {
-				return of(error);
+				return of({ message: response.message});
 			})
 		);
 	}
 
 	login(payload: LoginRequest) {
 		const url = `${this.apiUrl}/auth/login`;
-		return this.http
-			.post<{ userId: string }>(url, payload)
-			.pipe(catchError((error: any) => of(this.errorService.addError('login', error.error.message))));
+		return this.http.post<any>(url, payload)
 	}
 
 	faceLogin(formData: FormData) {
 		const url = `${this.apiUrl}/auth/face-login`;
 		return this.http.post(url, formData).pipe(catchError((error: any) => of(this.errorService.addError('login', error.error.message))));
 	}
+
+  urlEnd: { [key: string]: string } = {
+    nameAvailability: 'availability/username',
+    emailAvailability: 'availability/email',
+    uploadFile: 'upload',
+    register: 'register',
+    login: 'login',
+    faceLogin: 'face-login'
+  }
+
+  getModuleUrl(module: string, end: string) {
+    return `${this.apiUrl}/${module}/${this.urlEnd[end]}`;
+  }
 }
