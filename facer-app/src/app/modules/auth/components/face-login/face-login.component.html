@@ -1,10 +1,15 @@
 <div class="form__container">
 	<ktbz-dropdown [control]="modelControl" [label]="'Select model'" [data]="['dlib']"></ktbz-dropdown>
 	<div class="dummyWebcam">
-		<ktbz-face-scanner [hasExternalTrigger]="true" [externalTrigger]="trigger" (onPhotoSubmit)="submit($event)"></ktbz-face-scanner>
+		<ktbz-face-scanner
+			[type]="'small'"
+			[hasExternalTrigger]="true"
+			[externalTrigger]="trigger"
+			(onPhotoSubmit)="submit($event)"
+		></ktbz-face-scanner>
 	</div>
-	<div class="form__buttons-col">
-		<button class="btn primary" [disabled]="!modelControl.valid" (click)="initLoginAction()">Login</button>
+	<div class="form__buttons-row">
 		<button class="btn secondary" (click)="switchToRegisterForm()">Create new account</button>
+		<button class="btn primary" [disabled]="!modelControl.valid" (click)="initLoginAction()">Login</button>
 	</div>
 </div>

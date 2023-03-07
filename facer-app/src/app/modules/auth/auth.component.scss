@@ -46,7 +46,7 @@
 	align-items: center;
 
 	ktbz-register-form {
-		width: 100%;
+		width: min(100%, 600px);
 	}
 
 	ktbz-login-wrapper {

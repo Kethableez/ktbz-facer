@@ -40,12 +40,10 @@ textarea {
 	}
 
 	&.ng-pending.ng-touched:not(:focus-within) {
-		border: 1px solid blue;
-		outline: 2px solid red;
+		border: 1px solid colors.$neutral-700;
 	}
 
 	&:focus-within {
-		// border: 1px solid colors.$neutral-700;
 		border: 1px solid colors.$primary-500;
 		outline: 4px solid colors.$primary-300;
 	}

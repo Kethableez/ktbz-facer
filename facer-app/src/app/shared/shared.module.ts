@@ -7,8 +7,9 @@ import { AlertModule } from './components/alert/alert.module';
 import { CheckboxModule } from './forms/checkbox/checkbox.module';
 import { TabsModule } from './components/tabs/tabs.module';
 import { DropdownModule } from './forms/dropdown/dropdown.module';
+import { SpinnerModule } from './components/spinner/spinner.module';
 
-const COMPONENTS = [BoxModule, AlertModule, TabsModule];
+const COMPONENTS = [BoxModule, AlertModule, TabsModule, SpinnerModule];
 const FORMS = [ControlModule, CheckboxModule, DropdownModule];
 
 @NgModule({

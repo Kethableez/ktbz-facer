@@ -1,4 +1,6 @@
 <div class="loginWrapper">
+	<ktbz-spinner *ngIf="inProgress$ | async" [type]="'fluid'"></ktbz-spinner>
+
 	<ktbz-box>
 		<h2>Welcome back!</h2>
 		<ktbz-tabs [tabs]="tabs" (onTabSelection)="selectLoginMethod($event)"></ktbz-tabs>

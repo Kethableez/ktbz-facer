@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { RootState } from 'src/app/core/store/root.state';
 import { clearLoginResponse } from '../../store/actions/login.actions';
-import { loginErrorMessage, loginSuccessMessage } from '../../store/selectors/auth.selectors';
+import { isLoginInProgress, loginErrorMessage, loginSuccessMessage } from '../../store/selectors/auth.selectors';
 
 @Component({
 	selector: 'ktbz-login-wrapper',
@@ -26,6 +26,7 @@ export class LoginWrapperComponent implements OnInit {
 
 	error$ = this.store$.pipe(select(loginErrorMessage));
 	success$ = this.store$.pipe(select(loginSuccessMessage));
+	inProgress$ = this.store$.pipe(select(isLoginInProgress));
 
 	selectedLoginMethod = this.tabs[0].value;
 

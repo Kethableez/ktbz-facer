@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { merge, Subject } from 'rxjs';
 
@@ -7,9 +7,9 @@ import { merge, Subject } from 'rxjs';
 	templateUrl: './face-scanner.component.html',
 	styleUrls: ['./face-scanner.component.scss'],
 })
-export class FaceScannerComponent implements OnInit, AfterViewInit {
-	@HostListener('window:resize')
-	onResize() {}
+export class FaceScannerComponent implements OnInit {
+	@Input()
+	type: 'big' | 'small' = 'big';
 
 	@Input()
 	hasExternalTrigger = false;
@@ -43,19 +43,13 @@ export class FaceScannerComponent implements OnInit, AfterViewInit {
 
 	constructor(private ref: ElementRef) {}
 
-	ngAfterViewInit(): void {
-		if (this.ref.nativeElement) {
-			const { offsetWidth, offsetHeight } = this.ref.nativeElement;
-			console.log(offsetHeight, offsetWidth);
-		}
-	}
-
 	get videoOptions(): MediaTrackConstraints {
 		const { width, height } = this.videoDims;
 
 		const result: MediaTrackConstraints = {
-			width: { exact: width, min: width, ideal: width },
-			height: { exact: height, min: height, ideal: height },
+			facingMode: 'user',
+			width: { ideal: width },
+			height: { ideal: height },
 		};
 		return result;
 	}

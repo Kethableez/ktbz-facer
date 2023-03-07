@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../../services/auth.service';
 import { faceLoginAction, loginAction, loginErrorAction, loginSuccessAction } from '../actions/login.actions';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, delay, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class LoginEffects {

@@ -15,7 +15,7 @@ export const selectFileState: MemoizedSelector<object, File.State> = createSelec
 export const selectLoginState: MemoizedSelector<object, Login.State> = createSelector(selectAuthState, (state: any) => state.login);
 export const selectAuthToken = createSelector(selectLoginState, state => state.accessToken);
 
-export const isRegisterInProgress = createSelector(selectRegisterState, state => state.inProgress);
+export const isRegisterInProgress = createSelector(selectRegisterState, selectFileState, (s1, s2) => s1.inProgress || s2.inProgress);
 
 export const registeredUserId = createSelector(selectRegisterState, state => state.userId);
 

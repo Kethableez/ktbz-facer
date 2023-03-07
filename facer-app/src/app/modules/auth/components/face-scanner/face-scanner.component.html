@@ -1,4 +1,4 @@
-<div class="faceScannerWrapper" #wrapper>
+<div class="faceScannerWrapper" [ngClass]="type" #wrapper>
 	<webcam
 		[width]="videoDims.width"
 		[height]="videoDims.height"
@@ -11,21 +11,21 @@
 	></webcam>
 	<div *ngIf="faceImage && !hasExternalTrigger" class="preview">
 		<img class="preview__img" [src]="previewUrl" />
-		<div class="buttons">
-			<button class="btn tertiary" (click)="clearPhoto()">Take new</button>
+		<div class="form__buttons-row buttons">
+			<button class="btn secondary" (click)="clearPhoto()">Take new</button>
 			<button class="btn primary" (click)="submitPhoto()">Submit</button>
 		</div>
 	</div>
 	<div class="switchButton">
-		<button *ngIf="!faceImage || hasExternalTrigger" class="btn tertiary rounded" (click)="switchCamera()">
+		<button *ngIf="!faceImage || hasExternalTrigger" class="btn secondary rounded" (click)="switchCamera()">
 			<i class="rotate" style="background-color: black"></i>
 		</button>
-		<button *ngIf="faceImage && !hasExternalTrigger" class="btn tertiary rounded" (click)="closeWebcam()">
+		<button *ngIf="faceImage && !hasExternalTrigger" class="btn secondary rounded" (click)="closeWebcam()">
 			<i class="close-2" style="background-color: black"></i>
 		</button>
 	</div>
-	<div class="buttons" *ngIf="!faceImage && !hasExternalTrigger">
-		<button class="btn tertiary" (click)="closeWebcam()">Cancel</button>
+	<div class="form__buttons-row buttons" *ngIf="!faceImage && !hasExternalTrigger">
+		<button class="btn secondary" (click)="closeWebcam()">Cancel</button>
 
 		<button class="btn primary" (click)="capturePhoto()">Capture</button>
 	</div>

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../../services/auth.service';
 import { registerAction, registerErrorAction, registerSuccessAction } from '../actions/register.actions';
-import { catchError, map, switchMap, of, filter, tap } from 'rxjs';
+import { catchError, map, switchMap, of, filter, tap, delay } from 'rxjs';
 import { uploadFileAction } from '../actions/file.actions';
 
 @Injectable()

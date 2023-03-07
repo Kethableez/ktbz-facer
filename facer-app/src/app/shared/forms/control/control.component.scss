@@ -1,8 +1,10 @@
+@use '../../../../assets/styles/colors';
+
 .formControl {
 	display: flex;
 	// gap: 8px;
 	margin: 4px 0;
-  flex-grow: 1;
+	flex-grow: 1;
 
 	position: relative;
 
@@ -43,5 +45,30 @@ i {
 
 	&:hover {
 		color: #515151;
+	}
+}
+
+.loader {
+	right: 18px;
+	top: 27%;
+	position: absolute;
+	transition: 0.2s ease-in-out;
+	user-select: none;
+	width: 24px;
+	height: 24px;
+	border: 2px solid;
+	border-color: colors.$neutral-700 transparent;
+	border-radius: 50%;
+	display: inline-block;
+	box-sizing: border-box;
+	animation: rotation 1s ease-in-out infinite;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

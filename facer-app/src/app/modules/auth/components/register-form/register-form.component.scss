@@ -2,13 +2,20 @@
 
 .webcamWrapper {
 	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	top: 0;
 	left: 0;
-	background-color: colors.$white;
+	background-color: colors.$trans-black-70;
 	width: 100%;
-	height: 100%;
 	z-index: 10;
+	height: 100%;
 	border-radius: 16px;
+	ktbz-face-scanner {
+		width: 100%;
+	}
 }
 
 .spacer {
@@ -17,4 +24,9 @@
 
 .registerWrapper {
 	position: relative;
+}
+
+.alertsWrapper {
+	display: flex;
+	flex-direction: column;
 }

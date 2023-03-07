@@ -7,7 +7,7 @@
 		<div class="formControl__inputWrapper">
 			<input ktbzDisableAutofill [id]="name" type="text" [placeholder]="placeholder" [formControl]="control" />
 			<!-- <span *ngIf="control.pending" class="material-symbols-outlined highlighted--muted rotate">brightness_3</span> -->
-			<i *ngIf="control.pending" class="gg-spinner-two-alt highlighted--muted"></i>
+			<span *ngIf="control.pending" class="loader"></span>
 		</div>
 	</ng-container>
 	<ng-container *ngIf="type === 'password'">
@@ -17,5 +17,6 @@
 			<i *ngIf="passwordVisible" class="eye" (click)="changeVisibility('off')"></i>
 		</div>
 	</ng-container>
-	<ktbz-input-error [errors]="errors" *ngIf="errors && control.touched && !focus"></ktbz-input-error>
+	<ktbz-input-error [errors]="errors" *ngIf="errors && control.touched && !focus; else whitespace"></ktbz-input-error>
+	<ng-template #whitespace><div class="whitespace-28"></div></ng-template>
 </div>

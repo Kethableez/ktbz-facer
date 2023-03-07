@@ -8,12 +8,13 @@ import { clearRegisterResponse, registerAction } from '../../store/actions/regis
 import {
 	fileUploadErrorMessage,
 	fileUploadSuccessMessage,
+	isRegisterInProgress,
 	registerErrorMessage,
 	registerSuccessMessage,
 } from '../../store/selectors/auth.selectors';
 import { WebcamImage } from 'ngx-webcam';
 import { FileProcess } from 'src/app/core/file-process';
-import { filter, map } from 'rxjs';
+import { filter, map, tap } from 'rxjs';
 import { clearFileResponse, uploadFileAction } from '../../store/actions/file.actions';
 import { NameAvailabilityValidator } from 'src/app/core/utils/name-availability.validator';
 import { notEmptyStr } from 'src/app/core/utils/not-empty-str.validator';
@@ -41,9 +42,11 @@ export class RegisterFormComponent implements OnInit {
 
 	warning$ = this.store$.select(fileUploadErrorMessage);
 
-	registerSuccess$ = this.store$.select(registerSuccessMessage);
+	registerSuccess$ = this.store$.select(registerSuccessMessage).pipe(tap(() => this.registerForm.reset()));
 
 	fileUploadSuccess$ = this.store$.select(fileUploadSuccessMessage);
+
+	inProgress$ = this.store$.select(isRegisterInProgress);
 
 	ngOnInit(): void {
 		this.initForm();

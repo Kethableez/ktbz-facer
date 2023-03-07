@@ -100,7 +100,7 @@ button {
 .secondary {
 	border: 1px solid colors.$neutral-500;
 	color: colors.$black;
-	background-color: rgba($color: #000000, $alpha: 0);
+	background-color: colors.$white;
 
 	&:not(:disabled) {
 		&:hover {
@@ -119,7 +119,7 @@ button {
 
 .tertiary {
 	color: colors.$black;
-	background-color: colors.$white;
+	background-color: colors.$transparent;
 
 	&:not(:disabled) {
 		&:hover {
