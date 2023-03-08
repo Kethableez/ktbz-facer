@@ -34,17 +34,16 @@ import { HttpModule } from '@nestjs/axios';
 		RmqModule.register({
 			name: 'FILE',
 		}),
+		RmqModule.register({
+			name: 'CLIENT',
+		}),
 		HttpModule,
 		PassportModule,
 		DatabaseModule,
 		UserModule,
 		AuthModule,
 	],
-	controllers: [
-		UserController,
-		AuthController,
-		FileController,
-	],
+	controllers: [UserController, AuthController, FileController],
 	providers: [
 		UserExistsRule,
 		JwtAuthGuard,

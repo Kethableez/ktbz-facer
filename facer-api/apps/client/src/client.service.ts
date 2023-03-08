@@ -50,11 +50,22 @@ export class ClientService {
 	}
 
 	async checkUser(userId: string, clientId: string): Promise<any> {
-		// ...
-		return null;
+		const client = await this.clientRepository.findOne({ _id: clientId });
+		if (!client) {
+			throw new RpcException({
+				message: 'Client not found',
+				statusCode: 404,
+			});
+		}
+
+		const isIn = client.bindUsers.includes(userId);
+
+		return { isIn: isIn };
 	}
 
 	async getUserClients(userId: string): Promise<any> {
+		// Todo
+
 		return null;
 	}
 }

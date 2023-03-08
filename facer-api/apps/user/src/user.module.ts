@@ -27,11 +27,7 @@ import { UserService } from './user.service';
 		MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
 	],
 	controllers: [UserController],
-	providers: [
-		UserService,
-		UserRepository,
-		{ provide: APP_FILTER, useClass: GrpcServerExceptionFilter },
-	],
+	providers: [UserService, UserRepository],
 	exports: [UserService],
 })
 export class UserModule {}

@@ -19,6 +19,7 @@ export class AuthService {
 	constructor(
 		private readonly httpService: HttpService,
 		@Inject('USER') private userClient: ClientProxy,
+		@Inject('CLIENT') private clientClient: ClientProxy,
 		private configService: ConfigService,
 		private jwtService: JwtService
 	) {}
@@ -112,5 +113,9 @@ export class AuthService {
 
 	private parseBufferData(buffer: SimpleBuffer): Buffer {
 		return Buffer.from(buffer.data);
+	}
+
+	checkIfCanDo() {
+		return true;
 	}
 }

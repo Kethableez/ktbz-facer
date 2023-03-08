@@ -35,6 +35,7 @@ import { HttpModule } from '@nestjs/axios';
 			}),
 		}),
 		RmqModule.register({ name: 'USER' }),
+		RmqModule.register({ name: 'CLIENT' }),
 		HttpModule,
 	],
 	controllers: [AuthController],
