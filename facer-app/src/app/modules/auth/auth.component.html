@@ -1,4 +1,5 @@
 <div class="page--full bg-img">
+	<button class="btn primary" (click)="checkAgent()">Check</button>
 	<div class="flex">
 		<div class="col">
 			<ktbz-login-wrapper *ngIf="activeForm === 'login'" (onChangeForm)="selectForm('register')"></ktbz-login-wrapper>

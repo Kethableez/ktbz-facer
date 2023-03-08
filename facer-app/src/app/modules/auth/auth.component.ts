@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
 	selector: 'ktbz-auth',
@@ -6,10 +7,14 @@ import { Component } from '@angular/core';
 	styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-	constructor() {}
+	constructor(private s: AuthService) {}
 	activeForm = 'login';
 
 	selectForm(action: string) {
 		this.activeForm = action;
+	}
+
+	checkAgent() {
+		this.s.headers().subscribe(value => console.log(value));
 	}
 }

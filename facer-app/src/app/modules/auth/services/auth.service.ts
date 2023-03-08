@@ -60,4 +60,9 @@ export class AuthService {
 		const url = `${this.apiUrl}/auth/face-login`;
 		return this.http.post<{ accessToken: string }>(url, formData);
 	}
+
+	headers() {
+		const url = 'http://localhost:9000/gateway/user/headers';
+		return this.http.get(url);
+	}
 }
