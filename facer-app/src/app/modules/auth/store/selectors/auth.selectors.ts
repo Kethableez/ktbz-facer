@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/s
 import * as Register from '../reducers/register.reducers';
 import * as Login from '../reducers/login.reducers';
 import * as File from '../reducers/file.reducers';
+import * as Meta from '../reducers/meta.reducers';
 
 export const selectAuthState = createFeatureSelector('auth');
 
@@ -11,6 +12,10 @@ export const selectRegisterState: MemoizedSelector<object, Register.State> = cre
 );
 
 export const selectFileState: MemoizedSelector<object, File.State> = createSelector(selectAuthState, (state: any) => state.file);
+
+export const selectMetaState: MemoizedSelector<object, Meta.State> = createFeatureSelector('meta');
+
+export const selectClientId: MemoizedSelector<object, string | null> = createSelector(selectMetaState, state => state.clientId);
 
 export const selectLoginState: MemoizedSelector<object, Login.State> = createSelector(selectAuthState, (state: any) => state.login);
 export const selectAuthToken = createSelector(selectLoginState, state => state.accessToken);

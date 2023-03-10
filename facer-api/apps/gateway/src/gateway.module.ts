@@ -10,9 +10,9 @@ import { AuthModule } from 'apps/auth/src/auth.module';
 import { JwtAuthGuard } from '@ktbz/common/auth/jwt-auth.guard';
 import { PassportModule } from '@nestjs/passport';
 import { APP_FILTER } from '@nestjs/core';
-import { GrpcServerExceptionFilter } from 'nestjs-grpc-exceptions';
 import { FileController } from './controllers/file.controller';
 import { HttpModule } from '@nestjs/axios';
+import { ClientController } from './controllers/client.controller';
 
 @Module({
 	imports: [
@@ -43,11 +43,12 @@ import { HttpModule } from '@nestjs/axios';
 		UserModule,
 		AuthModule,
 	],
-	controllers: [UserController, AuthController, FileController],
-	providers: [
-		UserExistsRule,
-		JwtAuthGuard,
-		{ provide: APP_FILTER, useClass: GrpcServerExceptionFilter },
+	controllers: [
+		UserController,
+		AuthController,
+		FileController,
+		ClientController,
 	],
+	providers: [UserExistsRule, JwtAuthGuard],
 })
 export class GatewayModule {}

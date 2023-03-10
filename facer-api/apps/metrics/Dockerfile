@@ -5,6 +5,8 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
+# RUN npm rebuild bcrypt 
+
 
 COPY . .
 
@@ -17,7 +19,7 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY ./facer-api/package*.json /
 
 RUN npm install --only=production
 
@@ -25,4 +27,4 @@ COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/client/main"]
+CMD ["node", "dist/apps/metrics/main"]

@@ -20,7 +20,6 @@ import { JwtAuthGuard } from '@ktbz/common/auth/jwt-auth.guard';
 import { UserId } from '@ktbz/common/models/user-id.model';
 import { Name } from '@ktbz/common/models/name.model';
 import { Availability } from '@ktbz/common/models/availability.model';
-import DeviceDetector from 'node-device-detector';
 
 @Controller('user')
 export class UserController {
@@ -29,9 +28,13 @@ export class UserController {
 	@Post('register')
 	@UseInterceptors(CatchExceptionInterceptor)
 	registerUser(
-		@Body() request: RegisterRequest
+		@Body() request: RegisterRequest,
+		@Headers() headers: any
 	): Observable<BaseResponse & UserId> {
-		return this.userClient.send('create-user', request);
+		return this.userClient.send('create-user', {
+			request: request,
+			clientId: headers['client-id'],
+		});
 	}
 
 	@Get('current')
@@ -51,12 +54,5 @@ export class UserController {
 			selector: selector,
 			value: body[selector],
 		});
-	}
-
-	@Get('headers')
-	getHeaders(@Req() r: any, @Headers() headers: any) {
-		console.log(r);
-		console.log(headers['user-agent']);
-		return headers;
 	}
 }

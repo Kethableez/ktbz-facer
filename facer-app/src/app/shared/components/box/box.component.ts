@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BoxComponent {
 	@Input()
-	background: string = 'bg-white';
+	background: string = 'bg-black';
 
 	@Input()
 	outlined = false;

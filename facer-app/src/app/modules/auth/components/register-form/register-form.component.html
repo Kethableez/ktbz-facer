@@ -14,30 +14,24 @@
 				<ktbz-alert *ngIf="fileUploadSuccess$ | async as success" type="success" [dismissable]="false">{{ success }}</ktbz-alert>
 
 				<ktbz-alert *ngIf="error$ | async as error" type="error" [dismissable]="false">
-					<div *ngFor="let line of error.split('\n')">{{ line }}</div>
+					<div class="highlighted--black" *ngFor="let line of error.split('\n')">{{ line }}</div>
 				</ktbz-alert>
 				<ktbz-alert *ngIf="warning$ | async as warning" type="warning" [dismissable]="false">
-					<div>{{ warning }}</div>
-					<div>Do you want to try again?</div>
+					<div class="highlighted--black">{{ warning }}</div>
+					<div class="highlighted--black">Do you want to try again?</div>
 					<div class="form__buttons-row">
-						<button class="btn-sm tertiary" (click)="switchToLoginForm()">Remind me later</button>
-						<button class="btn-sm secondary" (click)="retryFaceImageCapture()">Yes</button>
+						<button class="btn-sm secondary" (click)="switchToLoginForm()">Remind me later</button>
+						<button class="btn-sm primary" (click)="retryFaceImageCapture()">Yes</button>
 					</div>
 				</ktbz-alert>
 			</div>
 
-			<!-- <div class="form__controls-row"> -->
 			<ktbz-control [label]="'Username'" [control]="getControl('username')"></ktbz-control>
 			<ktbz-control [label]="'E-mail'" [control]="getControl('email')"></ktbz-control>
-			<!-- </div> -->
-			<!-- <div class="form__controls-row"> -->
 			<ktbz-control [label]="'First name'" [control]="getControl('firstName')"></ktbz-control>
 			<ktbz-control [label]="'Last name'" [control]="getControl('lastName')"></ktbz-control>
-			<!-- </div> -->
-			<!-- <div class="form__controls-row"> -->
 			<ktbz-control [label]="'Password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
 			<ktbz-control [label]="'Confirm password'" [type]="'password'" [control]="getControl('confirmPassword')"></ktbz-control>
-			<!-- </div> -->
 
 			<ktbz-checkbox
 				[label]="'I want to use my face as auth method'"

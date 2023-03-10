@@ -24,7 +24,7 @@ export class UserController {
 	@MessagePattern('create-user')
 	@UseInterceptors(CatchExceptionInterceptor)
 	createUserEvent(
-		@Payload() data: RegisterRequest,
+		@Payload() data: { request: RegisterRequest; clientId: string },
 		@Ctx() context: RmqContext
 	): Promise<BaseResponse & any> {
 		this.rmqService.ack(context);

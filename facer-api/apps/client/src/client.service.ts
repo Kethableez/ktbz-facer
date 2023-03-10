@@ -14,7 +14,7 @@ export class ClientService {
 			clientId: newClientId,
 			bindUsers: [],
 		});
-		return { clientId: newClient._id.toString() };
+		return { clientId: newClientId };
 	}
 
 	async bindUser(userId: string, clientId: string): Promise<BaseResponse> {
@@ -50,7 +50,7 @@ export class ClientService {
 	}
 
 	async checkUser(userId: string, clientId: string): Promise<any> {
-		const client = await this.clientRepository.findOne({ _id: clientId });
+		const client = await this.clientRepository.findOne({ clientId: clientId });
 		if (!client) {
 			throw new RpcException({
 				message: 'Client not found',
@@ -64,8 +64,8 @@ export class ClientService {
 	}
 
 	async getUserClients(userId: string): Promise<any> {
-		// Todo
-
-		return null;
+		return (
+			await this.clientRepository.find({ bindUsers: { $in: [userId] } })
+		).map((client) => client.clientId);
 	}
 }

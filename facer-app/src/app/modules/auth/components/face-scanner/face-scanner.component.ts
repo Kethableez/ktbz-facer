@@ -44,6 +44,7 @@ export class FaceScannerComponent implements OnInit {
 	constructor(private ref: ElementRef) {}
 
 	get videoOptions(): MediaTrackConstraints {
+		console.log(this.videoDims);
 		const { width, height } = this.videoDims;
 
 		const result: MediaTrackConstraints = {
@@ -87,10 +88,6 @@ export class FaceScannerComponent implements OnInit {
 
 	closeWebcam() {
 		this.onWebcamClose.emit();
-	}
-
-	readError(err: WebcamInitError) {
-		console.log(err);
 	}
 
 	ngOnInit(): void {}

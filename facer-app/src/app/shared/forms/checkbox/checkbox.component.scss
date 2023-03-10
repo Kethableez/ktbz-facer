@@ -8,7 +8,7 @@
 		gap: 8px;
 
 		.checkbox-box {
-      flex-shrink: 0;
+			flex-shrink: 0;
 
 			width: 24px;
 			height: 24px;
@@ -27,7 +27,7 @@
 		}
 
 		.checkbox-switch {
-      flex-shrink: 0;
+			flex-shrink: 0;
 			padding: 0 2px;
 			display: flex;
 			flex-direction: row;
@@ -38,7 +38,7 @@
 			transition: 0.1s ease-in-out;
 
 			&__thumb {
-      flex-shrink: 0;
+				flex-shrink: 0;
 
 				width: 20px;
 				height: 20px;
@@ -48,12 +48,12 @@
 		}
 
 		input[type='checkbox']:not(:checked) + .checkbox-switch {
-			background-color: colors.$neutral-500;
+			background-color: colors.$neutral-700;
 			justify-content: flex-start;
 		}
 
 		input[type='checkbox']:checked + .checkbox-switch {
-			background-color: colors.$primary-500;
+			background-color: colors.$primary-700;
 			justify-content: flex-end;
 		}
 	}

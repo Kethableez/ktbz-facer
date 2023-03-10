@@ -33,6 +33,11 @@ export class AuthService {
 
 	constructor(private http: HttpClient) {}
 
+	registerClient(): Observable<{ clientId: string }> {
+		const url = `${this.apiUrl}/client/register`;
+		return this.http.get<{ clientId: string }>(url);
+	}
+
 	checkAvailability(value: string, type: 'email' | 'username'): Observable<NameAvailability> {
 		const url = `${this.apiUrl}/user/availability/${type}`;
 		const payload = {
@@ -59,10 +64,5 @@ export class AuthService {
 	faceLogin(formData: FormData): Observable<{ accessToken: string }> {
 		const url = `${this.apiUrl}/auth/face-login`;
 		return this.http.post<{ accessToken: string }>(url, formData);
-	}
-
-	headers() {
-		const url = 'http://localhost:9000/gateway/user/headers';
-		return this.http.get(url);
 	}
 }

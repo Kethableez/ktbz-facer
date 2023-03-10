@@ -2,7 +2,7 @@
 @use '../colors';
 
 label {
-	color: colors.$black;
+	color: colors.$white;
 	user-select: none;
 	cursor: pointer;
 	font-size: 14px;
@@ -13,6 +13,8 @@ input[type='text'],
 input[type='password'],
 textarea {
 	appearance: none;
+	color: colors.$white;
+	background-color: colors.$neutral-900;
 	outline: none;
 	border: 1px solid colors.$neutral-500;
 	border-radius: 10px;
@@ -45,7 +47,7 @@ textarea {
 
 	&:focus-within {
 		border: 1px solid colors.$primary-500;
-		outline: 4px solid colors.$primary-300;
+		outline: 4px solid colors.$primary-800;
 	}
 }
 

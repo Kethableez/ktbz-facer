@@ -4,7 +4,7 @@ import { ClientController } from './client.controller';
 import { ClientRepository } from './client.repository';
 import { ClientService } from './client.service';
 import * as Joi from 'joi';
-import { DatabaseModule } from '@ktbz/common';
+import { DatabaseModule, RmqModule } from '@ktbz/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Client, ClientSchema } from './client.schema';
 
@@ -19,6 +19,7 @@ import { Client, ClientSchema } from './client.schema';
 			envFilePath: './libs/common/.env',
 		}),
 		DatabaseModule,
+		RmqModule,
 		MongooseModule.forFeature([{ name: Client.name, schema: ClientSchema }]),
 	],
 	controllers: [ClientController],

@@ -1,4 +1,5 @@
 @use '../general';
+@use '../colors';
 
 @media only screen and (max-width: general.$bp-sm) {
 	i {
@@ -26,28 +27,28 @@ i {
 		mask-image: url('../../icons/face-smile.svg');
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.eye {
 		mask-image: url('../../icons/eye.svg');
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: black;
+		background-color: colors.$white;
 	}
 
 	&.eyeSlash {
 		mask-image: url('../../icons/eye-slash.svg');
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: black;
+		background-color: colors.$white;
 	}
 
 	&.check {
 		mask-image: url('../../icons/check.svg');
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.success {
@@ -56,7 +57,7 @@ i {
 		mask-repeat: no-repeat;
 		display: block;
 
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.error {
@@ -65,7 +66,7 @@ i {
 		mask-repeat: no-repeat;
 		display: block;
 
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.info {
@@ -74,7 +75,7 @@ i {
 
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.warning {
@@ -82,7 +83,7 @@ i {
 		display: block;
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.close {
@@ -90,7 +91,7 @@ i {
 		display: block;
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.close-2 {
@@ -98,7 +99,7 @@ i {
 		display: block;
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.chevron-up {
@@ -107,7 +108,7 @@ i {
 
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: black;
+		background-color: colors.$white;
 	}
 
 	&.chevron-down {
@@ -116,7 +117,7 @@ i {
 
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: black;
+		background-color: colors.$white;
 	}
 
 	&.camera {
@@ -124,7 +125,7 @@ i {
 		display: block;
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 
 	&.rotate {
@@ -132,6 +133,6 @@ i {
 		display: block;
 		mask-position: center;
 		mask-repeat: no-repeat;
-		background-color: white;
+		background-color: colors.$black;
 	}
 }

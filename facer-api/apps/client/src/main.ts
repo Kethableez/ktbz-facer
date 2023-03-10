@@ -9,7 +9,7 @@ async function bootstrap() {
 	const rmqService = app.get<RmqService>(RmqService);
 	useContainer(app.select(ClientModule), { fallbackOnErrors: true });
 
-	app.connectMicroservice(rmqService.getOptions('USER'));
+	app.connectMicroservice(rmqService.getOptions('CLIENT'));
 	app.useGlobalPipes(new ValidationPipe());
 
 	await app.startAllMicroservices();

@@ -7,7 +7,7 @@
 		<div class="alertsWrapper">
 			<ktbz-alert *ngIf="success$ | async as success" [dismissable]="false" type="success">{{ success }}</ktbz-alert>
 			<ktbz-alert *ngIf="error$ | async as error" [dismissable]="false" type="error">
-				<div *ngFor="let line of error.split('\n')">{{ line }}</div>
+				<div class="highlighted--black" *ngFor="let line of error.split('\n')">{{ line }}</div>
 			</ktbz-alert>
 		</div>
 		<ng-container *ngIf="selectedLoginMethod === 'traditional'; else faceId">

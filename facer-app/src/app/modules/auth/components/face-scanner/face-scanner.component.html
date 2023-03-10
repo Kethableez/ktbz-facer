@@ -6,7 +6,6 @@
 		[videoOptions]="videoOptions"
 		[switchCamera]="nextWebcam$"
 		[trigger]="trigger$"
-		(initError)="readError($event)"
 		(imageCapture)="handleImage($event)"
 	></webcam>
 	<div *ngIf="faceImage && !hasExternalTrigger" class="preview">
@@ -18,10 +17,10 @@
 	</div>
 	<div class="switchButton">
 		<button *ngIf="!faceImage || hasExternalTrigger" class="btn secondary rounded" (click)="switchCamera()">
-			<i class="rotate" style="background-color: black"></i>
+			<i class="rotate" style="background-color: white"></i>
 		</button>
 		<button *ngIf="faceImage && !hasExternalTrigger" class="btn secondary rounded" (click)="closeWebcam()">
-			<i class="close-2" style="background-color: black"></i>
+			<i class="close-2" style="background-color: white"></i>
 		</button>
 	</div>
 	<div class="form__buttons-row buttons" *ngIf="!faceImage && !hasExternalTrigger">

@@ -40,11 +40,31 @@ export class AuthService {
 		return { message: 'Refresh in progress...' };
 	}
 
-	async login(user: any): Promise<TokenResponse> {
+	async login(user: any, clientId?: string): Promise<TokenResponse> {
 		const payload = { username: user.username, sub: user._id.toString() };
+
+		if (clientId) {
+			this.handleUserBinding(clientId, user._id.toString());
+		}
+
 		return {
 			accessToken: this.jwtService.sign(payload),
 		};
+	}
+
+	private async handleUserBinding(clientId: string, userId: string) {
+		const { isIn } = await firstValueFrom(
+			this.clientClient.send('check-user', {
+				userId: userId,
+				clientId: clientId,
+			})
+		);
+		if (!isIn) {
+			this.clientClient.emit('bind-user', {
+				clientId: clientId,
+				userId: userId,
+			});
+		}
 	}
 
 	async validateUser(property: string, pass: string): Promise<any> {
@@ -75,14 +95,31 @@ export class AuthService {
 
 	async faceLogin(
 		file: Express.Multer.File,
-		model: string
+		model: string,
+		clientId: string
 	): Promise<TokenResponse> {
 		const fd = this.getFormData(file, model);
 		const response = await this.handleApiCall(fd);
+		await this.checkPermissions(clientId, response.foundId);
 		const user = await firstValueFrom(
 			this.userClient.send('get-user', { userId: response.foundId })
 		);
 		return await this.login(user);
+	}
+
+	private async checkPermissions(clientId: string, userId: string) {
+		const { isIn } = await firstValueFrom(
+			this.clientClient.send('check-user', {
+				userId: userId,
+				clientId: clientId,
+			})
+		);
+		if (!isIn)
+			throw new RpcException({
+				message: 'You are not bind to this browser',
+				statusCode: 400,
+			});
+		else return;
 	}
 
 	private async handleApiCall(

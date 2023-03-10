@@ -2,6 +2,7 @@ import { CatchExceptionInterceptor } from '@ktbz/common/interceptors/catch-excep
 import {
 	Body,
 	Controller,
+	Headers,
 	Inject,
 	Post,
 	Req,
@@ -22,19 +23,27 @@ export class AuthController {
 	@Post('login')
 	@UseGuards(LocalAuthGuard)
 	@UseInterceptors(CatchExceptionInterceptor)
-	login(@Req() request: any): Observable<TokenResponse> {
-		return this.authClient.send('login', { user: request.user });
+	login(
+		@Req() request: any,
+		@Headers() headers: any
+	): Observable<TokenResponse> {
+		return this.authClient.send('login', {
+			user: request.user,
+			clientId: headers['client-id'],
+		});
 	}
 
 	@Post('face-login')
 	@UseInterceptors(CatchExceptionInterceptor, FileInterceptor('file'))
 	faceLogin(
+		@Headers() headers: any,
 		@UploadedFile() file: Express.Multer.File,
 		@Body() body: { model: string }
 	): Observable<TokenResponse> {
 		return this.authClient.send('face-login', {
 			file: file,
 			model: body.model,
+			clientId: headers['client-id'],
 		});
 	}
 }

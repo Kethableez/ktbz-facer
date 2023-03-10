@@ -35,7 +35,6 @@ export class TraditionalLoginComponent implements OnInit {
 
 	submitForm() {
 		const payload = this.loginForm.value as { username: string; password: string };
-		// console.log('submitted', payload)
 		this.store$.dispatch(loginAction({ payload }));
 	}
 

@@ -98,17 +98,17 @@ button {
 }
 
 .secondary {
-	border: 1px solid colors.$neutral-500;
-	color: colors.$black;
-	background-color: colors.$white;
+	border: 1px solid colors.$neutral-800;
+	color: colors.$white;
+	background-color: colors.$neutral-900;
 
 	&:not(:disabled) {
 		&:hover {
-			border: 1px solid colors.$neutral-700;
+			border: 1px solid colors.$neutral-600;
 		}
 
 		&:active {
-			border: 1px solid colors.$neutral-900;
+			border: 1px solid colors.$neutral-400;
 		}
 	}
 
@@ -118,16 +118,16 @@ button {
 }
 
 .tertiary {
-	color: colors.$black;
+	color: colors.$white;
 	background-color: colors.$transparent;
 
 	&:not(:disabled) {
 		&:hover {
-			background-color: colors.$neutral-200;
+			background-color: colors.$neutral-800;
 		}
 
 		&:active {
-			background-color: colors.$neutral-300;
+			background-color: colors.$neutral-600;
 		}
 	}
 

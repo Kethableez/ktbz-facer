@@ -1,17 +1,30 @@
 @use '../../../../../assets/styles/colors';
+@use '../../../../../assets/styles/general';
 
-.big {
-	height: 800px;
+@media only screen and (max-width: general.$bp-sm) {
+	.big,
+	.small {
+		flex-grow: 1;
+	}
 }
 
-.small {
-	height: 550px;
+@media only screen and (min-width: general.$bp-sm) {
+	.big {
+		flex-grow: 1;
+		min-height: 800px;
+	}
+
+	.small {
+		height: 550px;
+	}
 }
 
 .faceScannerWrapper {
 	width: 100%;
 	position: relative;
 	display: flex;
+	flex-grow: 1;
+
 	flex-direction: column;
 	justify-content: flex-end;
 	align-items: center;

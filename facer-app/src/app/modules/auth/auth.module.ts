@@ -6,7 +6,6 @@ import { AuthComponent } from './auth.component';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WebcamModule } from 'ngx-webcam';
-import { WebcamComponent } from './components/webcam/webcam.component';
 import { TraditionalLoginComponent } from './components/traditional-login/traditional-login.component';
 import { FaceLoginComponent } from './components/face-login/face-login.component';
 import { LoginWrapperComponent } from './components/login-wrapper/login-wrapper.component';
@@ -17,7 +16,6 @@ import { AuthStateModule } from './store/auth-state.module';
 @NgModule({
 	declarations: [
 		AuthComponent,
-		WebcamComponent,
 		TraditionalLoginComponent,
 		FaceLoginComponent,
 		LoginWrapperComponent,

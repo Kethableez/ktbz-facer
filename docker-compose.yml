@@ -54,6 +54,7 @@ services:
       - facer-api-auth
       - facer-api-user
       - facer-api-file
+      - facer-api-metrics
     volumes:
       - ./facer-api:/usr/src/app
       - /usr/src/app/node_modules
@@ -73,6 +74,24 @@ services:
     env_file:
       - ./facer-api/libs/common/.env
     command: npm run start:dev auth
+    depends_on:
+      - mongo
+      - rabbitmq
+    volumes:
+      - ./facer-api:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - internal
+
+  facer-api-metrics:
+    container_name: facer-api-metrics
+    build:
+      context: ./facer-api
+      dockerfile: ./apps/metrics/Dockerfile
+      target: dev
+    env_file:
+      - ./facer-api/libs/common/.env
+    command: npm run start:dev metrics
     depends_on:
       - mongo
       - rabbitmq

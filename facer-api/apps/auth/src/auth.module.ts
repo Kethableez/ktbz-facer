@@ -9,7 +9,6 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { APP_FILTER } from '@nestjs/core';
-import { GrpcServerExceptionFilter } from 'nestjs-grpc-exceptions';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
@@ -36,6 +35,8 @@ import { HttpModule } from '@nestjs/axios';
 		}),
 		RmqModule.register({ name: 'USER' }),
 		RmqModule.register({ name: 'CLIENT' }),
+		RmqModule.register({ name: 'METRICS' }),
+
 		HttpModule,
 	],
 	controllers: [AuthController],

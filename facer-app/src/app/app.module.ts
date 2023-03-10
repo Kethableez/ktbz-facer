@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './main/app.component';
@@ -12,6 +12,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { HydrationEffects } from './core/store/hydration/hydration.effects';
 import { metaReducers } from './core/store/root.state';
+import { MetaStateModule } from './modules/auth/store/meta-state.module';
+import { ClientIdInterceptor } from './core/interceptors/client-id.interceptor';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -22,10 +24,17 @@ import { metaReducers } from './core/store/root.state';
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
 		AppRoutingModule,
 		SharedModule,
+		MetaStateModule,
 		ReactiveFormsModule,
 		HttpClientModule,
 	],
-	providers: [],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: ClientIdInterceptor,
+			multi: true,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

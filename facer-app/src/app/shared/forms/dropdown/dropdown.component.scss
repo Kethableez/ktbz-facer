@@ -29,7 +29,7 @@
 
 	&.focus {
 		border: 1px solid colors.$primary-500;
-		outline: 4px solid colors.$primary-300;
+		outline: 4px solid colors.$primary-800;
 	}
 
 	&:not(.focus).invalid {
@@ -43,7 +43,7 @@
 
 .dropdownItems {
 	width: 100%;
-	background-color: colors.$white;
+	background-color: colors.$neutral-900;
 	position: absolute;
 	top: 80%;
 	z-index: 10;
@@ -58,7 +58,7 @@
 		cursor: pointer;
 
 		&.active {
-			background-color: colors.$primary-300;
+			background-color: colors.$primary-800;
 		}
 
 		&:first-child {
@@ -70,7 +70,7 @@
 		}
 
 		&:hover {
-			background-color: colors.$primary-300;
+			background-color: colors.$primary-800;
 		}
 	}
 }

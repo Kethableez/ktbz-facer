@@ -4,11 +4,12 @@ import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../../services/auth.service';
 import { faceLoginAction, loginAction, loginErrorAction, loginSuccessAction } from '../actions/login.actions';
-import { catchError, delay, map, of, switchMap } from 'rxjs';
+import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class LoginEffects {
-	constructor(private store$: Store<RootState>, private actions$: Actions, private authService: AuthService) {}
+	constructor(private store$: Store<RootState>, private actions$: Actions, private authService: AuthService, private router: Router) {}
 
 	login$ = createEffect(() =>
 		this.actions$.pipe(
@@ -32,5 +33,14 @@ export class LoginEffects {
 				)
 			)
 		)
+	);
+
+	loginSuccess$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(loginSuccessAction),
+				tap(() => this.router.navigate(['app', 'dashboard']))
+			),
+		{ dispatch: false }
 	);
 }

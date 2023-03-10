@@ -1,11 +1,18 @@
 @use '../../../../assets/styles/colors';
+@use '../../../../assets/styles/general';
+
+@media only screen and (max-width: general.$bp-sm) {
+}
+
+@media only screen and (min-width: general.$bp-sm) {
+}
 
 .tabsContainer {
 	display: grid;
 	grid-auto-columns: 1fr;
 	grid-auto-flow: column;
 	border-radius: 8px;
-	border: 1px solid colors.$neutral-500;
+	border: 1px solid colors.$neutral-700;
 	margin-bottom: 20px;
 
 	.tab {

@@ -1,9 +1,6 @@
-<div class="page--full bg-img">
-	<button class="btn primary" (click)="checkAgent()">Check</button>
-	<div class="flex">
-		<div class="col">
-			<ktbz-login-wrapper *ngIf="activeForm === 'login'" (onChangeForm)="selectForm('register')"></ktbz-login-wrapper>
-			<ktbz-register-form *ngIf="activeForm === 'register'" (onFormChange)="selectForm('login')"></ktbz-register-form>
-		</div>
+<div class="flex bg-img">
+	<div class="col">
+		<ktbz-login-wrapper *ngIf="activeForm === 'login'" (onChangeForm)="selectForm('register')"></ktbz-login-wrapper>
+		<ktbz-register-form *ngIf="activeForm === 'register'" (onFormChange)="selectForm('login')"></ktbz-register-form>
 	</div>
 </div>

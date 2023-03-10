@@ -1,4 +1,23 @@
-.dummyWebcam {
-	width: 100%;
-	height: 550px;
+@use '../../../../../assets/styles/general';
+
+@media only screen and (max-width: general.$bp-sm) {
+	.dummyWebcam {
+		width: 100%;
+		height: 350px;
+		// height: fit-content;
+		display: flex;
+	}
+
+	ktbz-face-scanner {
+		width: 100%;
+		flex-grow: 1;
+		display: flex;
+	}
+}
+
+@media only screen and (min-width: general.$bp-sm) {
+	.dummyWebcam {
+		width: 100%;
+		height: 550px;
+	}
 }

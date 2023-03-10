@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import * as Joi from 'joi';
-import { GrpcServerExceptionFilter } from 'nestjs-grpc-exceptions';
 import { User, UserSchema } from './models/user.schema';
 import { UserController } from './user.controller';
 import { UserRepository } from './user.repository';
@@ -22,6 +21,9 @@ import { UserService } from './user.service';
 		}),
 		RmqModule.register({
 			name: 'AUTH',
+		}),
+		RmqModule.register({
+			name: 'CLIENT',
 		}),
 		DatabaseModule,
 		MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
