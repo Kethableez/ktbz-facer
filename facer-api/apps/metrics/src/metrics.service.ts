@@ -7,10 +7,14 @@ export class MetricsService {
 
 	async addMetric(newMetric: {
 		type: string;
-		startTimestamp: Date;
-		endTimestamp: Date;
+		ellapsedTime: number[];
+		additionalData?: string;
 	}) {
-		await this.metricsRepository.create(newMetric);
+		await this.metricsRepository.create({
+			...newMetric,
+			additionalData: newMetric.additionalData || '-',
+			createdAt: new Date(),
+		});
 		return { message: 'Added' };
 	}
 

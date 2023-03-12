@@ -1,0 +1,34 @@
+@use '../../../../../assets/styles/colors';
+
+.list-row {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+	width: 100%;
+	// margin-bottom: 10px;
+	border-bottom: none;
+
+	&:first-child {
+		margin-bottom: 10px;
+	}
+
+	&:not(:first-child):not(:last-child) {
+		border-bottom: 1px solid colors.$neutral-800;
+	}
+
+	&:not(:first-child) {
+		padding: 8px 4px;
+	}
+}
+
+.list__loadMore {
+	margin-block: 24px 16px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.list-col {
+	width: 20%;
+}

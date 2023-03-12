@@ -1,0 +1,14 @@
+<div class="filtersWrapper">
+	<div class="col">
+		<ktbz-dropdown label="Auth type" [data]="authTypeData" [control]="getControl('authType')"></ktbz-dropdown>
+	</div>
+	<div class="col">
+		<ktbz-dropdown label="Model name" [data]="modelNameData" [control]="getControl('modelName')"></ktbz-dropdown>
+	</div>
+	<div class="col">
+		<ktbz-dropdown label="Sort by" [data]="sortByData" [control]="getControl('sortBy')"></ktbz-dropdown>
+	</div>
+	<div class="col-btn">
+		<button class="btn primary" (click)="clear()">Clear filters</button>
+	</div>
+</div>

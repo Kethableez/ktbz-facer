@@ -135,4 +135,18 @@ i {
 		mask-repeat: no-repeat;
 		background-color: colors.$black;
 	}
+
+	&.trash {
+		mask-image: url('../../icons/trash.svg');
+		display: block;
+		mask-position: center;
+		mask-repeat: no-repeat;
+		background-color: colors.$error-300;
+		cursor: pointer;
+		transition: 0.1s background-color ease-in-out;
+
+		&:hover {
+			background-color: colors.$error-200;
+		}
+	}
 }

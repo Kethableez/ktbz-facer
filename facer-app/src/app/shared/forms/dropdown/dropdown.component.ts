@@ -6,13 +6,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 	templateUrl: './dropdown.component.html',
 	styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent implements OnInit {
-	value: string | null = null;
-
-	state: 'open' | 'closed' = 'closed';
-
-	isFocused = false;
-
+export class DropdownComponent<T> {
 	@Input()
 	control!: FormControl;
 
@@ -20,18 +14,23 @@ export class DropdownComponent implements OnInit {
 	label: string = '';
 
 	@Input()
-	data: string[] = [];
+	data: T[] = [];
+
+	@Input()
+	placeholder: string = '';
+
+	@Input()
+	valueTransform = this.simpleTransform;
 
 	@HostListener('document:click', ['$event'])
 	onClick(event: any) {
 		const path = event.path || event.composedPath();
 		const inPath = path.find((e: any) => e === this.elRef.nativeElement);
-    this.markAsTouched();
+		this.markAsTouched();
 		if (!inPath) {
 			this.toggle('closed');
 		}
 	}
-
 	@HostListener('focusin')
 	onFocusin() {
 		this.isFocused = true;
@@ -42,31 +41,14 @@ export class DropdownComponent implements OnInit {
 		this.isFocused = false;
 	}
 
-	constructor(private elRef: ElementRef) {}
+	value: T | null = null;
 
-	ngOnInit(): void {}
+	state: 'open' | 'closed' = 'closed';
 
-	toggle(state?: 'open' | 'closed') {
-		if (state) {
-			this.isFocused = state === 'open';
-			this.state = state;
-			return;
-		}
-		this.state = this.state === 'open' ? 'closed' : 'open';
-		this.isFocused = this.state === 'open';
-	}
+	isFocused = false;
 
 	get displayValue() {
-		return this.control.value ? this.control.value : this.label !== '' ? this.label : this.data[0];
-	}
-
-	isSelected(item: string) {
-		return this.control.value === item;
-	}
-
-	selectItem(item: string) {
-		this.control.setValue(item);
-    this.toggle('closed');
+		return this.control.value ? this.valueTransform(this.control.value) : this.placeholder;
 	}
 
 	get status() {
@@ -80,7 +62,32 @@ export class DropdownComponent implements OnInit {
 		return this.control.errors;
 	}
 
-  markAsTouched() {
-    if (!this.control.touched && this.state === 'open') this.control.markAsTouched();
-  }
+	constructor(private elRef: ElementRef) {}
+
+	toggle(state?: 'open' | 'closed') {
+		if (state) {
+			this.isFocused = state === 'open';
+			this.state = state;
+			return;
+		}
+		this.state = this.state === 'open' ? 'closed' : 'open';
+		this.isFocused = this.state === 'open';
+	}
+
+	isSelected(item: T) {
+		return this.control.value === item;
+	}
+
+	selectItem(item: T) {
+		this.control.setValue(item);
+		this.toggle('closed');
+	}
+
+	private markAsTouched() {
+		if (!this.control.touched && this.state === 'open') this.control.markAsTouched();
+	}
+
+	private simpleTransform(v: T): string {
+		return `${v}`;
+	}
 }

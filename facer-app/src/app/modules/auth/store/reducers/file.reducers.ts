@@ -33,6 +33,7 @@ export const fileReducer = createReducer(
 	})),
 	on(clearFileResponse, state => ({
 		...state,
+		inProgress: false,
 		error: null,
 		success: null,
 	}))

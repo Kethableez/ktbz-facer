@@ -1,12 +1,15 @@
 <div class="dropdownContainer">
 	<label>{{ label }}</label>
 	<div class="dropdownBody" [class.focus]="isFocused" [ngClass]="status" (click)="toggle()">
-		{{ displayValue }}
+		<span class="dropdown__displayValue">{{ displayValue }}</span>
 
-		<i [ngClass]="state === 'open' ? 'chevron-up' : 'chevron-down'"></i>
+		<!-- <i [ngClass]="state === 'open' ? 'chevron-up' : 'chevron-down'"></i> -->
+		<i class="chevron-down" [class.rotated]="state === 'open'"></i>
 	</div>
 	<div class="dropdownItems" *ngIf="state === 'open'">
-		<div class="dropdownItem" [class.active]="isSelected(item)" (click)="selectItem(item)" *ngFor="let item of data">{{ item }}</div>
+		<div class="dropdownItem" [class.active]="isSelected(item)" (click)="selectItem(item)" *ngFor="let item of data">
+			{{ valueTransform(item) }}
+		</div>
 	</div>
 	<ktbz-input-error [errors]="errors" *ngIf="errors && control.touched && !isFocused; else whitespace"></ktbz-input-error>
 	<ng-template #whitespace><div class="whitespace-28"></div></ng-template>

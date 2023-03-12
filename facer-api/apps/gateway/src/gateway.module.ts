@@ -13,6 +13,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { FileController } from './controllers/file.controller';
 import { HttpModule } from '@nestjs/axios';
 import { ClientController } from './controllers/client.controller';
+import { MetricsController } from './controllers/metrics.controller';
 
 @Module({
 	imports: [
@@ -37,6 +38,9 @@ import { ClientController } from './controllers/client.controller';
 		RmqModule.register({
 			name: 'CLIENT',
 		}),
+		RmqModule.register({
+			name: 'METRICS',
+		}),
 		HttpModule,
 		PassportModule,
 		DatabaseModule,
@@ -48,6 +52,7 @@ import { ClientController } from './controllers/client.controller';
 		AuthController,
 		FileController,
 		ClientController,
+		MetricsController,
 	],
 	providers: [UserExistsRule, JwtAuthGuard],
 })

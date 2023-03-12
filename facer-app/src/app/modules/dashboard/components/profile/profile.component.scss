@@ -1,0 +1,30 @@
+.text-line {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 16px;
+
+	&:last-child {
+		margin: 0;
+	}
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.item-row {
+	margin: 4px 0;
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+}
+
+.buttons-col {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 16px 0;
+}

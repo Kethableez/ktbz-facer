@@ -10,10 +10,13 @@ export class Metrics extends AbstractDocument {
 	type: string;
 
 	@Prop({ required: true })
-	startTimestamp: Date;
+	additionalData: string;
 
 	@Prop({ required: true })
-	endTimestamp: Date;
+	createdAt: Date;
+
+	@Prop({ required: true })
+	ellapsedTime: number[];
 }
 
 export const MetricsSchema = SchemaFactory.createForClass(Metrics);

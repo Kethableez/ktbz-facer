@@ -12,9 +12,16 @@ export class BoxComponent {
 	@Input()
 	outlined = false;
 
+	@Input()
+	elevation: 'light' | 'medium' | 'strong' = 'light';
+
 	constructor() {}
 
 	get boxClass() {
 		return this.outlined ? 'box-outlined' : 'box';
+	}
+
+	get elevationClass() {
+		return `elevation-${this.elevation}`;
 	}
 }

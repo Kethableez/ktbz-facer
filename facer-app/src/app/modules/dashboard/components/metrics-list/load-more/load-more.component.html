@@ -1,0 +1,9 @@
+<div class="loadMoreWrapper">
+	<div class="loadMore__number">{{ current }} of {{ max }}</div>
+	<div class="loadMore__progress">
+		<div class="loadMore__progress__bar" [ngStyle]="{ 'width.%': progressBarWidth }"></div>
+	</div>
+	<div class="loadMore__button">
+		<button *ngIf="isButtonVisible" (click)="loadMore()" class="btn-sm secondary">Load more</button>
+	</div>
+</div>

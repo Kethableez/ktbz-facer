@@ -3,7 +3,7 @@ import { RootState } from 'src/app/core/store/root.state';
 import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../../services/auth.service';
-import { faceLoginAction, loginAction, loginErrorAction, loginSuccessAction } from '../actions/login.actions';
+import { faceLoginAction, loginAction, loginErrorAction, loginSuccessAction, logoutAction } from '../actions/login.actions';
 import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -40,6 +40,15 @@ export class LoginEffects {
 			this.actions$.pipe(
 				ofType(loginSuccessAction),
 				tap(() => this.router.navigate(['app', 'dashboard']))
+			),
+		{ dispatch: false }
+	);
+
+	logout$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(logoutAction),
+				tap(() => this.router.navigate(['start']))
 			),
 		{ dispatch: false }
 	);

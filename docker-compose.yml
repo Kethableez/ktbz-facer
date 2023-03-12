@@ -51,10 +51,6 @@ services:
     depends_on:
       - mongo
       - rabbitmq
-      - facer-api-auth
-      - facer-api-user
-      - facer-api-file
-      - facer-api-metrics
     volumes:
       - ./facer-api:/usr/src/app
       - /usr/src/app/node_modules

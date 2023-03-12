@@ -41,17 +41,16 @@ export class AuthController {
 	): Promise<TokenResponse> {
 		this.rmqService.ack(context);
 
-		const startTs = new Date();
+		const start = process.hrtime();
 		const response = await this.authService.login(
 			payload.user,
 			payload.clientId
 		);
-		const endTs = new Date();
+		const end = process.hrtime(start);
 
 		this.metricsClient.emit('add-metric', {
 			type: 'std-login',
-			startTimestamp: startTs,
-			endTimestamp: endTs,
+			ellapsedTime: end,
 		});
 		return response;
 	}
@@ -72,7 +71,7 @@ export class AuthController {
 	): Promise<TokenResponse> {
 		this.rmqService.ack(context);
 
-		const startTs = new Date();
+		const start = process.hrtime();
 
 		const repsonse = await this.authService.faceLogin(
 			payload.file,
@@ -80,12 +79,12 @@ export class AuthController {
 			payload.clientId
 		);
 
-		const endTs = new Date();
+		const end = process.hrtime(start);
 
 		this.metricsClient.emit('add-metric', {
 			type: 'face-login',
-			startTimestamp: startTs,
-			endTimestamp: endTs,
+			ellapsedTime: end,
+			additionalData: payload.model,
 		});
 
 		return repsonse;

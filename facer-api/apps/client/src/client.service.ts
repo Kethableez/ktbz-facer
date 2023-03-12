@@ -3,6 +3,7 @@ import { ClientRepository } from './client.repository';
 import * as uuid from 'uuid';
 import { BaseResponse } from '@ktbz/common/models/response/base-response.model';
 import { RpcException } from '@nestjs/microservices';
+import { first } from 'lodash';
 
 @Injectable()
 export class ClientService {
@@ -50,7 +51,8 @@ export class ClientService {
 	}
 
 	async checkUser(userId: string, clientId: string): Promise<any> {
-		const client = await this.clientRepository.findOne({ clientId: clientId });
+		const clients = await this.clientRepository.find({ clientId: clientId });
+		const client = first(clients);
 		if (!client) {
 			throw new RpcException({
 				message: 'Client not found',

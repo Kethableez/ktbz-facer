@@ -1,0 +1,20 @@
+<div class="listWrapper">
+	<ktbz-metrics-list-filters [metricsList]="initMetrics" (filteredMetrics)="onFilter($event)"></ktbz-metrics-list-filters>
+	<div class="list-row" *ngIf="metricsList">
+		<div class="list-col bold large">#ID</div>
+		<div class="list-col bold large">Auth type</div>
+		<div class="list-col bold large">Model name</div>
+		<div class="list-col bold large">Reported at</div>
+		<div class="list-col bold large">Time taken</div>
+	</div>
+	<div class="list-row" *ngFor="let metric of metrics">
+		<div class="list-col large">{{ metric._id }}</div>
+		<div class="list-col large">{{ metric.type }}</div>
+		<div class="list-col large">{{ metric.additionalData }}</div>
+		<div class="list-col large">{{ metric.createdAt | date : 'dd-MM-YYYY, HH:mm' }}</div>
+		<div class="list-col large">{{ getEllapsedTime(metric.ellapsedTime) }}</div>
+	</div>
+	<div class="list__loadMore">
+		<ktbz-load-more [current]="metrics.length" [max]="metricsList.length" (onLoadMode)="loadMore()"></ktbz-load-more>
+	</div>
+</div>

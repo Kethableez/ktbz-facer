@@ -36,6 +36,7 @@ export const registerReducer = createReducer(
 	})),
 	on(clearRegisterResponse, state => ({
 		...state,
+		inProgress: false,
 		error: null,
 		success: null,
 	}))

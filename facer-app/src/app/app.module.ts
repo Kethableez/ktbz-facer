@@ -14,6 +14,7 @@ import { HydrationEffects } from './core/store/hydration/hydration.effects';
 import { metaReducers } from './core/store/root.state';
 import { MetaStateModule } from './modules/auth/store/meta-state.module';
 import { ClientIdInterceptor } from './core/interceptors/client-id.interceptor';
+import { AuthInterceptor } from './core/interceptors/token.interceptor';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -32,6 +33,11 @@ import { ClientIdInterceptor } from './core/interceptors/client-id.interceptor';
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ClientIdInterceptor,
+			multi: true,
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
 			multi: true,
 		},
 	],

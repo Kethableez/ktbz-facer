@@ -1,0 +1,33 @@
+@use '../../../../../../assets/styles/colors';
+
+.loadMoreWrapper {
+	min-width: 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.loadMore__button,
+.loadMore__progress {
+	margin-top: 8px;
+}
+
+.loadMore__button {
+	min-height: 42px;
+}
+
+.loadMore__progress {
+	width: 100%;
+	border-radius: 20px;
+	height: 4px;
+	background-color: colors.$neutral-700;
+
+	&__bar {
+		border-radius: 20px;
+		transition: 0.1s width ease-in-out;
+		// width: 60%;
+		height: 4px;
+		background-color: colors.$primary-600;
+	}
+}

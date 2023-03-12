@@ -1,21 +1,29 @@
 <div class="full bg-black">
 	<div class="container">
-		<div class="col-7">
-			<ktbz-box [outlined]="true">
-				<h2>Data</h2>
-				Facer Facer Use face = yes
+		<div class="col-10">
+			<ktbz-box elevation="strong" [outlined]="true">
+				<h2 class="header-row">
+					Your profile
+					<span>
+						<button (click)="logout()" class="btn-sm primary">Log out</button>
+					</span>
+				</h2>
+				<ktbz-profile></ktbz-profile>
 			</ktbz-box>
 		</div>
-		<div class="col-3">
-			<ktbz-box [outlined]="true">
-				<h2>Options</h2>
+		<!-- <div class="col-3">
+			<ktbz-box elevation="strong" [outlined]="true">
+				<h2>Your options</h2>
+				<ktbz-options></ktbz-options>
 			</ktbz-box>
-		</div>
+		</div> -->
 
 		<div class="col-10">
-			<ktbz-box [outlined]="true">
+			<ktbz-box elevation="strong" [outlined]="true">
 				<h2>Metrics</h2>
+				<ktbz-metrics-list></ktbz-metrics-list>
 			</ktbz-box>
 		</div>
 	</div>
 </div>
+<ktbz-spinner [type]="'full'" *ngIf="dataInProgress$ | async"></ktbz-spinner>

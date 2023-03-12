@@ -17,6 +17,18 @@
 	}
 }
 
+.elevation-light {
+	box-shadow: 0 4px 8px rgba($color: #000000, $alpha: 0.08);
+}
+
+.elevation-medium {
+	box-shadow: 0 4px 16px rgba($color: #000000, $alpha: 0.12);
+}
+
+.elevation-strong {
+	box-shadow: 0 4px 24px rgba($color: #000000, $alpha: 0.16);
+}
+
 .whitespace-8 {
 	height: 8px;
 }
