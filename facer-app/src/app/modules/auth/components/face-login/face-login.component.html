@@ -9,7 +9,7 @@
 		></ktbz-face-scanner>
 	</div>
 	<div class="form__buttons-row">
-		<button class="btn secondary" (click)="switchToRegisterForm()">Sign up</button>
+		<button type="button" class="btn secondary" (click)="switchToRegisterForm()">Sign up</button>
 		<button class="btn primary" [disabled]="!modelControl.valid" (click)="initLoginAction()">Sign in</button>
 	</div>
 </div>

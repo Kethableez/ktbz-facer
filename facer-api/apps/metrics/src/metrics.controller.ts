@@ -20,8 +20,8 @@ export class MetricsController {
 		@Payload()
 		payload: {
 			type: string;
-			startTimestamp: Date;
-			endTimestamp: Date;
+			ellapsedTime: number[];
+			additionalData?: string;
 		},
 		@Ctx() context: RmqContext
 	) {

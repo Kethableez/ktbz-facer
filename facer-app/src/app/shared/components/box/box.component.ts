@@ -18,7 +18,7 @@ export class BoxComponent {
 	constructor() {}
 
 	get boxClass() {
-		return this.outlined ? 'box-outlined' : 'box';
+		return this.outlined ? 'box--outlined' : 'box';
 	}
 
 	get elevationClass() {

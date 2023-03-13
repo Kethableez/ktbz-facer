@@ -1,62 +1,62 @@
 @use '../../../../assets/styles/colors';
 
-.formControl {
+.checkbox {
 	label {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		gap: 8px;
-
-		.checkbox-box {
-			flex-shrink: 0;
-
-			width: 24px;
-			height: 24px;
-			border: 1px solid colors.$neutral-500;
-			transition: border 0.1s ease-in-out, background-color 0.1s ease-in-out;
-			border-radius: 6px;
-		}
-
-		input[type='checkbox']:checked + .checkbox-box {
-			background-color: colors.$primary-500;
-			border: 1px solid colors.$primary-500;
-			background-image: url('../../../../assets/icons/check.svg');
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: 18px;
-		}
-
-		.checkbox-switch {
-			flex-shrink: 0;
-			padding: 0 2px;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			height: 24px;
-			width: 36px;
-			border-radius: 200px;
-			transition: 0.1s ease-in-out;
-
-			&__thumb {
-				flex-shrink: 0;
-
-				width: 20px;
-				height: 20px;
-				background-color: colors.$white;
-				border-radius: 200px;
-			}
-		}
-
-		input[type='checkbox']:not(:checked) + .checkbox-switch {
-			background-color: colors.$neutral-700;
-			justify-content: flex-start;
-		}
-
-		input[type='checkbox']:checked + .checkbox-switch {
-			background-color: colors.$primary-700;
-			justify-content: flex-end;
-		}
 	}
+
+  &__box {
+    flex-shrink: 0;
+
+    width: 24px;
+    height: 24px;
+    border: 1px solid colors.$neutral-500;
+    transition: border 0.1s ease-in-out, background-color 0.1s ease-in-out;
+    border-radius: 6px;
+  }
+
+  input[type='checkbox']:checked + .checkbox__box {
+    background-color: colors.$primary-500;
+    border: 1px solid colors.$primary-500;
+    background-image: url('../../../../assets/icons/check.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px;
+  }
+
+  &__switch {
+    flex-shrink: 0;
+    padding: 0 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 24px;
+    width: 36px;
+    border-radius: 200px;
+    transition: 0.1s ease-in-out;
+
+    &__thumb {
+      flex-shrink: 0;
+
+      width: 20px;
+      height: 20px;
+      background-color: colors.$white;
+      border-radius: 200px;
+    }
+  }
+
+  input[type='checkbox']:not(:checked) + .checkbox__switch {
+    background-color: colors.$neutral-700;
+    justify-content: flex-start;
+  }
+
+  input[type='checkbox']:checked + .checkbox__switch {
+    background-color: colors.$primary-700;
+    justify-content: flex-end;
+  }
 
 	input[type='checkbox'] {
 		display: none;

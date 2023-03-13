@@ -44,7 +44,6 @@ export class FaceScannerComponent implements OnInit {
 	constructor(private ref: ElementRef) {}
 
 	get videoOptions(): MediaTrackConstraints {
-		console.log(this.videoDims);
 		const { width, height } = this.videoDims;
 
 		const result: MediaTrackConstraints = {

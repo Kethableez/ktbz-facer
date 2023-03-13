@@ -1,17 +1,17 @@
-<div class="formControl" [ngClass]="subClass">
+<div class="control" [ngClass]="subClass">
 	<label [for]="name">{{ label }}</label>
 	<ng-container *ngIf="type === 'textarea'">
 		<textarea [id]="name" [placeholder]="placeholder" [formControl]="control"></textarea>
 	</ng-container>
 	<ng-container *ngIf="type === 'text'">
-		<div class="formControl__inputWrapper">
+		<div class="control__inputWrapper">
 			<input ktbzDisableAutofill [id]="name" type="text" [placeholder]="placeholder" [formControl]="control" />
 			<!-- <span *ngIf="control.pending" class="material-symbols-outlined highlighted--muted rotate">brightness_3</span> -->
-			<span *ngIf="control.pending" class="loader"></span>
+			<span *ngIf="control.pending" class="control__loader"></span>
 		</div>
 	</ng-container>
 	<ng-container *ngIf="type === 'password'">
-		<div class="formControl__inputWrapper">
+		<div class="control__inputWrapper">
 			<input ktbzDisableAutofill [id]="name" [type]="passwordType" [placeholder]="placeholder" [formControl]="control" />
 			<i *ngIf="!passwordVisible" class="eyeSlash" (click)="changeVisibility('on')"></i>
 			<i *ngIf="passwordVisible" class="eye" (click)="changeVisibility('off')"></i>

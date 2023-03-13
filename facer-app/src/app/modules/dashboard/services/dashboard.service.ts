@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { UserData } from '../models/user-data.model';
+import { Metrics } from '../models/metrics.model';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
@@ -9,9 +11,9 @@ export class DashboardService {
 
 	constructor(private http: HttpClient) {}
 
-	getUserData(): Observable<any> {
+	getUserData(): Observable<UserData> {
 		const url = `${this.apiUrl}/user/current`;
-		return this.http.get(url);
+		return this.http.get<UserData>(url);
 	}
 
 	getUserClients(userId: string) {
@@ -24,8 +26,13 @@ export class DashboardService {
 		return this.http.post(url, { userId: userId });
 	}
 
-	getMetrics() {
+	getMetrics(): Observable<Metrics[]> {
 		const url = `${this.apiUrl}/metrics/all`;
-		return this.http.get(url);
+		return this.http.get<Metrics[]>(url).pipe(
+			map(metricsList => {
+				const sorted = metricsList.sort((m1, m2) => (m1.createdAt < m2.createdAt ? 1 : -1));
+				return sorted;
+			})
+		);
 	}
 }

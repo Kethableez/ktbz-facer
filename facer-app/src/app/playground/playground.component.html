@@ -1,5 +1,5 @@
 <div class="pad bg-black">
-	<!-- <ktbz-box [outlined]="true" background="bg-black">
+	<ktbz-box [outlined]="true" background="bg-black">
 		<div class="row">
 			<div class="col">
 				<h1>HEADING 1</h1>
@@ -34,15 +34,15 @@
 				<h6 class="bold italic">HEADING 6</h6>
 			</div>
 		</div>
-	</ktbz-box> -->
+	</ktbz-box>
 
 	<ktbz-box background="bg-tint">
 		<h1>Forms</h1>
 		<form [formGroup]="form" class="form__container" style="width: 800px">
-			<!-- <ktbz-control label="Standard input" type="password" [control]="form.controls.inp" placeholder="Dupa"></ktbz-control>
+			<ktbz-control label="Standard input" type="password" [control]="form.controls.inp" placeholder="Dupa"></ktbz-control>
 			<ktbz-control label="Textarea" type="textarea" [control]="form.controls.txt"></ktbz-control>
 			<ktbz-checkbox [label]="'Aaaaa'" type="switch" [control]="form.controls.chk"></ktbz-checkbox>
-			<ktbz-checkbox [label]="'Bbbbbb'" [control]="form.controls.chk2"></ktbz-checkbox> -->
+			<ktbz-checkbox [label]="'Bbbbbb'" [control]="form.controls.chk2"></ktbz-checkbox>
 			<ktbz-dropdown
 				[control]="form.controls.drp"
 				[placeholder]="'Select something'"
@@ -54,7 +54,7 @@
 		<pre>{{ form.value | json }}</pre>
 	</ktbz-box>
 
-	<!-- <ktbz-box background="bg-black">
+	<ktbz-box background="bg-black">
 		<h1>Buttons</h1>
 		<h3>Primary</h3>
 		<div class="wrapper">
@@ -126,5 +126,4 @@
 			<ktbz-spinner [type]="'fluid'"></ktbz-spinner>
 		</div>
 	</ktbz-box>
-</div> -->
 </div>

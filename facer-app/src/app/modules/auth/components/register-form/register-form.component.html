@@ -42,7 +42,7 @@
 			<div class="form__buttons-col">
 				<button *ngIf="getControl('useFaceAsAuthMethod').value" (click)="toggleScanner()" class="btn tertiary">Scan my face</button>
 				<div class="form__buttons-row">
-					<button class="btn secondary" (click)="switchToLoginForm()">Back</button>
+					<button type="button" class="btn secondary" (click)="switchToLoginForm()">Back</button>
 					<button class="btn primary" [disabled]="!registerForm.valid" (click)="submitForm()">Create</button>
 				</div>
 			</div>

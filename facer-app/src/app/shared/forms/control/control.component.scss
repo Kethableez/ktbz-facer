@@ -1,6 +1,13 @@
 @use '../../../../assets/styles/colors';
-
-.formControl {
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.control {
 	display: flex;
 	// gap: 8px;
 	margin: 4px 0;
@@ -16,59 +23,50 @@
 			flex-grow: 1;
 		}
 	}
+
+  span,
+  i {
+    cursor: pointer;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-47%);
+    position: absolute;
+    transition: 0.2s ease-in-out;
+    user-select: none;
+
+    &:hover {
+      color: #515151;
+    }
+  }
+
+  &__loader {
+    right: 18px;
+    top: 27%;
+    position: absolute;
+    transition: 0.2s ease-in-out;
+    user-select: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid;
+    border-color: colors.$neutral-700 transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s ease-in-out infinite;
+  }
 }
 
 .vertical {
-	flex-direction: column;
-	label {
-		margin-bottom: 4px;
-	}
+  flex-direction: column;
+  label {
+    margin-bottom: 4px;
+  }
 }
 
 .horizontal {
-	flex-direction: row;
-	align-items: center;
-	label {
-		margin-left: 8px;
-	}
-}
-
-span,
-i {
-	cursor: pointer;
-	right: 18px;
-	top: 50%;
-	transform: translateY(-47%);
-	position: absolute;
-	transition: 0.2s ease-in-out;
-	user-select: none;
-
-	&:hover {
-		color: #515151;
-	}
-}
-
-.loader {
-	right: 18px;
-	top: 27%;
-	position: absolute;
-	transition: 0.2s ease-in-out;
-	user-select: none;
-	width: 24px;
-	height: 24px;
-	border: 2px solid;
-	border-color: colors.$neutral-700 transparent;
-	border-radius: 50%;
-	display: inline-block;
-	box-sizing: border-box;
-	animation: rotation 1s ease-in-out infinite;
-}
-
-@keyframes rotation {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+  flex-direction: row;
+  align-items: center;
+  label {
+    margin-left: 8px;
+  }
 }

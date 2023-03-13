@@ -76,4 +76,8 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
     session.startTransaction();
     return session;
   }
+
+  // async findAndSort(filterQuery: FilterQuery<TDocument>, sortO) {
+  //   return this.model.
+  // }
 }

@@ -5,7 +5,9 @@ export const selectDashboardState: MemoizedSelector<object, Dashboard.State> = c
 
 export const selectLoggedUser = createSelector(selectDashboardState, state => state.userData);
 
-export const selectLoggedUserId: MemoizedSelector<object, string> = createSelector(selectLoggedUser, state => state._id);
+export const selectLoggedUserId: MemoizedSelector<object, string | null> = createSelector(selectLoggedUser, state =>
+	state ? state._id : null
+);
 
 export const selectMetrics = createSelector(selectDashboardState, state => state.metrics);
 

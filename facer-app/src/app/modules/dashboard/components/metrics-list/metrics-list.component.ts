@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 import { select, Store } from '@ngrx/store';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { RootState } from 'src/app/core/store/root.state';
+import { Metrics } from '../../models/metrics.model';
 import { selectMetrics } from '../../store/dashboard.selectors';
 
 @Component({
@@ -17,9 +18,9 @@ export class MetricsListComponent implements OnInit {
 
 	// metricsList: Metrics[] = [...list, ...list];
 
-	initMetrics: any = [];
+	initMetrics: Metrics[] = [];
 
-	metricsList: any = [];
+	metricsList: Metrics[] = [];
 
 	metrics$ = this.store$.pipe(select(selectMetrics));
 
@@ -36,7 +37,7 @@ export class MetricsListComponent implements OnInit {
 				filter(data => !!data)
 			)
 			.subscribe(data => {
-				this.initMetrics = data;
+				this.initMetrics = data || [];
 				this.onFilter(this.initMetrics);
 			});
 	}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createAction, select, Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { catchError, filter, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { RootState } from 'src/app/core/store/root.state';
 import { DashboardService } from '../services/dashboard.service';
@@ -49,13 +49,20 @@ export class DashboardEffects {
 		this.actions$.pipe(
 			ofType(getBindClientsAction),
 			withLatestFrom(this.store$.pipe(select(selectLoggedUserId))),
-			filter(([_, id]) => !!id),
+			filter(([_, id]) => id !== null),
 			switchMap(([_, id]) =>
-				this.dashboardService.getUserClients(id).pipe(
+				this.dashboardService.getUserClients(id as string).pipe(
 					map(response => getBindClientsSuccessAction({ clients: response })),
 					catchError(response => of(getBindClientsErrorAction({ message: response.error.message })))
 				)
 			)
+		)
+	);
+
+	getUserDataSuccess$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(getUserDataSuccessAction),
+			map(() => getBindClientsAction())
 		)
 	);
 }

@@ -21,11 +21,11 @@
 
 .box {
 	border-radius: 16px;
-	// box-shadow: 0 4px 8px rgba($color: #000000, $alpha: 0.08);
+
+  &--outlined {
+    padding: 26px;
+    border-radius: 16px;
+    border: 1px solid colors.$neutral-800;
+  }
 }
 
-.box-outlined {
-	padding: 26px;
-	border-radius: 16px;
-	border: 1px solid colors.$neutral-800;
-}

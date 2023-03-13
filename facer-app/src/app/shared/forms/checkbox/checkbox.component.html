@@ -1,13 +1,13 @@
-<div class="formControl">
+<div class="checkbox">
 	<label [for]="name">
 		<input [id]="name" [formControl]="control" type="checkbox" [ngClass]="type" />
 		<ng-container *ngIf="type === 'switch'; else box">
-			<div class="checkbox-switch">
-				<div class="checkbox-switch__thumb"></div>
+			<div class="checkbox__switch">
+				<div class="checkbox__switch__thumb"></div>
 			</div>
 		</ng-container>
 		<ng-template #box>
-			<div class="checkbox-box"></div>
+			<div class="checkbox__box"></div>
 		</ng-template>
 		{{ label }}
 	</label>

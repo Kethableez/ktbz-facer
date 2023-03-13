@@ -1,13 +1,8 @@
 import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	HostListener,
-	Input,
-	OnChanges,
-	OnInit,
-	Optional,
-	SimpleChanges,
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  Input
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 

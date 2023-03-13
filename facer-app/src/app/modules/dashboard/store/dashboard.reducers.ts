@@ -1,4 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { Metrics } from '../models/metrics.model';
+import { UserData } from '../models/user-data.model';
 import {
 	getBindClientsAction,
 	getBindClientsErrorAction,
@@ -12,8 +14,8 @@ import {
 } from './dashboard.actions';
 
 export interface State {
-	userData: any | null; //Todo zmienić typ
-	metrics: any | null; //Todo zmienić typ
+	userData: UserData | null; //Todo zmienić typ
+	metrics: Metrics[] | null; //Todo zmienić typ
 	clients: string[] | null;
 
 	userDataInProgress: boolean;

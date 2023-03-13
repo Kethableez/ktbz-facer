@@ -19,6 +19,7 @@ export class MetricsService {
 	}
 
 	async getMetrics() {
+		await this.metricsRepository.find({})
 		return await this.metricsRepository.find({});
 	}
 }

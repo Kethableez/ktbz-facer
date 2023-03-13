@@ -3,7 +3,7 @@
 	<ktbz-control [label]="'Your password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
 
 	<div class="form__buttons-row">
-		<button (click)="switchToCreateAccount()" class="btn secondary">Sign up</button>
+		<button type="button" (click)="switchToCreateAccount()" class="btn secondary">Sign up</button>
 		<button (click)="submitForm()" [disabled]="!loginForm.valid" class="btn primary">Sign in</button>
 	</div>
 </form>
