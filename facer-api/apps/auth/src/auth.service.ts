@@ -37,6 +37,7 @@ export class AuthService {
 	}
 
 	async refresh() {
+		const a: any = 'test';
 		return { message: 'Refresh in progress...' };
 	}
 

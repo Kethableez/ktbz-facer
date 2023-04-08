@@ -6,16 +6,18 @@ from src.modules.routes import configureRoutes
 
 
 def createApi():
-  api = Flask('facer-ai')
-  api.config.from_object(FlaskConf)
-  configureCors(api)
-  configureMongo(api)
-  configureRoutes(api)
-  
-  return api
+    api = Flask('facer-ai')
+    api.config.from_object(FlaskConf)
+    configureCors(api)
+    configureMongo(api)
+    configureRoutes(api)
+
+    return api
+
 
 def configureCors(api):
-  CORS(api, resources={r"/*": { "origins": "*"}})
+    CORS(api, resources={r"/*": {"origins": "*"}})
+
 
 def configureMongo(api: Flask):
-  MongoEngine(api)
+    MongoEngine(api)
