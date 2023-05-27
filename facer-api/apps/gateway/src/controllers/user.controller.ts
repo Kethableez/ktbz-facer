@@ -41,6 +41,7 @@ export class UserController {
 	@UseGuards(JwtAuthGuard)
 	@UseInterceptors(CatchExceptionInterceptor)
 	getCurrentUserData(@Req() request: any): Observable<User> {
+		console.log(request.user.userId);
 		return this.userClient.send('get-user', { userId: request.user.userId });
 	}
 
