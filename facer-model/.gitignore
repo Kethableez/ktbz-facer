@@ -1,0 +1,11 @@
+/facenet
+/images
+/lfw
+/out_model
+/vgg_weights
+/**.whl
+/**.zip
+/**.obj
+**/__pycache__
+**.h5
+**.csv

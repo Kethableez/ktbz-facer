@@ -10,6 +10,7 @@ ENV DOCKER=True
 
 COPY ./bin /ai/bin
 COPY ./src /ai/src
+COPY ./weights /ai/weights
 COPY .env /ai/.env
 COPY app.py /ai/app.py
 COPY wsgi.py /ai/wsgi.py
