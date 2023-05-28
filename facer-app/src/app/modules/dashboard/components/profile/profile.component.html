@@ -1,11 +1,6 @@
 <div class="row" *ngIf="userData$ | async as data">
 	<div class="col">
 		<div class="text-line">
-			<label>Fullname</label>
-			<span class="bold">{{ data.firstName }} {{ data.lastName }}</span>
-		</div>
-
-		<div class="text-line">
 			<label>Username</label>
 			<span class="bold">{{ data.username }}</span>
 		</div>

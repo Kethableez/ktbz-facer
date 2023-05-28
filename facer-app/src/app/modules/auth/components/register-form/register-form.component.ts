@@ -114,8 +114,6 @@ export class RegisterFormComponent implements OnInit {
 			],
 			password: [null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(20)])],
 			confirmPassword: [null, Validators.compose([Validators.required, MustMatchValidator.createValidator('password')])],
-			firstName: [null, Validators.compose([Validators.required, notEmptyStr()])],
-			lastName: [null, Validators.compose([Validators.required, notEmptyStr()])],
 			useFaceAsAuthMethod: [false, Validators.required],
 		});
 	}

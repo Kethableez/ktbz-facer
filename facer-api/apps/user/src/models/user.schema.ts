@@ -16,12 +16,6 @@ export class User extends AbstractDocument {
 	password: string;
 
 	@Prop({ required: true })
-	firstName: string;
-
-	@Prop({ required: true })
-	lastName: string;
-
-	@Prop({ required: true })
 	faceAuth: string;
 
 	@Prop({ required: true })
