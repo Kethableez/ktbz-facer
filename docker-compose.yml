@@ -35,9 +35,9 @@ services:
     volumes:
       - ./vols/storage:/ai/data
     expose:
-      - 5000
+      - 40069
     ports:
-      - "5000:5000"
+      - "5000:40069"
 
   facer-api-gateway:
     container_name: facer-api-gateway
@@ -55,9 +55,9 @@ services:
       - ./facer-api:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '9000:9000'
+      - '9000:40070'
     expose:
-      - 9000
+      - 40070
     networks:
       - internal
 
