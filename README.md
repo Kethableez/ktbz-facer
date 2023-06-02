@@ -9,7 +9,6 @@ Project contains 3 main modules:
 2. **Facer API** _[Nest]_ - REST API build as microservices with gateway and RabbitMQ communication for handling user registration and authentication
 3. **Facer AI** _[Python]_ - AI module with different Face Recognition methods including my own attempt and Rest API to comunicate with Client App.
 4. **Facer Thesis** ???
-
 5. **Facer Model**
 ## Goal
 
