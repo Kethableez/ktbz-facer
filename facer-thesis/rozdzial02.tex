@@ -1,5 +1,28 @@
 \chapter{Przegląd literatury}
 \section{Metody uwierzytelniania użytkowników w aplikacjach internetowych}
+Równolegle z rowzwojem technologii internetowch rozwijały się formy uwierzytelniania użytkowników. Często wśród osób niedoświadczonych lub mało obytych w temacie aplikacji internetowych można spotkać się ze stosowaniem zamiennie słów \textbf{uwierzytelnianie} i \textbf{autoryzacja}. Stanowi to jednak błąd, ponieważ te dwa terminy opisują zupełnie inny proces. Uwierzytelnianie opiera się o weryfikację tożsamości osoby przy pomocy różnych metod oraz narzędzi, natomiast autoryzacja jest procesem w którym sprawdzane są uprawnienia danego podmiotu lub osoby do zasobów. Jak widać oba terminy odnoszą się do zupełnie innego procesu, jednak nie wykluczają siebie nawzajem. Warto jednak wspomnieć, że proces autoryzacji z punktu widzenia bezpieczeństwa zawsze powinien następować po procesie autoryzacji - Ponieważ zanim sprawdzimy, czy dana osoba ma konkretne, wymagane dostępy do zasobów najpierw musimy zweryfikować czy ta osoba jest tym za kogo się podaje.
+
+Aby można było mówić, że dana metoda uwierzytelniania jest wystarczająco bezpieczna i godna zaufania musi nastąpić szczegółowa analiza i ocena takiej metody. Taką ocenę możemy wykonać przy pomocy 3 parametrów:
+\begin{itemize}
+  \item Użyteczność \emph{(ang. usability)} - Jak bardzo dana metoda jest łatwa i naturalna w użyciu
+  \item Bezpieczeństwo \emph{(ang. security)} - Jak trudno jest złamać daną metodę
+  \item Wdrożeniowość \emph{(ang. deployability)} - Jak łatwo wdrożyć/wykorzystać daną metodę w systemie.  
+\end{itemize}
+
+Analizę z wykorzystaniem wyżej wymienionych parametrów dokonują eksperci z zakresu cyberbezpieczeństwa. Jak można się domyślić, nie została jeszcze opraacowana metoda uwierzytelniania, która miałaby uzyskałaby najwyższą ocenę we wszystkich trzech parametrach. Dlatego też osoby zajmujące się implementacją metod uwierzytelniania w aplikacjach muszą iść na kompromis i wybrać taką metodę uwierzytelniania, która w pierwszej kolejności zapewni użytkownikom wysokie bezpieczeństwo przed potencjalnymi zagrożeniami w internecie. Dopiero w następnym kroku dokonywany jest wybór pomiędzy prostotą implementacji, a co się z tym wiążę zmniejszeniem kosztów finalnego produktu, a naturalnością w użyciu, żeby nie zniechęcić użytkowników do wykorzystywania takiej metody. 
+
+Warto wspomnieć na tym etapie, że metody uwierzytelniania można podzielić na trzy kategorie:
+\begin{itemize}
+  \item Coś, co wiem - przykładem mogą być hasła lub odpowiedzi na pytania, na które tylko jeden konkretny użytkownik powinien znać odpowiedź
+  \item Coś, co mam - wykorzystanie dodatkowych urządzeń w procesie uwierzytelniania na przykład kody jednorazowe wysyłane na telefon komórkowy użytkownika
+  \item Coś, czym jestem - wykorzystanie informacji, które są charakterystyczne i unikalne dla każdego użytkownika - na przykład odcisk palca.
+\end{itemize}
+
+Aby można było mówić o silnej i bezpiecznej autoryzacji, serwisy internetowe powinny udostępniać uwierzytelnianie z wykorzystaniem dwóch spośród wymienionych wyżej kategorii. Takie rozwiązanie nosi nazwę uwierzytelniania wieloskładnikowego \emph{ang. Multifactor Authentication} i pozwala znacząco podnieść bezpieczeństwo aplikacji internetowych. Obecnie najpopularniejszym rozwiązaniem wśród aplikacji internetowych jest wykorzystanie uwierzytelniania przy pomocy nazwy uzytkownika i hasła, które dodatkowo jest weryfikowane przez kody jednorazowe wysyłane na telefon lub adres e-mail użytkownika.
+
+
+
+
 \section{Modele sieci neuronowych do rozpoznawania twarzy}
 \section{Wykorzystywane narzędzia}
 \subsection{Face Recognition}

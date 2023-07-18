@@ -8,7 +8,8 @@ Project contains 3 main modules:
 1. **Facer APP** _[Angular]_ - Client application to test different authentication methods including Face Recognition System (FRS).
 2. **Facer API** _[Nest]_ - REST API build as microservices with gateway and RabbitMQ communication for handling user registration and authentication
 3. **Facer AI** _[Python]_ - AI module with different Face Recognition methods including my own attempt and Rest API to comunicate with Client App.
-
+4. **Facer Thesis** ???
+5. **Facer Model**
 ## Goal
 
 This project has 3 main goals:
