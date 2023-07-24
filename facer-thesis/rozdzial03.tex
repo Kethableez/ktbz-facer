@@ -1,6 +1,110 @@
 \chapter{Metodologia}
 \section{Platforma testowa}
-\section{Model własnej sieci neuronowej}
+Aby zbadać skuteczność rozpoznawania twarzy jako metody uwierzytelniającej użytkowników należało w pierwszej kolejności opracować oraz zaimplementować platformę testową. Dzięki niej w dalszej części pracy będzie możliwe przeprowadzenie badań z udziałem internautów.
+
+% \subsubsection{Wymagania funkcjonalne i niefunkcjonalne}
+% Proces określenia wymagań funkcjonalnych oraz niefunkcjoanlnych jest kluczowym aspektem w fazie projektowania systemu. Pozwala stworzyć pełen zbiór wytycznych związanych z funkcjonowaniem i działaniem systemu.
+
+% \paragraph{Wymagania funkcjonalne}
+% \begin{itemize}
+%   \item Rejestracja użytkownika
+%   \item Logowanie użytkownika przy pomocy tradycyjnej metody
+%   \item Logowanie użytkownika przy pomocy rozpoznawania twarzy
+%   \item Dostęp do podstawowych danych użytkownika
+%   \item Wyświetlanie metryk 
+% \end{itemize}
+
+\subsubsection{Modele danych}
+Kolejnym etapem w procesie projektowania systemu informatycznego jest opracowanie modelu danych. Pozwala to na wyselekcjonowanie niezbędnych danych do funkcjonowania systemu, które będą następnie wykorzystywane do tworzenia poszczególnych tabel lub kolecji danych. Dzięki temu możliwe jest skuteczne zaplanowanie struktury danych, na podstawie której będzie funkcjonował serwis. Ważnym aspektem jest fakt, że staranne opracowanie modelu danych pozwoli na minimalizację problemów na dalszych etapach tworzenia platformy testowej. Można wyróżnić 3 podstawowe modele danych: \emph{konceptualny}, \emph{logiczny} oraz \emph{fizyczny}. Ze względu na niski stopień skomplikowania systemu stworzony został tylko model fizyczny danych, dzięki któremu dalszy proces imlpementacji rzeczywistej aplikacji przebiegał sprawniej. 
+
+% TODO
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.5\linewidth]{imgs/db-model.png}
+	\caption{Fizyczny model danych}
+	\label{fig:model-danych}
+\end{figure}
+\subsubsection{Architektura aplikacji}
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=1\linewidth]{imgs/Diagram bez tytułu.drawio (2).png}
+	\caption{Architektura platformy testowej}
+	\label{fig:architektura-aplikacji}
+\end{figure}
+
+Obecnie istnieje kilka popularnych architektur, które wykorzystywane są do budowy aplikacji internetowych. W etapie projektowania platformy zdecydowano się na wykorzystanie architektury mikroserwisowej wykorzystującej kolejkę wiadomości do komunikacji między pomniejszymi serwisami. Na początku warto zaznaczyć, że mikroserwisy cechują się bardzo dobrą skalowalnością, wykrywaniem oraz naprawianiem potencjalnych błędów w oprogramowaniu. Z uwagi na fakt wykorzystywania różnych języków programowania przy implementacji aplikacji serwerowej, wykorzystanie takiej architektury było bardzo dobrym rozwiązaniem, zapewniającym integrację serwisów na wysokim poziomie.
+Analizując diagram przedstawiony na rysunku 3.1 można wyróżnić 3 główne warstwy.
+
+\paragraph{Warstwa dostępowa} zadaniem której jest komunikacja serwisu z użytkownikiem, wykorzystując aplikację napisaną przy użyciu frameworka Angular. Przy pomocy tej warstwy użytkownik może przetestować różne metody uwierzytelniania w tym logowanie przy pomocy rozpoznawania twarzy.
+
+\paragraph{Warstwa biznesowa} Jej zadaniem jest przetwarzanie danych otrzymanych z aplikacji dostępowej. W jej skład wchodzi kilka niezbędnych składników:
+\begin{itemize}
+  \item Gateway --- służy jako bramka, do oddelegowania zapytań użytkownika na określone serwisy przy pomocy kolejki wiadomości
+  \item Kolejka wiadomości --- jej zadaniem jest wymiana wiadomości między dostępnymi mikroserwisami
+  \item UserApp --- serwis do zarządzania użytkownikami. W jego skład wchodzą metody odpowiedzialne za tworzenie oraz pobieranie niezbędnych danych użytkowników
+  \item AuthApp --- serwis zarządzający uwierzytelnianiem użytkowników zarówno tradycyjnymi metodami jak i metodami wykorzystującymi sztuczną inteligencję.
+  \item ClientApp --- serwis, którego głównym zadaniem jest rejestracja urządzeń z których użytkownik się loguje do zapewnienia większego bezpieczeństwa płynącego z wykorzystania rozpoznawania twarzy.
+  \item MetricsApp --- serwis który zbiera dane o czasie wykonywania procesu logowania różnymi metodami.
+  \item AIApp --- serwis którego zadaniem jest przetwarzanie zdjęć użytkowników oraz udostępnianie metod do rozpoznawania twarzy.
+\end{itemize}
+
+\paragraph{Warstwa danych} Służy do przechowywania danych serwisu oraz wykonywanie operacji na bazie danych. Wykorzysuje MongoDB.
+\\
+Aby umożliwić uruchomienie aplikacji na dedykowanym serwerze, niezbędne było wykorzystanie narzędzia Docker. Umożliwiło to stworzenie oddzielnego środowiska wykonawczego w postaci osobnych kontenerów na każdy z utworzonych serwisów, w tym bazy danych oraz kolejki wiadomości, który mógł zostać uruchomiony na dowolnej platformie. Aby zapewnić większe bezpieczeństwo aplikacji oraz urchonić mikroserwisy przed nieuprawnionym dostępem, poszczególne aplikacje komunikują się poprzez wykorzystanie wewnętrznej sieci między kontenerami. Udostępnione zostały 2 porty, z którymi komunikować mogła się aplikacja dostępowa:
+\begin{itemize}
+  \item \emph{\:5000} --- port, na którym udostepniony jest serwis związany z wykorzystaniem sztucznej inteligencji do rozpoznawania twarzy
+  \item \emph{\:9000} --- port, na którym udostępniona jest bramka, która oddelegowuje odpowiednie rządania poprzez kolejkę wiadomości do odpowiednich serwisów.
+\end{itemize}
+
+\subsubsection{Widoki}
+Frontend platformy testowej składa się z dwóch głównych widoków oraz szeregu funkcjonalności dzięki którym mozliwe jest przetestowanie tradycyjnych metod logowania z tymi wykorzystującymi rozpoznawanie twarzy. \\
+\textbf{Strona logowania} na której użytkownik może:
+\begin{itemize}
+   \item stworzyć nowe konto --- podając kluczowe do działania apllikacji dane oraz dodatkowo zeskanować twarz jeżeli użytkownik wyraził chęć logowania przy pomocy rozpoznawania twarzy
+   \item zalogować się na konto --- wybierając jedną z dostępnych metod czyli tradycyjne logowanie hasłem oraz logowanie rozpoznawaniem twarzy z wyborem który algorytm ma zaostać wykorzystany.
+\end{itemize}
+
+\textbf{Strona panelu użtkownika} oferująca:
+\begin{itemize}
+  \item przeglądanie danych użytkownika --- zarówno tych podanych w procesie rejestracji jak i dodatkowe dane takie, jak zapisane przeglądarki.
+  \item wylogowanie z systemu
+  \item przeglądanie danych logowania --- lista danych o procesach logowania w skład których wchodzi czas oraz informacja na temat wybranej metody logowania.
+\end{itemize}
+
+% \subsubsection{Opis API}
+% W serwisach internetowych obowiązującym standardem komunikacji jest protoków HTTP (ang. Hyper Text Transfer Protocol). Wykorzystuje się go do komunikacji między warstwą dostępową a warstwą biznesową, która udostępnia API (ang. Application Programming Interface). W przypadku omawianej platformy testowej można wyróżnić:
+% \begin{itemize}
+%   \item \emph{POST :9000/api/v1/gateway/auth/login} --- logowanie hasłowe
+%   \item \emph{POST :9000/api/v1/gateway/auth/face-login} --- logowanie twarzą
+%   \item \emph{POST :9000/api/v1/gateway/client/register} --- logowanie
+%   \item \emph{POST :9000/api/v1/gateway/client/bind} --- logowanie
+%   \item \emph{POST :9000/api/v1/gateway/client/unbind} --- logowanie
+%   \item \emph{POST :9000/api/v1/gateway/auth/login} --- logowanie
+
+% \end{itemize}
+
+\subsubsection{Zabezpieczenia}
+\paragraph{JSON Web Token} standard wymiany tokenów, zapewniający warstwę zabezpieczającą przed nieautoryzowanym dostępem do aplikacji. JWT został wykorzystany, jako kluczowy element potwierdzający, że dany użytkownik zalogował się poprawnymi danymi do systemu. Działanie mechanizmu rozpoczyna się od wykonania akcji, mającej na celu zalogowanie uzytkownika, zarówno tradycyjną metodą jak i przy pomocy rozpoznawania twarzy. W przypadku, kiedy system potwierdzi wiarygodność danego użytkownika, następuje wygenerowanie tokenu przy pomocy algorytmów kryptograficznych. Opcjonalnie można podać dane, które zostaną zapisane do takiego unikalnego tokena. Ostatnim krokiem jest wysłanie go do aplikacji dostępowej i zapisanie w pamięci przeglądarki. Sam token składa się z 3 elementów:
+\begin{itemize}
+  \item Header - zawiera typ tokena oraz algorytm szyfrujący
+  \item Payload - zazwyczaj zawiera opcjonalne dane, zapisane programistycznie oraz długość życia tokenu
+  \item Verify - podpis cyfrowy stanowiący sumę kontrolną do weryfikacji poprawności tokenu
+\end{itemize}
+
+\paragraph{Zapisywanie przeglądarki} ma na celu uniemożliwienie logowania przy pomocy rozpoznawania twarzy na urządzeniach niezaufanych. Algorytmy i sieci neuronowe, których zadaniem jest rozpoznwanie twarzy same w sobie nie są w żaden sposób zabezpieczone na różne ataki. Przykładem może być próba logowania przy pomocy zdjęcia dowolnego użytkownika, który zarejestrowany jest w systemie. Jednym z proszych w imlpementacji zabezpieczeń jest wykorzystanie zapamiętywania urządzenia (przeglądarki) użytkownika. Dzięki czemu opcja logowania przy pomocy rozpoznawania twarzy jest możliwa tylko na zaufanych urządzeniach. Sposobem na dodanie zaufanej przeglądarki jest zarejestrowanie lub zalogowanie tradycyjną metodą.
+
+
+\section{Model sieci neuronowej}
+\subsubsection{Dane}
+Wybór odpowiedniego zbioru danych jest kluczowym elementem w procesie uczenia oraz testowania opracowanych modeli uczenia głębiokiego. Na potrzeby niniejszej pracy wykorzystany został gotowy zbiór danych \emph{CelebA Face Recognition Triplets} opracowany przez [...]. Zbiór danych składa się z pliku .csv który zawiera 16000 trójek zdjęć - Anchor, Positive, Negative oraz 45000 zdjęć twary różnych osób. Wykorzystanie gotowego zbioru danych pozwoliło zaoszczędzić czas na ręczne dobieranie i walidowanie zdjęć twarzy.
+Każde zdjęcie w omawianym zbiorze ma rozmiar 224px na 224px oraz składa się z 3 kanałów kolorystycznych (R,G,B).
+\subsubsection{Architektura sieci}
+Opracowany model sieci jest siecią typu syjamskiego. Oznacza to, że do działania wykorzystuje 2 lub więcej identycznych podsieci uczenia głębokiego, do realizowania zadania. Takie sieci nie służą do klasyfikacji lub etykietowania zdjęć. Zazwyczaj służą do obliczania dystansu (podobieństwa) między parami zdjęć. Dlatego też tego typu sieci doskonale nadają się do realizowania zadania rozpoznawania twarzy. \\
+Opracowana syjamska sieć neuronowa wykorzystuje model Xception w swoich podsieciach. Aby przyspieszyć proces implementacji, wykorzystano gotowy, wytrenowany model tej sieci z biblioteki Keras. Celem sieci Xception jest konwersja zdjęcia twarzy na postać wektorową która jest wykorzystywana na późniejszym etapie rozpoznawania twarzy.
+Danymi wejściowymi dla głównej sieci są trójki zdjęć - referencyjne, pozytywne to jest takie które predstawia tą samą osobę co na zdjęciu referencyjnym, oraz negatywne przedstawiająće zupełnie inną osobę. Trójki zdjęć w późniejszym etapie są rozdzielane na korespondujące im gałęzie sieci, aby przekonwertować je na postać numeryczną. Zbiór 3 wektorów trafia do warstwy dystansu, w której obliczana jest odległość między zdjęciem referencyjnym a negatywnym oraz pozytywnym. 
+\subsubsection{Miary Ocen}
+\subsubsection{Proces uczenia}
+\subsubsection{Ocena modelu}
 \section{Opracowanie ankiety}
 
 % \chapter{Zalecenia dotyczące formatowania}

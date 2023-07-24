@@ -11,8 +11,8 @@
 	<div *ngIf="faceImage && !hasExternalTrigger" class="preview">
 		<img class="preview__img" [src]="previewUrl" />
 		<div class="form__buttons-row buttons">
-			<button class="btn secondary" (click)="clearPhoto()">Take new</button>
-			<button class="btn primary" (click)="submitPhoto()">Submit</button>
+			<button class="btn secondary" (click)="clearPhoto()">Zrób nowe</button>
+			<button class="btn primary" (click)="submitPhoto()">Prześlij</button>
 		</div>
 	</div>
 	<div class="switchButton">
@@ -24,8 +24,8 @@
 		</button>
 	</div>
 	<div class="form__buttons-row buttons" *ngIf="!faceImage && !hasExternalTrigger">
-		<button class="btn secondary" (click)="closeWebcam()">Cancel</button>
+		<button class="btn secondary" (click)="closeWebcam()">Powrót</button>
 
-		<button class="btn primary" (click)="capturePhoto()">Capture</button>
+		<button class="btn primary" (click)="capturePhoto()">Uchwyć</button>
 	</div>
 </div>

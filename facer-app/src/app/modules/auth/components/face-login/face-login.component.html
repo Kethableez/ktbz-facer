@@ -1,5 +1,5 @@
 <div class="form__container">
-	<ktbz-dropdown [control]="modelControl" [label]="'Select model'" [data]="['dlib', 'ktbz-siam']"></ktbz-dropdown>
+	<ktbz-dropdown [control]="modelControl" [label]="'Wybierz model'" [data]="['dlib', 'ktbz-siam']"></ktbz-dropdown>
 	<div class="dummyWebcam">
 		<ktbz-face-scanner
 			[type]="'small'"
@@ -9,7 +9,7 @@
 		></ktbz-face-scanner>
 	</div>
 	<div class="form__buttons-row">
-		<button type="button" class="btn secondary" (click)="switchToRegisterForm()">Sign up</button>
-		<button class="btn primary" [disabled]="!modelControl.valid" (click)="initLoginAction()">Sign in</button>
+		<button type="button" class="btn secondary" (click)="switchToRegisterForm()">Zarejestruj się</button>
+		<button class="btn primary" [disabled]="!modelControl.valid" (click)="initLoginAction()">Zaloguj się</button>
 	</div>
 </div>

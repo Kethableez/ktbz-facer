@@ -2,7 +2,7 @@
 	<ktbz-spinner *ngIf="inProgress$ | async" [type]="'fluid'"></ktbz-spinner>
 
 	<ktbz-box>
-		<h2>Welcome back!</h2>
+		<h2>Witaj ponownie!</h2>
 		<ktbz-tabs [tabs]="tabs" (onTabSelection)="selectLoginMethod($event)"></ktbz-tabs>
 		<div class="alertsWrapper">
 			<ktbz-alert *ngIf="success$ | async as success" [dismissable]="false" type="success">{{ success }}</ktbz-alert>

@@ -77,10 +77,10 @@ export class MetricsListFiltersComponent implements OnInit {
 
 	sortingDataTransform(data: string) {
 		const dict: { [key: string]: string } = {
-			'date-desc': 'By latest date',
-			'date-asc': 'By oldest date',
-			'time-desc': 'By longest time',
-			'time-asc': 'By fastest time',
+			'date-desc': 'Po najnowszej dacie',
+			'date-asc': 'Po najstarszej dacie',
+			'time-desc': 'Najdłuższy czas wykonywania',
+			'time-asc': 'Najkrótszy czas wykonywania',
 		};
 
 		return dict[data];

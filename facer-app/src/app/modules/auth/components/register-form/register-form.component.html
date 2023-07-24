@@ -7,7 +7,7 @@
 	</ng-container>
 
 	<ktbz-box>
-		<h2>Create new Account</h2>
+		<h2>Stwórz nowe konto</h2>
 		<form [formGroup]="registerForm" class="form__container">
 			<div class="alertsWrapper">
 				<ktbz-alert *ngIf="registerSuccess$ | async as success" type="success" [dismissable]="false">{{ success }}</ktbz-alert>
@@ -18,30 +18,30 @@
 				</ktbz-alert>
 				<ktbz-alert *ngIf="warning$ | async as warning" type="warning" [dismissable]="false">
 					<div class="highlighted--black">{{ warning }}</div>
-					<div class="highlighted--black">Do you want to try again?</div>
+					<div class="highlighted--black">Spróbować ponownie?</div>
 					<div class="form__buttons-row">
-						<button class="btn-sm secondary" (click)="switchToLoginForm()">Remind me later</button>
-						<button class="btn-sm primary" (click)="retryFaceImageCapture()">Yes</button>
+						<button class="btn-sm secondary" (click)="switchToLoginForm()">Przypomnij mi później</button>
+						<button class="btn-sm primary" (click)="retryFaceImageCapture()">Tak</button>
 					</div>
 				</ktbz-alert>
 			</div>
 
-			<ktbz-control [label]="'Username'" [control]="getControl('username')"></ktbz-control>
+			<ktbz-control [label]="'Nazwa użytkownika'" [control]="getControl('username')"></ktbz-control>
 			<ktbz-control [label]="'E-mail'" [control]="getControl('email')"></ktbz-control>
-			<ktbz-control [label]="'Password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
-			<ktbz-control [label]="'Confirm password'" [type]="'password'" [control]="getControl('confirmPassword')"></ktbz-control>
+			<ktbz-control [label]="'Hasło'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
+			<ktbz-control [label]="'Powtórz hasło'" [type]="'password'" [control]="getControl('confirmPassword')"></ktbz-control>
 
 			<ktbz-checkbox
-				[label]="'I want to use my face as auth method'"
+				[label]="'Chciałbym wykorzystać rozpoznawanie twarzy jak metodę uwierzytelniania'"
 				[type]="'switch'"
 				[control]="getControl('useFaceAsAuthMethod')"
 			></ktbz-checkbox>
 
 			<div class="form__buttons-col">
-				<button *ngIf="getControl('useFaceAsAuthMethod').value" (click)="toggleScanner()" class="btn tertiary">Scan my face</button>
+				<button *ngIf="getControl('useFaceAsAuthMethod').value" (click)="toggleScanner()" class="btn tertiary">Zeskanuj twarz</button>
 				<div class="form__buttons-row">
-					<button type="button" class="btn secondary" (click)="switchToLoginForm()">Back</button>
-					<button class="btn primary" [disabled]="!registerForm.valid" (click)="submitForm()">Create</button>
+					<button type="button" class="btn secondary" (click)="switchToLoginForm()">Powrót</button>
+					<button class="btn primary" [disabled]="!registerForm.valid" (click)="submitForm()">Zarejestruj się</button>
 				</div>
 			</div>
 		</form>

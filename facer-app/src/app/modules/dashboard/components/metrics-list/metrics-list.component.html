@@ -2,10 +2,10 @@
 	<ktbz-metrics-list-filters [metricsList]="initMetrics" (filteredMetrics)="onFilter($event)"></ktbz-metrics-list-filters>
 	<div class="list-row" *ngIf="metricsList">
 		<div class="list-col bold large">#ID</div>
-		<div class="list-col bold large">Auth type</div>
-		<div class="list-col bold large">Model name</div>
-		<div class="list-col bold large">Reported at</div>
-		<div class="list-col bold large">Time taken</div>
+		<div class="list-col bold large">Metoda uwierzytelniania</div>
+		<div class="list-col bold large">Model</div>
+		<div class="list-col bold large">Czas i data procesu</div>
+		<div class="list-col bold large">Czas wykonania</div>
 	</div>
 
 	<div class="list-row" *ngFor="let metric of metrics">

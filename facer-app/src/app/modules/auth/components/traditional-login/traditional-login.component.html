@@ -1,9 +1,9 @@
 <form [formGroup]="loginForm" class="form__container">
 	<ktbz-control [label]="'Username / E-mail'" [control]="getControl('username')"></ktbz-control>
-	<ktbz-control [label]="'Your password'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
+	<ktbz-control [label]="'Hasło'" [type]="'password'" [control]="getControl('password')"></ktbz-control>
 
 	<div class="form__buttons-row">
-		<button type="button" (click)="switchToCreateAccount()" class="btn secondary">Sign up</button>
-		<button (click)="submitForm()" [disabled]="!loginForm.valid" class="btn primary">Sign in</button>
+		<button type="button" (click)="switchToCreateAccount()" class="btn secondary">Zarejestruj się</button>
+		<button (click)="submitForm()" [disabled]="!loginForm.valid" class="btn primary">Zaloguj się</button>
 	</div>
 </form>

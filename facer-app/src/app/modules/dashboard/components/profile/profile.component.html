@@ -1,7 +1,7 @@
 <div class="row" *ngIf="userData$ | async as data">
 	<div class="col">
 		<div class="text-line">
-			<label>Username</label>
+			<label>Nazwa użytkownika</label>
 			<span class="bold">{{ data.username }}</span>
 		</div>
 
@@ -12,18 +12,18 @@
 	</div>
 
 	<div class="text-line">
-		<label>Face authentication status</label>
+		<label>Status uwierzytelniania</label>
 		<span class="bold">
 			{{ data.faceAuth }}
 		</span>
 		<div class="buttons-col">
-			<button class="btn-sm secondary" *ngIf="data.faceAuth === 'pending'">Scan face</button>
+			<button class="btn-sm secondary" *ngIf="data.faceAuth === 'pending'">Zeskanuj mi twarz</button>
 			<!-- <button class="btn-sm secondary">Disable face auth</button> -->
 		</div>
 	</div>
 
 	<div class="text-line" *ngIf="bindClients$ | async as clients">
-		<label>Binded client Ids</label>
+		<label>Zapisane id przeglądarki</label>
 		<div *ngFor="let client of clients" class="bold item-row">
 			<span>{{ client }}</span>
 			<i class="trash"></i>
