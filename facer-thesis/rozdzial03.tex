@@ -103,9 +103,134 @@ Opracowany model sieci jest siecią typu syjamskiego. Oznacza to, że do działa
 Opracowana syjamska sieć neuronowa wykorzystuje model Xception w swoich podsieciach. Aby przyspieszyć proces implementacji, wykorzystano gotowy, wytrenowany model tej sieci z biblioteki Keras. Celem sieci Xception jest konwersja zdjęcia twarzy na postać wektorową która jest wykorzystywana na późniejszym etapie rozpoznawania twarzy.
 Danymi wejściowymi dla głównej sieci są trójki zdjęć - referencyjne, pozytywne to jest takie które predstawia tą samą osobę co na zdjęciu referencyjnym, oraz negatywne przedstawiająće zupełnie inną osobę. Trójki zdjęć w późniejszym etapie są rozdzielane na korespondujące im gałęzie sieci, aby przekonwertować je na postać numeryczną. Zbiór 3 wektorów trafia do warstwy dystansu, w której obliczana jest odległość między zdjęciem referencyjnym a negatywnym oraz pozytywnym. 
 \subsubsection{Miary Ocen}
+Miarą oceny skuteczności opracowanego modelu jest funkcja potrójnej straty wykorzystywana w warstwie dystansu.
+$$ L(a, p, n) = max(d(a, p) - d(a, n) + \alpha, 0) $$
+  Jej zadaniem jest minimalizacja różnicy odległości między referencyjnym a pozytywnym wektorem cech oraz maksymalizacja dystansu między referencyjnym a negatywnym wektorem cech. Celem tej funkcji jest zapewnienie aby pozytywne wektory cech były osadzone bliżej a negatywne wektory dalej referencyjnego wektora. Dzięki temu model powinien skuteczniej weryfikować, czy dwa zdjęcia twarzy należą do tej samej osoby.
+Funkcja przyjmuje 4 parametry:
+\begin{itemize}
+  \item a, \emph{anchor} --- wektor cech zdjęcia referencyjnego danej osoby
+  \item p, \emph{positive} --- wektor cech zdjęcia przedstawiającego tą samą osobę co na zdjęciu referencyjnym
+  \item n, \emph{negative} --- wektor cech zdjęcia przedstawiającego inną osobę
+  \item $\alpha$ --- margines
+\end{itemize}
+Na ich podstawie obliczana jest różnica odległości euklidesowych między wektorem referencyjnym i pozytywnym oraz wektorem referencyjnym i negatywnym. Do takiej różnicy dodawany jest margines, którego zadaniem jest kontrola minimalnej różnicy między odległościami. Ostatecznym wynikiem funkcji jest maskymalna wartość miedzy wartością obliczoną na podstawie danych parametrów a liczbą 0. 
 \subsubsection{Proces uczenia}
+Pierwszym etapem w procesie uczenia było rozbicie danych na zbiór trenujący oraz testujący w proporcji 80\% dla uczącego oraz 20\% dla walidującego. \\
+Dla polepszenia wyników uczenia, wykorzystane zostały generatory zdjęć na podstawie utworzonych wcześniej zbiorów. Zadaniem generatorów obrazów jest augmentacja, czyli dynamiczne modyfikowanie zdjęć poprzez ich obracanie, skalowanie lub przesuwanie w czasie rzeczywistym. Augmentacja zdjęć zbioru uczącego wpływa na skuteczność nauki modelu sieci neuronowej oraz zapobiega przetrenowaniu modelu. Biblioteka Tensorflow oferuje gotowe rozwiązania implementacyjne takich generatorów danych. \\
+Podczas kompilowania sieci wykorzystano optymalizator Adam o parametrach learning\_rate = 0,001, epsilon=0,1. Tego typu optymalizator jest powszechnie używany ze względu na jego właściwości adaptacyjne do różnych typów danych i problemów a także na prostotę w implementacji. Współczynnik nauki determinuje wielkość kroku aktualizacji wag a parametr epsilon ma zapobiegać dzieleniu przez zero przy oblicznaiu wartości wagi. \\
+W procesie uczenia wykorzystsano kilka dodatkowych mechanik, których zadaniem jest zwiększenie efektywności nauki oraz zapobieganiu przetrenowania sieci.
+\paragraph{ModelCheckpoint} --- Callback mający za zadanie na bieżąco zapisywać najlepsze wagi modelu do pliku na podstawie przekazanej metryki. Po każdej epoce sprawdzana jest wartość metryki, a wagi są zapisywane w momencie kiedy wartość metryki osiągnęła rządaną wartość, zazwyczaj mniejszą lub większą niż w epoce dotychczas najlepszej.  
+\paragraph{EarlyStopping} --- Callback służący do przerywania procesu uczenia w momencie, kiedy jakoś modelu mierzona wybraną, przekazaną metryką, nie poprawiła się. Dodatkowo do tej metody można przekazać parametr patience, którego zadaniem jest przeczekanie danej liczby epok i przerwanie procesu pod warunkiem, że jakoś modelu się nie poprawiła.
+\paragraph{ReduceLROnPlateu} --- Callback który obniża współczynnik nauki w momencie kiedy jakość modelu się nie poprawiła po n-liczbie epok. Przyjmuje takie parametry, jak patience, określające po ilu epokach ma obniżyć wpółczynnik, factor, określający o ile ma się mniejszyć learning\_rate, oraz min\_lr, który określa minimalną granicę.
+Kolejnym krokiem było uruchomienie procesu uczenia o zadanych parametrach:
+\begin{itemize}
+  \item Liczba Epok - 250
+  \item Batch - 32
+  \item Rozmiar zdjęć - 225x225px
+\end{itemize}
+\begin{lstlisting}
+  history = siameseModel.fit(
+    train_generator, validation_data=test_generator, epochs=EPOCHS, callbacks=[
+      checkpoint, earlystop, learning_rate_reduction
+    ]
+  )
+\end{lstlisting}
+Dane o procesie uczenia zostały dodatkowo zapisane do zmiennej \emph{history}, dzięki czemu możliwa była dalsza analiza wyników po zakończonym procesie. Wykorzystując bibliotekę \emph{matplotlib} wygenerowane zostały wykresy metryk modelu. Dodatkowo wagi modelu zostały zapisane do pliku, dzięki czemu możliwe było wykorzystanie wyuczonego modelu w platformie testowej do dalszej analizy
+
 \subsubsection{Ocena modelu}
+Model był oceniany z wykorzystaniem miar:
+\paragraph{Validation Loss} obliczana na podsatwie funkcji potrójnej straty na zbiorze walidującym. Określa jak bardzo predykcja modelu różni się od rzeczywistych danych. Jej wartość powinna się minimalizować wraz z postępem uczenia sieci.
+
+% \begin{figure}[ht]
+% 	\centering
+% 		\includegraphics[width=1\linewidth]{imgs/training-76-epochs.png}
+% 	\caption{Wykres uczenia}
+% 	\label{fig:ucznenie}
+% \end{figure}
+
+\paragraph{Accuracy} obliczana na późniejszym etapie przy ewaluacji modelu na różnych zbiorach danych na podstawie wzoru:
+$$ acc = \frac{true\_predictions}{total} $$ 
+
+% \begin{figure}[htb]
+%   \centering
+% 	\begin{tabular}{@{}ll@{}}
+% 	a) & b) \\
+%   \includegraphics[width=0.475\textwidth]{imgs/celeba-learning-acc=0.5396154788145971.png} & 
+% 	\includegraphics[width=0.475\textwidth]{imgs/lfw-learning-acc=0.5431547619047619.png}
+% 	% jeśli obraki są różnej wysokości, można je wyrównać do góry stosując vtop jak niżej
+% 	% \vtop{\vskip-2ex\hbox{{\includegraphics[width=0.475\textwidth]{rys05/beta1}}}} &
+% 	% \vtop{\vskip-2ex\hbox{{\includegraphics[width=0.475\textwidth]{rys05/alfa1}}}}  \caption{Wyznaczanie trajektorii lotu rakiety: 
+% 	\end{tabular}
+%   \caption{Macierz konfuzji: a) Dla zbioru CelebA, b) Dla zbioru LFW}
+%   \label{fig:conf}
+% \end{figure}
+
+% Przy pomocy metryk wyznaczono, że model ma 53\% dokładność przy jednoczesnej wartości straty walidacyjnej na poziomie 0,3. Oznacza to, że model jest w dobrym stopniu dopasowany do danych walidacyjnych ale ma dokładność na niskim poziomie.
+
 \section{Opracowanie ankiety}
+Zadaniem ankiety było zbadanie doświadczeń i opinii osób na temat metod uwierzytelniania w tym takich, które wykorzystują sztuczną inteligencję. Grupa badawcza składała się z przypadkowych osób z różnych grup wiekowych o zróżnicowanym doświadczeniu z aplikacjiami internetowymi aby wyniki były obiektywne oraz zróżnicowane pod kątem opinii oraz doświadczeń. \\
+Ankieta została opracowana przy pomocy aplikacji \emph{Microsoft Forms}, które jest bardzo popularnym i darmowym narzędziem do tworzenia ankiet. Oferuje możliwość personalizacji oraz tworzenia bardzo zaawansowanych kwestionariuszy pod kątem różnych typów odpowiedzi użytkowników. Dodatkowo aplikacja oferuje podgląd zebranych odpowiedzi oraz prezentację wyników w postaci rożnego rodzaju wykresów co na etapie analizy jest bardzo pomocne
+\subsection{Doświadczenia z metodami uwierzytelniania i sztuczną inteligencją} Pierwsza część ankiety skupiała się na zbadaniu doświadczenia użytkowników z powszechnie dostępnymi metodami uwierzytelniania oraz ich bezpieczeństwem. Ponadto ta część miała również za zadanie zebranie danych na temat odczuć grupy badawczej na temat wykorzystania sztucznej inteligencji w zakresie bezpieczeństwa w internecie.
+
+\begin{table}[htb]
+\centering
+\caption{Zbiór pytań pierwszej części ankiety}
+\label{tab:ankieta-part-1}\small
+\begin{tabularx}{\linewidth}{|c|X|X|} 
+  \hline
+Nr & Pytanie & Typ \\ 
+\hline\hline
+1 & Grupa wiekowa do której należysz & Jednokrotny wybór \\
+2 & Ile godzin spędzasz w internecie? & Jednokrotny wybór \\
+3 & Jakie urządzenie wykorzystujesz najczęściej do przebywania w internecie & Wielokrotny wybór \\
+4 & Jakie jest Twoje doświadczenie z metodami uwierzytelniania & Ocena 1-5 \\
+5 & W której dziedzinie najczęściej wykorzystujesz metody uwierzytelniania & Jednokrotny wybór \\
+6 & Jakie metody uwierzytelniania stosujesz na codzień? & Wielokrotny wybór \\
+7 & Oceń poniższe metody uwierzytelniania & Linkieta \\
+8 & Czy padłeś/padłaś ofiarą włamania na konto & Tak/Nie \\
+9 & W jaki sposób wykradziono Ci dane do logowania & Jednokrotny wybór \\
+10 & Jaką metodę uwierzytelniania stosowałeś/stosowałaś wtedy? & Jednokrotny Wybór \\
+11 & Jaki jest Twój stosunek do polityki haseł? & Ocena 1-5 \\
+12 & Czy Twoim zdaniem polityka haseł ma znaczący wpływ na bezpieczeństwo? & Tak/Nie \\
+13 & Dlaczego tak uważasz? & Odpowiedz tekstowa \\
+14 & Czy zdarza Ci się czasem zapomnieć hasło? & Tak/Nie \\
+15 & Jak często zdarza Ci się zapomnieć hasło? & Jednokrotny wybór \\
+16 & Czy wykorzystanie sztucznej inteligencji jako metody uwierzytelniania mogłoby poprawić bezpieczeństwo? & Tak/Nie \\
+17 & Dlaczego tak uważasz? & Odpowiedź tekstowa \\
+18 & Czy mając możliwość stosowania uwierzytelniania przy pomocy rozpoznawania twarzy w aplikacjach internetowych wykorzystał/a byś taką opcję? & Tak/Nie \\
+19 & Dlaczego? & Wypowiedź tekstowa \\
+20 & Co Twoim zdaniem mogłoby poprawić bezpieczeństwo związane z metodami uwierzytelniania w aplikacjach internetowych? & Odpowiedź tekstowa \\
+\hline
+\end{tabularx}
+\end{table}
+
+\newpage
+\subsection{Opinia z użytkowania platformy testowej} Druga część ankiety była odpowiedzialna za uzyskanie opinii grupy badawczej na temat zaproponowanych metod uwierzytelniania, tych tradycyjnych oraz wykorzystujących sztuczną inteligencję z zakresu rozpoznawania twarzy. Ocenie zostały poddane zarówno kwestie bezpieczeństwa oraz intuicyjność aplikacji.
+
+\begin{table}[htb]
+  \centering
+  \caption{Zbiór pytań drugiej części ankiety}
+  \label{tab:ankieta-part-2}\small
+  \begin{tabularx}{\linewidth}{|c|X|X|} 
+    \hline
+  Nr & Pytanie & Typ \\ 
+  \hline\hline
+  1 & Czy miałeś/aś możliwość przetestować aplikację? & Tak/Nie\\
+  2 & Czy Twoim zdaniem aplikacja jest bezpieczna & Tak/Nie \\
+  3 & Czy wykorzystałeś/aś wszystkie dostępne metody uwierzytelniania? & Tak/Nie  \\
+  4 & Oceń bezpieczeństwo zaprezentowanych metod uwierzytelniania & Linkieta \\
+  5 & Co Twoim zdaniem mogłoby poprawić bezpieczeństwo aplikacji? & Odpowiedź tekstowa \\
+  6 & Czy aplikacja była intuicyjna w obsłudze? & Tak/Nie \\
+  7 & Co sprawiło że aplikacja była nieintuicyjna? & Odpowiedź tekstowa \\
+  8 & Na jakim urządzeniu używałeś/aś aplikacji? & Jednokrotny wybór \\
+  9 & Jakie masz uwagi co zaprezentowanej aplikacji? & Odpowiedź tekstowa \\
+  \hline
+  \end{tabularx}
+  \end{table}
+% \begin{enumerate}
+  % \item Doświadczenia z metodami uwierzytelniania --- Składająca się z 20 pytań. 
+  % \item Opinia po obsłudze platformy testowej --- Składająca sie z 9 pytań
+% \end{enumerate}
 
 % \chapter{Zalecenia dotyczące formatowania}
 % Większa część niniejszego rozdziału ma charakter informacyjny. Treści w nim zawarte mają uzmysłowić czytelnikowi, jak wiele jest parametrów do ustawienia, by zredagowany dokument wyglądał ,,ładnie''. Parametry te poustawiano w szablonie. Wystarczy z niego skorzystać.
