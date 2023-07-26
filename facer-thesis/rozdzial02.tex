@@ -68,13 +68,6 @@ Jest to podstawowa koncepcja, która służy do komunikacji danych w komponencie
   \item Two-way binding --- dwukierunkowe wiązanie, pozwalające na wyświetlanie danych z komponentu i edycję takich danych przez użytkownika 
 \end{itemize}
 
-\begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.6\linewidth]{imgs/ang-diag-1.png}
-	\caption{Diagram powiązania elementów Angulara}
-	\label{fig:wiazanie-elementow-angular}
-\end{figure}
-
 \subsection{NestJS}
 % https://geek.justjoin.it/nestjs-czym-jest-jakie-ma-funkcje-jakie-sa-wady-i-zalety-tego-frameworka/
 Nest JS jest frameworkiem opartym o platformę Node.JS, służącym do tworzenia aplikacji po stronie backendu z wykorzystaniem języka TypeScript. Wykorzystuje architekturę modułową, podobną do tej wykorzystywanej we frameworku Angular, dzięki czemu możliwe jest tworzenie skalowanych i wydajnych aplikacji.
@@ -90,14 +83,6 @@ Nest.JS jest opracowany tak, aby można było korzystać z popularnych wzorców 
 
 \subsubsection{NPM}
 Z tego powodu, że Nest.JS oparty jest o platformę Node.JS to wspiera repozytorium NPM. Dzięki temu podstawowe funkcjonalności można rozszerzać o dodatkowe i często wykorzystywane biblioteki tworząc zaawansowane, biznesowe aplikacje backendowe.
-
-\begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.6\linewidth]{imgs/nest-diag.jpeg}
-	\caption{Schemat uproszczonej architektury aplikacji}
-	\label{fig:nest-uproszczona-architektura}
-\end{figure}
-
 \subsection{Python}
 W kręgach entuzajstów uczenia maszynowego oraz sztucznych sieci neuronowych można zauważyć dużą popularność przy wykorzystaniu języka Python do implementacji takich rozwiązań. Sam język jest wysokopoziomowym, interpretowalnym językiem programowania ogólnego przeznaczenia. Dzięki swojej czytelnej, prostej składni jest wykorzystywany w wielu dziedzinach, w tym algorytmach sztucznej inteligencji.
 
@@ -126,10 +111,10 @@ Jednym z popularniejszych systemów oferujących takie rozwiązanie jest RabbitM
 % https://sii.pl/blog/docker-dla-programistow-co-to-jest/?category=development-na-twardo&tag=devops,docker,kontener
 Badjąc statystyki opisujące które technologie, zdaniem programistów, są najbardziej pożądane można zauważyć, że oprócz znajomości systemu kontroli wersji (git) na takim samym poziomie jest znajomość Dockera. W dobie rozwiązań chmurowych, mikroserwisowych wirtualizacja środowisk, systemów informatycznych jest niezwykle ważnym tematem ponieważ zapewnia jednolite działanie systemu bez względu na platformę na której jest uruchamiany. Dzięki solidnej realizacji tego zadania Docker zyskał niezwykłą popularność na przełomie kilku ostatnich lat 
 Najprościej mówiąc, Docker jest narzędziem do wirtualizacji środowisk programistycznych, wykonawczych, które oferuje tworzenie niezależnych od siebie kontenerów. Kontener jest lekkim, samodzielnym oraz wykonywalnym pakietem oprogramowania który zawiera wszystko, co niezbędne aby dany serwis lub usługa została uruchomiona.
-\subsection{Face Recognition}
+\subsection{Face Recognition }
 % https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78
 W wielu serwisach i aplikacjach internetowych, oferujących publikowanie zdjęć użytkowników, wykorzystuje algorytmy do detekcji twarzy, a czasem nawet i rozpoznawanie twarzy użytkowników na zdjęciach. Do jeszcze nie tak dawna temu, narzędzia oferujące tego typu rozwiązania nie były dostępne dla początkujących programistów, a przynajmniej nie za darmo. Chcąc zaimplementować mechanizm detekcji lub rozpoznawania twarzy należało samemu opracować oraz wytrenować model sieci neuronowej. Jednak proces ten nie należy do najłatwiejszych i wymaga odpowiedniej wiedzy i doświadczenia do tego, aby stworzyć model, który ma predykcję na dobrym poziomie. \\
-Od niedawna programiści języka Python mają do dyspozycji bibliotekę \emph{face recognition}, umożliwiającą na wykrywanie, lokalizację oraz rozpoznawanie twarzy na zdjęciach i filmach wideo. Samo działanie algorytmu opiera się na wykorzystaniu kodera cech charakterystycznych twarzy z modułu \emph{dlib}.
+Od niedawna programiści języka Python mają do dyspozycji bibliotekę \emph{face recognition} \cite{facerecogn}, umożliwiającą na wykrywanie, lokalizację oraz rozpoznawanie twarzy na zdjęciach i filmach wideo. Samo działanie algorytmu opiera się na wykorzystaniu kodera cech charakterystycznych twarzy z modułu \emph{dlib} \cite{dlib09}.
 
 \subsubsection{Dlib}
 Omawianie zasady i funkcjonalności biblioteki należy jednak zacząć od omówienia głównych metod, dzięki którym możliwa jest detekcja i rozpoznawanie twarzy. \\
@@ -141,6 +126,12 @@ Omawianie zasady i funkcjonalności biblioteki należy jednak zacząć od omówi
 \end{enumerate}
 
 \subsubsection{Porównywanie i rozpoznawanie twarzy}
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.6\linewidth]{imgs/temp.png}
+	\caption{Proces rozpoznawania twarzy}
+	\label{fig:proces-rozpoznawania}
+\end{figure}
 Wykorzystując omawianą bibliotekę do procesu rozpoznawania twarzy, kluczowe są 3 metody:
 \begin{itemize}
   \item {\fontfamily{qcr}\selectfont face\_location } --- parametrami dla tej metody jest zdjęcie, które potencjalnie zawiera jedną lub więcej twarzy oraz wybór modelu, na podstawie którego ma opierać się detekcja twarzy. Domyślnym parametrem jest algorytm HOG, który jest wystarczający skuteczny w kontekście omawianej apliakcji. Wynikiem jest lista ramek, gdzie zostały zlokalizowane twarze na otrzymanym zdjęciu.
@@ -149,16 +140,8 @@ Wykorzystując omawianą bibliotekę do procesu rozpoznawania twarzy, kluczowe s
 
 \end{itemize}
 
-
-\begin{figure}[ht]
-	\centering
-		\includegraphics[width=0.6\linewidth]{imgs/temp.png}
-	\caption{Proces rozpoznawania twarzy}
-	\label{fig:proces-rozpoznawania}
-\end{figure}
-
-\subsection{Xception}
-Xception (\emph{ang. Extreme Inception}) jest architekturą konwolucyjnej sieci neuronowej która została opracowana i zaprojektowana przez François Cholleta. Model ten opiera się na architekturze Inception, który był przełomem w dziedzinie uczenia głębokiego i znacząco poprawił wydajność sieci neuronowych. \\
+\subsection{Xception }
+Xception (\emph{ang. Extreme Inception}) \cite{xception} jest architekturą konwolucyjnej sieci neuronowej która została opracowana i zaprojektowana przez François Cholleta. Model ten opiera się na architekturze Inception, który był przełomem w dziedzinie uczenia głębokiego i znacząco poprawił wydajność sieci neuronowych. \\
 Architektura Xception wykorzystuje bloki Inception. Taki pojedynczy blok składa się z kilku równoległych gałęzi, które mają za zadanie przetwarzanie danych wejściowych przy pomocy filtrów różnej wielkości. Końcowym wynikiem jest łączenie wyników z poszczególnych gałęzi. 
 Nowatorska architektura Xception wykorzystuje w ramach każdej gąłęzi operacje konwolucji seprarowalnych. Na taką konwolucję składają się dwa etapy:
 \begin{enumerate}
@@ -170,7 +153,7 @@ Wykorzystanie konwolucji sepraowalych ma znaczący wpływ na wydajność modelu,
 
 \begin{figure}[ht]
 	\centering
-		\includegraphics[width=1\linewidth]{imgs/temp.png}
+		\includegraphics[width=0.6\linewidth]{imgs/xception-arch.png}
 	\caption{Architektura modelu Xception}
 	\label{fig:xception-architektura}
 \end{figure}

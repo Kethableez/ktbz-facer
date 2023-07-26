@@ -84,7 +84,7 @@ Frontend platformy testowej składa się z dwóch głównych widoków oraz szere
 % \end{itemize}
 
 \subsubsection{Zabezpieczenia}
-\paragraph{JSON Web Token} standard wymiany tokenów, zapewniający warstwę zabezpieczającą przed nieautoryzowanym dostępem do aplikacji. JWT został wykorzystany, jako kluczowy element potwierdzający, że dany użytkownik zalogował się poprawnymi danymi do systemu. Działanie mechanizmu rozpoczyna się od wykonania akcji, mającej na celu zalogowanie uzytkownika, zarówno tradycyjną metodą jak i przy pomocy rozpoznawania twarzy. W przypadku, kiedy system potwierdzi wiarygodność danego użytkownika, następuje wygenerowanie tokenu przy pomocy algorytmów kryptograficznych. Opcjonalnie można podać dane, które zostaną zapisane do takiego unikalnego tokena. Ostatnim krokiem jest wysłanie go do aplikacji dostępowej i zapisanie w pamięci przeglądarki. Sam token składa się z 3 elementów:
+\paragraph{JSON Web Token} \cite{jwt} standard wymiany tokenów, zapewniający warstwę zabezpieczającą przed nieautoryzowanym dostępem do aplikacji. JWT został wykorzystany, jako kluczowy element potwierdzający, że dany użytkownik zalogował się poprawnymi danymi do systemu. Działanie mechanizmu rozpoczyna się od wykonania akcji, mającej na celu zalogowanie uzytkownika, zarówno tradycyjną metodą jak i przy pomocy rozpoznawania twarzy. W przypadku, kiedy system potwierdzi wiarygodność danego użytkownika, następuje wygenerowanie tokenu przy pomocy algorytmów kryptograficznych. Opcjonalnie można podać dane, które zostaną zapisane do takiego unikalnego tokena. Ostatnim krokiem jest wysłanie go do aplikacji dostępowej i zapisanie w pamięci przeglądarki. Sam token składa się z 3 elementów:
 \begin{itemize}
   \item Header - zawiera typ tokena oraz algorytm szyfrujący
   \item Payload - zazwyczaj zawiera opcjonalne dane, zapisane programistycznie oraz długość życia tokenu
@@ -100,10 +100,10 @@ Wybór odpowiedniego zbioru danych jest kluczowym elementem w procesie uczenia o
 Każde zdjęcie w omawianym zbiorze ma rozmiar 224px na 224px oraz składa się z 3 kanałów kolorystycznych (R,G,B).
 \subsubsection{Architektura sieci}
 Opracowany model sieci jest siecią typu syjamskiego. Oznacza to, że do działania wykorzystuje 2 lub więcej identycznych podsieci uczenia głębokiego, do realizowania zadania. Takie sieci nie służą do klasyfikacji lub etykietowania zdjęć. Zazwyczaj służą do obliczania dystansu (podobieństwa) między parami zdjęć. Dlatego też tego typu sieci doskonale nadają się do realizowania zadania rozpoznawania twarzy. \\
-Opracowana syjamska sieć neuronowa wykorzystuje model Xception w swoich podsieciach. Aby przyspieszyć proces implementacji, wykorzystano gotowy, wytrenowany model tej sieci z biblioteki Keras. Celem sieci Xception jest konwersja zdjęcia twarzy na postać wektorową która jest wykorzystywana na późniejszym etapie rozpoznawania twarzy.
+Opracowana syjamska sieć neuronowa wykorzystuje model Xception w swoich podsieciach. Aby przyspieszyć proces implementacji, wykorzystano gotowy, wytrenowany model tej sieci z biblioteki Keras \cite{chollet2015keras}. Celem sieci Xception jest konwersja zdjęcia twarzy na postać wektorową która jest wykorzystywana na późniejszym etapie rozpoznawania twarzy.
 Danymi wejściowymi dla głównej sieci są trójki zdjęć - referencyjne, pozytywne to jest takie które predstawia tą samą osobę co na zdjęciu referencyjnym, oraz negatywne przedstawiająće zupełnie inną osobę. Trójki zdjęć w późniejszym etapie są rozdzielane na korespondujące im gałęzie sieci, aby przekonwertować je na postać numeryczną. Zbiór 3 wektorów trafia do warstwy dystansu, w której obliczana jest odległość między zdjęciem referencyjnym a negatywnym oraz pozytywnym. 
 \subsubsection{Miary Ocen}
-Miarą oceny skuteczności opracowanego modelu jest funkcja potrójnej straty wykorzystywana w warstwie dystansu.
+Miarą oceny skuteczności opracowanego modelu jest funkcja potrójnej straty \cite{tripleloss} wykorzystywana w warstwie dystansu.
 $$ L(a, p, n) = max(d(a, p) - d(a, n) + \alpha, 0) $$
   Jej zadaniem jest minimalizacja różnicy odległości między referencyjnym a pozytywnym wektorem cech oraz maksymalizacja dystansu między referencyjnym a negatywnym wektorem cech. Celem tej funkcji jest zapewnienie aby pozytywne wektory cech były osadzone bliżej a negatywne wektory dalej referencyjnego wektora. Dzięki temu model powinien skuteczniej weryfikować, czy dwa zdjęcia twarzy należą do tej samej osoby.
 Funkcja przyjmuje 4 parametry:
@@ -128,11 +128,10 @@ Kolejnym krokiem było uruchomienie procesu uczenia o zadanych parametrach:
   \item Batch - 32
   \item Rozmiar zdjęć - 225x225px
 \end{itemize}
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
   history = siameseModel.fit(
-    train_generator, validation_data=test_generator, epochs=EPOCHS, callbacks=[
-      checkpoint, earlystop, learning_rate_reduction
-    ]
+    train_generator, validation_data=test_generator, epochs=EPOCHS, 
+    callbacks=[checkpoint, earlystop, learning_rate_reduction]
   )
 \end{lstlisting}
 Dane o procesie uczenia zostały dodatkowo zapisane do zmiennej \emph{history}, dzięki czemu możliwa była dalsza analiza wyników po zakończonym procesie. Wykorzystując bibliotekę \emph{matplotlib} wygenerowane zostały wykresy metryk modelu. Dodatkowo wagi modelu zostały zapisane do pliku, dzięki czemu możliwe było wykorzystanie wyuczonego modelu w platformie testowej do dalszej analizy
